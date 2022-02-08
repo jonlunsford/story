@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Jon Lunsford - Stack Overflow</title>
+    <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico?v=ec617d715196">
+    <link rel="apple-touch-icon image_src" href="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com" />
+    <meta property="og:type" content="website" />
+            <meta property="og:image" itemprop="image primaryImageOfPage" content="https://www.gravatar.com/avatar/042344bf543d4608cf08f2c4b0b18d8a?s=200&amp;r=PG&amp;d=https://i.stack.imgur.com/T119o.png" />
+            <meta name="twitter:title" property="og:title" itemprop="title name" content="Jon Lunsford" />
+            <meta name="twitter:description" property="og:description" itemprop="description" content="Jon Lunsford&#x27;s Developer Story" />
+            <meta property="og:url" content="https://stackoverflow.com/story/jonlunsford" />
+
+    <script id="webpack-public-path" type="text/uri-list">https://cdn.sstatic.net/</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script async src="https://cdn.sstatic.net/Js/third-party/stacks/stacks.min.js?v=636658ad2e24"></script>
+    <script src="https://cdn.sstatic.net/Js/stub.en.js?v=3c17e2ed94ca"></script>
+    <script src="https://cdn.sstatic.net/Js/user.en.js?v=7a27c1e93395"></script>
+    <script src="https://cdn.sstatic.net/Js/story.en.js?v=37a5561daab9"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=5db70161c3e6">
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/stackoverflow/primary.css?v=0bf1c4a7121e">
+        <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/stackoverflow/secondary.css?v=e2b7923f90eb">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/shared/devstory/pdf.css?v=477f6f8ab7fd">
+    <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/shared/devstory/pdf.css?v=477f6f8ab7fd" media="print">
+    
+    <script type="application/json" data-role="module-args" data-module-name="Shared/options.mod">{"options":{"locale":"en","serverTime":1644288272,"routeName":"UsersStory/StoryChromeless","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"Stack Overflow","description":"Q\u0026A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"cookieDomain":".stackoverflow.com","childUrl":"https://meta.stackoverflow.com","negativeVoteScoreFloor":null,"enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"9c5f59959640b0e285ba67aa37fb50c9ac6d860fbcc494d47149ab1f4d2e80a9","tid":"06fbfb53-f7b1-0822-6c16-10bedd99927c","rep":255,"isRegistered":true,"userType":3,"userId":823967,"accountId":436662,"gravatar":"\u003cdiv class=\u0022gravatar-wrapper-32\u0022\u003e\u003cimg src=\u0022https://www.gravatar.com/avatar/295bcb1e7e9279bf05ba41a28205d079?s=32\u0026amp;d=identicon\u0026amp;r=PG\u0022 alt=\u0022\u0022 width=\u002232\u0022 height=\u002232\u0022 class=\u0022bar-sm\u0022\u003e\u003c/div\u003e","profileUrl":"https://stackoverflow.com/users/823967/jonlunsford","canSeeDeletedPosts":false,"ab":{"anon_popups":{"v":"firstpostmodalaltcontent","g":2}}},"realtime":{"newest":false,"active":false,"tagged":true,"staleDisconnectIntervalInHours":0},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4},"svgIconPath":"https://cdn.sstatic.net/Img/stacks-icons","svgIconHash":"cc5b3e0efea0"}}</script>
+<script type="application/json" data-role="module-args" data-module-name="Shared/settings.mod">{"settings":{"userProfile":{"openGraphAPIKey":"4a307e43-b625-49bb-af15-ffadf2bda017"},"userMessaging":{"showNewFeatureNotice":true},"tags":{},"subscriptions":{"defaultBasicMaxTrueUpSeats":250,"defaultFreemiumMaxTrueUpSeats":50,"defaultMaxTrueUpSeats":1000},"snippets":{"renderDomain":"stacksnippets.net","snippetsEnabled":true},"site":{"allowImageUploads":true,"enableImgurHttps":true,"enableUserHovercards":true,"forceHttpsImages":true,"styleCode":true},"questions":{"enableQuestionTitleLengthLiveWarning":true,"maxTitleSize":150,"questionTitleLengthStartLiveWarningChars":50},"intercom":{"appId":"inf0secd","hostBaseUrl":"https://stacksnippets.net"},"paths":{},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"mentions":{"maxNumUsersInDropdown":50},"markdown":{"enableTables":true},"legal":{"oneTrustConfigId":"c3d9f1e3-55f3-4eba-b268-46cee4c6789c"},"flags":{"allowRetractingCommentFlags":true,"allowRetractingFlags":true},"elections":{"opaVoteResultsBaseUrl":"https://www.opavote.com/results/"},"comments":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true}}}</script>
+<script>StackExchange.init();</script>
+
+    <script>
+        StackExchange.using.setCacheBreakers({"js/adops.en.js":"6da43f5e0a84","js/ask.en.js":"7ff9a9068fd6","js/begin-edit-event.en.js":"dd955babf04d","js/copy-transpiled.en.js":"2361b3437bc2","js/events.en.js":"","js/explore-qlist.en.js":"2b1f34938b8b","js/full-anon.en.js":"0ae96d7d0c87","js/full.en.js":"5639c576625e","js/highlightjs-loader.en.js":"3c37abf5cb6d","js/inline-tag-editing.en.js":"c0cbc31e5702","js/keyboard-shortcuts.en.js":"7de4e127b6af","js/markdown-it-loader.en.js":"5818ef89ff9d","js/mobile.en.js":"320aa423a438","js/moderator.en.js":"e2ca03ce6c69","js/postCollections-transpiled.en.js":"8126e59701f9","js/post-validation.en.js":"c1c93bd57a54","js/question-editor.en.js":"","js/review-v2-transpiled.en.js":"18d96458bf3d","js/revisions.en.js":"839f528889ff","js/stacks-editor.en.js":"371ca4ee4630","js/tageditor.en.js":"825c9597ce2d","js/tageditornew.en.js":"5215bc97928a","js/tagsuggestions.en.js":"1bcff7d98f97","js/unlimited-transpiled.en.js":"7ed67670b600","js/wmd.en.js":"9453e3f4fd6e","js/snippet-javascript-codemirror.en.js":"73fce5cc7219"});
+        StackExchange.using("gps", function () {
+            StackExchange.gps.init(true);
+        });
+    </script>
+</head>
+<body>
+
+    <div class="timeline-public print:d-none">
+        <div class="timeline-public-header">
+            <a class="logo" href="https://stackoverflow.com" title="Stack Overflow"></a>
+            <a href="#" class="s-btn s-btn__filled print-btn" onclick="window.print(); return false;">
+                <span class="icon-print"></span>
+                Print
+            </a>
+        </div>
+        
+
+<div class="timeline-wrapper">
+    <div class="timeline">
+
+        <header class="header">
+            
+<div id="form-section-PersonalInfo" class="header-edit-section header-edit-section-1">
+
+    <div class="display-only">
+        
+
+<div class="d-inline-block p12 bg-black-025 bar-lg my24 bs-md">
+    <img class="d-block bar-sm" src="https://www.gravatar.com/avatar/042344bf543d4608cf08f2c4b0b18d8a?s=136&amp;r=PG&amp;d=https://i.stack.imgur.com/T119o.png" width="136" height="136">
+</div>
+
+<div class="name">
+    <h4>Jon Lunsford</h4>
+</div>
+    <div class="job has-tooltip">
+        Engineer @convertkit
+    </div>
+
+    <div class="d-flex jc-center gs16 fc-light fw-wrap">
+            <div class="d-flex ai-center">
+                <div class="flex--item mr4"><svg aria-hidden="true" class="svg-icon iconLocation" width="18" height="18" viewBox="0 0 18 18"><path d="M2 6.38C2 9.91 8.1 17.7 8.1 17.7c.22.29.58.29.8 0 0 0 6.1-7.8 6.1-11.32A6.44 6.44 0 0 0 8.5 0 6.44 6.44 0 0 0 2 6.38Zm9.25.12a2.75 2.75 0 1 1-5.5 0 2.75 2.75 0 0 1 5.5 0Z"/></svg></div>
+                <div class="flex--item wmx2 truncate">San Luis Obispo, CA</div>
+            </div>
+
+            <a href="http://www.capturethecastle.net" rel="nofollow me" class="d-flex ai-center s-link s-link__inherit">
+                <div class="flex--item mr4"><svg aria-hidden="true" class="svg-icon iconLink" width="18" height="18" viewBox="0 0 18 18"><path d="M7.22 11.83a6 6 0 0 0 1.62.85l.61-1.8a4.1 4.1 0 1 1 4.04-.8l1.26 1.42a6 6 0 1 0-7.53.33Zm3.43-5.6a6 6 0 0 0-1.6-.87L8.4 7.15a4.1 4.1 0 1 1-4.05.73L3.12 6.43a6 6 0 1 0 7.53-.2Z"/></svg></div>
+                <div class="flex--item">http://www.capturethecastle.net</div>
+            </a>
+
+            <a href="https://twitter.com/jonlunsford1" rel="nofollow me" class="d-flex ai-center s-link s-link__inherit">
+                <div class="flex--item mr4"><svg aria-hidden="true" class="svg-icon iconTwitter" width="18" height="18" viewBox="0 0 18 18"><path d="M17 4.04c-.59.26-1.22.44-1.88.52a3.3 3.3 0 0 0 1.44-1.82c-.64.37-1.34.64-2.09.79a3.28 3.28 0 0 0-5.6 2.99A9.3 9.3 0 0 1 2.12 3.1a3.28 3.28 0 0 0 1.02 4.38 3.28 3.28 0 0 1-1.49-.4v.03a3.29 3.29 0 0 0 2.64 3.22 3.34 3.34 0 0 1-1.48.06 3.29 3.29 0 0 0 3.07 2.28 6.58 6.58 0 0 1-4.85 1.36 9.33 9.33 0 0 0 5.04 1.47c6.04 0 9.34-5 9.34-9.33v-.42a6.63 6.63 0 0 0 1.63-1.7L17 4.04Z" fill="#2AA3EF"/></svg></div>
+                <div class="flex--item">jonlunsford1</div>
+            </a>
+
+            <a href="https://github.com/jonlunsford" rel="nofollow me" class="d-flex ai-center s-link s-link__inherit">
+                <div class="flex--item mr4"><svg aria-hidden="true" class="svg-icon iconGitHub" width="18" height="18" viewBox="0 0 18 18"><path d="M9 1a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38l-.01-1.49c-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 9 1Z" fill="#010101"/></svg></div>
+                <div class="flex--item">jonlunsford</div>
+            </a>
+                <div class="flex--item fl-none jc-center last-seen">Last active on Stack Overflow today</div>
+    </div>
+    <div class="network-accounts meta">
+            <div class="network-account">
+                <a href="https://stackoverflow.com/users/823967" title="Stack Overflow">
+                    <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div>
+                    <span class="score">255</span>
+                </a>
+            </div>
+    </div>
+
+    </div>
+</div>
+            
+<div id="form-section-PersonalStatementAndTools" class="header-edit-section header-edit-section-2">
+
+    <div class="display-only">
+        <div class="description">
+    <div class="description">
+        <input class="dno description-expander" id="form-section-PersonalStatementAndTools-personal-statement" type="checkbox"/>
+        <span class="description-content-full"><p>Hi there,</p>
+<p>I have been developing software for 10 years. I have extensive experience
+with many stacks, primarily Ruby On Rails and Phoenix. Today I like to write Ruby, Elixir, Go and ES6/React. I enjoy pair programming, reviewing code and giving constructive feedback.</p>
+<p>I've worked with large corporations, fast paced agencies, and lean startups producing production grade code for highly distributed, data intensive applications.</p>
+</span>
+        <span class="description-content-truncated"><p>Hi there,</p>
+<p>I have been developing software for 10 years. I have extensive experience
+with many stacks, primarily Ruby On Rails and Phoenix. Today I like to write Ruby, Elixir, Go and ES6/React. I enjoy pair programming, reviewing code and giving constructive feedback.</p>
+<p>I've worked with large corporations, fast paced agencies, and lean startups producing production grade code for highly distributed, data intensive applications.</p>
+</span>
+        <label class="description-expander-label" for="form-section-PersonalStatementAndTools-personal-statement" data-less="Less" data-more="Read more"></label>
+    </div>
+
+        <div class="tools">
+            Favorite editor: vim &#x2B; tmux • First computer: Macintosh
+        </div>
+
+</div>
+    </div>
+</div>
+            
+<div id="form-section-TechStack" class="header-edit-section header-edit-section-3">
+
+    <div class="display-only">
+        
+    <div class="user-technologies">
+            <label class="block">I want to work with</label>
+                <div class="timeline-item-tags">
+                        <span class="post-tag">elixir</span>
+                        <span class="post-tag">ruby</span>
+                        <span class="post-tag">go</span>
+                        <span class="post-tag">python</span>
+                        <span class="post-tag">machine-learning</span>
+                        <span class="post-tag">ruby-on-rails</span>
+                        <span class="post-tag">phoenix</span>
+                        <span class="post-tag">nerves-project</span>
+                        <span class="post-tag">iot</span>
+                </div>
+        <div class="tag-wrapper">
+            
+            
+            
+            
+            
+        </div>
+
+        <div class="dislike">
+        </div>
+    </div>
+
+    </div>
+</div>
+            </header>
+        <div class="js-featured-assessments">
+                <div class="d-flex fd-column feature-banner">
+        <div class="flex--item jc-center feature-banner--logo">
+            <img src="https://cdn.sstatic.net/Img/developer-story/pluralsight/iq-logo.svg?v=771676feee19" height="28" alt="Pluralsight IQ" aria-hidden="true">
+        </div>
+        <div class="d-flex gs12 fw-wrap jc-center feature-banner--iqs">
+                <div class="flex--item">
+                    <div class="fl-none d-flex gs4 feature-banner--items ">
+                        <a href="#assessment-9921483" class="js-scroll-to">
+                            <img class="flex--item fl-none" height="28" src="https://i.stack.imgur.com/xbQ6L.png" alt="Score: 244/300">
+                        </a>
+                        <span class="flex--item fl-none s-tag">ruby</span>
+                    </div>
+                </div>
+                <div class="flex--item">
+                    <div class="fl-none d-flex gs4 feature-banner--items ">
+                        <a href="#assessment-9921285" class="js-scroll-to">
+                            <img class="flex--item fl-none" height="28" src="https://i.stack.imgur.com/qkNau.png" alt="Score: 211/300">
+                        </a>
+                        <span class="flex--item fl-none s-tag">ruby-on-rails</span>
+                    </div>
+                </div>
+                <div class="flex--item">
+                    <div class="fl-none d-flex gs4 feature-banner--items ">
+                        <a href="#assessment-10402614" class="js-scroll-to">
+                            <img class="flex--item fl-none" height="28" src="https://i.stack.imgur.com/M68kU.png" alt="Score: 201/300">
+                        </a>
+                        <span class="flex--item fl-none s-tag">elixir</span>
+                    </div>
+                </div>
+        </div>
+        <div class="d-flex gs16 jc-center">
+        </div>
+
+    </div>
+
+        </div>
+
+            <div class="timeline-feed">
+      
+                <div class="timeline-line"></div>
+
+                        <div id="item-4714685" class="timeline-item job" data-order-by="20220208-002-0004714685">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Jan 2017 &#x2192; Current
+                    <span>(5 years, 2 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/111124/convertkit?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/111124/convertkit?storyType=1">
+            <img src="https://crunchbase-production-res.cloudinary.com/image/upload/h_90/v1427187432/b4psrtucrimobg8y8z0i.png" alt="ConvertKit" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="111124"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Sr. Engineer at        <span class="js-listcard-hover" data-list-url="/users/story/lists/111124/convertkit?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/111124/convertkit?storyType=1">ConvertKit</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">redis</span>
+            <span class="flex--item s-tag">sidekiq</span>
+            <span class="flex--item s-tag">amazon-web-services</span>
+            <span class="flex--item s-tag">heroku</span>
+            <span class="flex--item s-tag">github</span>
+            <span class="flex--item s-tag">go</span>
+            <span class="flex--item s-tag">mysql</span>
+            <span class="flex--item s-tag">postgresql</span>
+            <span class="flex--item s-tag">cassandra</span>
+            <span class="flex--item s-tag">elasticsearch</span>
+            <span class="flex--item s-tag">backend</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-4714685-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Engineering highly concurrent and reliable systems ensuring millions of transactions per day. Tech Lead of Compliance/Fraud prevention.</p>
+</span>
+        <span class="description-content-truncated"><p>Engineering highly concurrent and reliable systems ensuring millions of transactions per day. Tech Lead of Compliance/Fraud prevention.</p>
+</span>
+        <label class="description-expander-label" for="item-4714685-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="assessment-10402614" class="timeline-item generic assessment" data-order-by="20211202-000-0010402614">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Assessment</span>
+
+
+                <span class="timeline-item-date">
+                Dec 2021
+            </span>
+        </header>
+
+    <div class="timeline-item-content ">
+        
+        <div class="timeline-item-text">
+            <img src="https://i.stack.imgur.com/FpJtT.png" class="-image" alt="Title: Elixir - Score: 201/300" />
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+    </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="assessment-9921483" class="timeline-item generic assessment" data-order-by="20210717-000-0009921483">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Assessment</span>
+
+
+                <span class="timeline-item-date">
+                Jul 2021
+            </span>
+        </header>
+
+    <div class="timeline-item-content ">
+        
+        <div class="timeline-item-text">
+            <img src="https://i.stack.imgur.com/DhhDh.png" class="-image" alt="Title: Ruby Language Fundamentals - Score: 244/300" />
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+    </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="assessment-9921285" class="timeline-item generic assessment" data-order-by="20210716-000-0009921285">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Assessment</span>
+
+
+                <span class="timeline-item-date">
+                Jul 2021
+            </span>
+        </header>
+
+    <div class="timeline-item-content ">
+        
+        <div class="timeline-item-text">
+            <img src="https://i.stack.imgur.com/i2rdS.png" class="-image" alt="Title: Building Web Apps with Ruby On Rails - Score: 211/300" />
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">web-applications</span>
+    </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452601" class="timeline-item job" data-order-by="20210701-002-0000452601">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Aug 2009 &#x2192; Jul 2021
+                    <span>(12 years)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/446780/capture-the-castle?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/446780/capture-the-castle?storyType=1">
+            <img src="https://i.stack.imgur.com/RfgAx.png" alt="Capture The Castle" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="446780"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Owner / Engineer at        <span class="js-listcard-hover" data-list-url="/users/story/lists/446780/capture-the-castle?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/446780/capture-the-castle?storyType=1">Capture The Castle</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">phoenix</span>
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">rspec</span>
+            <span class="flex--item s-tag">backend</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452601-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Capture The Castle was my personal freelancing business. Building software for small and large businesses.</p>
+</span>
+        <span class="description-content-truncated"><p>Capture The Castle was my personal freelancing business. Building software for small and large businesses.</p>
+</span>
+        <label class="description-expander-label" for="item-452601-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921529" class="timeline-item project apps" data-order-by="20200901-001-0009921529">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Feature or Apps</span>
+
+
+                <span class="timeline-item-date">
+                Sep 2020
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="img logo align-self">
+            <img src="https://i.stack.imgur.com/FFP1Y.jpg" alt="Myco Farm Co."/>
+        </div>
+
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+    <a href="https://mycofarm.co/" rel="nofollow">Myco Farm Co.</a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">nerves-project</span>
+            <span class="flex--item s-tag">iot</span>
+            <span class="flex--item s-tag">influxdb</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921529-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Myco Farm Co. is a small scale farm specializing in gourmet &amp; medicinal mushrooms.</p>
+<p>Using proprietary technology, called MycoBot, we grow Maitake, Lion's Mane, Chestnut, King Oyster, Golden Oyster, Blue Oyster, Turkey Tail and more.</p>
+</span>
+        <span class="description-content-truncated"><p>Myco Farm Co. is a small scale farm specializing in gourmet &amp; medicinal mushrooms.</p>
+<p>Using proprietary technology, called MycoBot, we grow Maitake, Lion's Mane, Chestnut, King Oyster, Golden Oyster, Blue Oyster, Turkey Tail and more.</p>
+</span>
+        <label class="description-expander-label" for="item-9921529-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9923874" class="timeline-item artifact" data-order-by="20200801-000-0009923874">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Aug 2020
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://devchat.tv/elixir-mix/emx-104-deploying-elixir-with-mix-terraform-and-ansible-with-jon-lunsford/" rel="nofollow">
+	        EMx 104: Deploying Elixir with Mix, Terraform and Ansible with Jon Lunsford | Devchat.tv
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">ansible</span>
+            <span class="flex--item s-tag">terraform</span>
+            <span class="flex--item s-tag">amazon-web-services</span>
+            <span class="flex--item s-tag">smtp</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9923874-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>In this episode of Elixir Mix, we talk with Jon Lunsford about Elixir’s many releases and deployment options, why/how to deploy Elixir with Terraform and we learn why Jon built an SMTP server in Elixir! Sponsors Groxio.io | Career Rocket Fuel For Curious Coders CacheFly Panel Alex Koutmos Steven Nuñez Lars Wikman Sophie DeBenedetto Guest...</p>
+</span>
+        <span class="description-content-truncated"><p>In this episode of Elixir Mix, we talk with Jon Lunsford about Elixir’s many releases and deployment options, why/how to deploy Elixir with Terraform and we learn why Jon built an SMTP server in Elixir! Sponsors Groxio.io | Career Rocket Fuel For Curious Coders CacheFly Panel Alex Koutmos Steven Nuñez Lars Wikman Sophie DeBenedetto Guest...</p>
+</span>
+        <label class="description-expander-label" for="item-9923874-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921434" class="timeline-item artifact" data-order-by="20200601-000-0009921434">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Jun 2020
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://dev.to/jonlunsford/deploying-elixir-3-of-3-provisioning-ec2-with-ansible-10o4" rel="nofollow">
+	        Deploying Elixir (3 of 3): Provisioning EC2 With Ansible
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">ansible</span>
+            <span class="flex--item s-tag">terraform</span>
+            <span class="flex--item s-tag">amazon-web-services</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921434-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Provision an EC2 instance with Ansible for elixir deployment. third in a series of three posts on deploying Elixir.</p>
+</span>
+        <span class="description-content-truncated"><p>Provision an EC2 instance with Ansible for elixir deployment. third in a series of three posts on deploying Elixir.</p>
+</span>
+        <label class="description-expander-label" for="item-9921434-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921431" class="timeline-item artifact" data-order-by="20200601-000-0009921431">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Jun 2020
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://dev.to/jonlunsford/deploying-elixir-2-of-3-terraforming-an-aws-ec2-instance-1nh5" rel="nofollow">
+	        Deploying Elixir (2 of 3): Terraforming an AWS EC2&#xA0;Instance
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">ansible</span>
+            <span class="flex--item s-tag">terraform</span>
+            <span class="flex--item s-tag">amazon-web-services</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921431-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Prepare an EC2 instance with Terraform for elixir deployment. Second in a series of three posts on deploying Elixir.</p>
+</span>
+        <span class="description-content-truncated"><p>Prepare an EC2 instance with Terraform for elixir deployment. Second in a series of three posts on deploying Elixir.</p>
+</span>
+        <label class="description-expander-label" for="item-9921431-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921416" class="timeline-item artifact" data-order-by="20200601-000-0009921416">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Jun 2020
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://dev.to/jonlunsford/deploying-elixir-1-of-3-building-releases-with-mix-1o4a" rel="nofollow">
+	        Deploying Elixir (1 of 3): Building Releases With Mix
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">terraform</span>
+            <span class="flex--item s-tag">ansible</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921416-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Build elixir releases locally with Docker &amp; Mix. First in a series of 3 posts on deploying Elixir.</p>
+</span>
+        <span class="description-content-truncated"><p>Build elixir releases locally with Docker &amp; Mix. First in a series of 3 posts on deploying Elixir.</p>
+</span>
+        <label class="description-expander-label" for="item-9921416-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921413" class="timeline-item artifact" data-order-by="20190501-000-0009921413">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                May 2019
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826" rel="nofollow">
+	        Elixir: Building a Small JSON Endpoint With Plug, Cowboy and Poison
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">plug</span>
+            <span class="flex--item s-tag">cowboy</span>
+            <span class="flex--item s-tag">poison</span>
+    </div>
+
+
+    <div class="img full mt8">
+            <a href="https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826" rel="nofollow">
+                <img src="https://i.stack.imgur.com/phXSE.jpg" alt="Elixir: Building a Small JSON Endpoint With Plug, Cowboy and Poison" />
+            </a>
+    </div>
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921413-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Let’s see how easy it is to build a production ready endpoint with Plug, using Erlang’s Cowboy HTTP server</p>
+</span>
+        <span class="description-content-truncated"><p>Let’s see how easy it is to build a production ready endpoint with Plug, using Erlang’s Cowboy HTTP server</p>
+</span>
+        <label class="description-expander-label" for="item-9921413-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921445" class="timeline-item artifact" data-order-by="20180901-000-0009921445">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Sep 2018
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://medium.com/@jonlunsford/refactoring-ruby-introduce-null-object-603c242f0d4e" rel="nofollow">
+	        Refactoring Ruby: Introduce Null Object
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">refactoring</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921445-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Introduce Null Object is a great refactoring tool when you find yourself checking for nil too often. nil checks are often signs of much…</p>
+</span>
+        <span class="description-content-truncated"><p>Introduce Null Object is a great refactoring tool when you find yourself checking for nil too often. nil checks are often signs of much…</p>
+</span>
+        <label class="description-expander-label" for="item-9921445-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921443" class="timeline-item artifact" data-order-by="20180901-000-0009921443">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Sep 2018
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://medium.com/@jonlunsford/refactoring-ruby-extract-method-36ead060efb7" rel="nofollow">
+	        Refactoring Ruby: Extract Method
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">refactoring</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921443-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Extract Method can be used when you have several expressions, a code fragment, that can be grouped together. Even if there is one…</p>
+</span>
+        <span class="description-content-truncated"><p>Extract Method can be used when you have several expressions, a code fragment, that can be grouped together. Even if there is one…</p>
+</span>
+        <label class="description-expander-label" for="item-9921443-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921441" class="timeline-item artifact" data-order-by="20180801-000-0009921441">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Aug 2018
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://medium.com/@jonlunsford/refactoring-ruby-replace-temp-with-query-f96c6afc6678" rel="nofollow">
+	        Refactoring Ruby: Replace Temp with Query
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">refactoring</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921441-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Let’s look at another simple yet powerful refactoring method, Replace Temp with Query. You can use this when you have a temporary variable…</p>
+</span>
+        <span class="description-content-truncated"><p>Let’s look at another simple yet powerful refactoring method, Replace Temp with Query. You can use this when you have a temporary variable…</p>
+</span>
+        <label class="description-expander-label" for="item-9921441-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921440" class="timeline-item artifact" data-order-by="20180801-000-0009921440">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Aug 2018
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://medium.com/@jonlunsford/refactoring-ruby-extract-variable-1d4bc9a2db22" rel="nofollow">
+	        Refactoring Ruby: Extract Variable
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">refactoring</span>
+    </div>
+
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921440-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Let’s take a look at a simple way to add clarity to your ruby methods. Extract Variable or Introduce Explaining Variable, it’s probably one…</p>
+</span>
+        <span class="description-content-truncated"><p>Let’s take a look at a simple way to add clarity to your ruby methods. Extract Variable or Introduce Explaining Variable, it’s probably one…</p>
+</span>
+        <label class="description-expander-label" for="item-9921440-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921525" class="timeline-item project apps" data-order-by="20180401-001-0009921525">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Feature or Apps</span>
+
+
+                <span class="timeline-item-date">
+                Apr 2018
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="img logo align-self">
+            <img src="https://i.stack.imgur.com/9LCAb.png" alt="Syndicate App."/>
+        </div>
+
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+    <a href="https://syndicateapp.site/" rel="nofollow">Syndicate App.</a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">phoenix</span>
+            <span class="flex--item s-tag">redis</span>
+            <span class="flex--item s-tag">digital-ocean</span>
+            <span class="flex--item s-tag">dokku</span>
+            <span class="flex--item s-tag">postgresql</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921525-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Automate email arrivals to your inbox with powerful rules. Take control of your Syndication with anonymity and automation.</p>
+</span>
+        <span class="description-content-truncated"><p>Automate email arrivals to your inbox with powerful rules. Take control of your Syndication with anonymity and automation.</p>
+</span>
+        <label class="description-expander-label" for="item-9921525-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-9921437" class="timeline-item artifact" data-order-by="20171101-000-0009921437">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Blogs or videos</span>
+
+
+                <span class="timeline-item-date">
+                Nov 2017
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+        <div class="timeline-item-text">
+            
+<div class="timeline-item-title">
+	    <a href="https://medium.com/@jonlunsford/receiving-emails-over-smtp-with-elixir-8adb923a4f9a" rel="nofollow">
+	        Receiving Emails Over SMTP With Elixir
+	    </a>
+</div>
+
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">elixir</span>
+            <span class="flex--item s-tag">smtp</span>
+    </div>
+
+
+    <div class="img full mt8">
+            <a href="https://medium.com/@jonlunsford/receiving-emails-over-smtp-with-elixir-8adb923a4f9a" rel="nofollow">
+                <img src="https://i.stack.imgur.com/FITiv.jpg" alt="Receiving Emails Over SMTP With Elixir" />
+            </a>
+    </div>
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-9921437-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Let’s see just how simple SMTP is with elixir/erlang. I began experimenting with this mostly as a learning tool to get more familiar with…</p>
+</span>
+        <span class="description-content-truncated"><p>Let’s see just how simple SMTP is with elixir/erlang. I began experimenting with this mostly as a learning tool to get more familiar with…</p>
+</span>
+        <label class="description-expander-label" for="item-9921437-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452605" class="timeline-item job" data-order-by="20170101-002-0000452605">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Nov 2014 &#x2192; Jan 2017
+                    <span>(2 years, 3 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/177665/kadenze?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/177665/kadenze?storyType=1">
+            <img src="https://crunchbase-production-res.cloudinary.com/image/upload/h_90/v1467288434/df0vvr9lsnsakfeyprir.png" alt="Kadenze" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="177665"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Full Stack Developer (Ruby On Rails) at        <span class="js-listcard-hover" data-list-url="/users/story/lists/177665/kadenze?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/177665/kadenze?storyType=1">Kadenze</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">knockout.js</span>
+            <span class="flex--item s-tag">javascript</span>
+            <span class="flex--item s-tag">sass</span>
+            <span class="flex--item s-tag">rspec</span>
+            <span class="flex--item s-tag">redis</span>
+            <span class="flex--item s-tag">sidekiq</span>
+            <span class="flex--item s-tag">haml</span>
+            <span class="flex--item s-tag">jst</span>
+            <span class="flex--item s-tag">jira</span>
+            <span class="flex--item s-tag">kanban</span>
+            <span class="flex--item s-tag">agile</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452605-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Working fully remote. Implementing features for a MOOC and LMS platform focused on providing the best user experience for students from all over the world to learn about art, code, and creative collaboration. My responsibilities included gathering specifications and requirements from designers, marketers, customers, and building full stack solutions to solve those problems. From implementing the backend API in Rails to the front end UI and UX written in HAML, JS (A lot of Knockout), and SASS.</p>
+</span>
+        <span class="description-content-truncated"><p>Working fully remote. Implementing features for a MOOC and LMS platform focused on providing the best user experience for students from all over the world to learn about art, code, and creative collaboration. My responsibilities included gathering specifications and requirements from designers, marketers, customers, and building full stack solutions to solve those problems. From implementing the backend API in Rails to the front end UI and UX written in HAML, JS (A lot of Knockout), and SASS.</p>
+</span>
+        <label class="description-expander-label" for="item-452605-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452599" class="timeline-item job" data-order-by="20141101-002-0000452599">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Aug 2012 &#x2192; Nov 2014
+                    <span>(2 years, 4 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/49982/mindbody?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/49982/mindbody?storyType=1">
+            <img src="https://crunchbase-production-res.cloudinary.com/image/upload/h_90/v1428040440/qpa2ipydbstumec8vhgo.png" alt="MINDBODY" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="49982"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Front End Engineer at        <span class="js-listcard-hover" data-list-url="/users/story/lists/49982/mindbody?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/49982/mindbody?storyType=1">MINDBODY</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">tfs</span>
+            <span class="flex--item s-tag">visual-studio</span>
+            <span class="flex--item s-tag">less</span>
+            <span class="flex--item s-tag">javascript</span>
+            <span class="flex--item s-tag">scrum</span>
+            <span class="flex--item s-tag">agile</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452599-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Front end engineer on a scrum team consisting of 7, in a department of 16 scrum teams.</p>
+</span>
+        <span class="description-content-truncated"><p>Front end engineer on a scrum team consisting of 7, in a department of 16 scrum teams.</p>
+</span>
+        <label class="description-expander-label" for="item-452599-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452604" class="timeline-item job" data-order-by="20140901-002-0000452604">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Jun 2014 &#x2192; Sep 2014
+                    <span>(4 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/7960/alphasights?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/7960/alphasights?storyType=1">
+            <img src="https://crunchbase-production-res.cloudinary.com/image/upload/h_90/v1397750244/e6f059676805062d4212e1647d6b3df5.jpg" alt="AlphaSights" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="7960"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Full Stack Developer (Ruby On Rails), contract. at        <span class="js-listcard-hover" data-list-url="/users/story/lists/7960/alphasights?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/7960/alphasights?storyType=1">AlphaSights</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">vim</span>
+            <span class="flex--item s-tag">circleci</span>
+            <span class="flex--item s-tag">continuous-integration</span>
+            <span class="flex--item s-tag">rspec3</span>
+            <span class="flex--item s-tag">tmux</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452604-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Working fully remote. Responsible for adding various, full stack, features to an email archive web service.</p>
+</span>
+        <span class="description-content-truncated"><p>Working fully remote. Responsible for adding various, full stack, features to an email archive web service.</p>
+</span>
+        <label class="description-expander-label" for="item-452604-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452600" class="timeline-item job" data-order-by="20120801-002-0000452600">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Nov 2011 &#x2192; Aug 2012
+                    <span>(10 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self " data-list-url="">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self " data-list-url="">
+            <img src="https://i.stack.imgur.com/33pII.png" alt="WINTR" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="0"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+         Full Stack Developer at WINTR
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">ruby</span>
+            <span class="flex--item s-tag">ruby-on-rails</span>
+            <span class="flex--item s-tag">capistrano</span>
+            <span class="flex--item s-tag">ssh</span>
+            <span class="flex--item s-tag">command-line</span>
+            <span class="flex--item s-tag">zsh</span>
+            <span class="flex--item s-tag">haml</span>
+            <span class="flex--item s-tag">javascript</span>
+            <span class="flex--item s-tag">css</span>
+            <span class="flex--item s-tag">html</span>
+            <span class="flex--item s-tag">amazon-elastic-beanstalk</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452600-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Interactive web developer in a small fast paced agency working with several high profile clients and companies. I would work on the full stack of any website or application I was assigned, from back end to front end. Work was produced on fairly tight deadlines at a very quick rate. I was able to produce some of the best work of my career, the 2012 Sasquatch Festival website won a gold W3 award.</p>
+</span>
+        <span class="description-content-truncated"><p>Interactive web developer in a small fast paced agency working with several high profile clients and companies. I would work on the full stack of any website or application I was assigned, from back end to front end. Work was produced on fairly tight deadlines at a very quick rate. I was able to produce some of the best work of my career, the 2012 Sasquatch Festival website won a gold W3 award.</p>
+</span>
+        <label class="description-expander-label" for="item-452600-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452602" class="timeline-item job" data-order-by="20111001-002-0000452602">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Oct 2010 &#x2192; Oct 2011
+                    <span>(1 year, 1 month)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self js-listcard-hover" data-list-url="/users/story/lists/446781/taphandles-llc?storyType=1">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+        <div class="img logo align-self js-listcard-hover" data-list-url="/users/story/lists/446781/taphandles-llc?storyType=1">
+            <img src="https://i.stack.imgur.com/CZOIw.png" alt="Taphandles LLC" class="js-list-img" onerror="StackExchange.user.handleListImageError(this)"  data-list-id="446781"/>
+        </div>
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+Web Developer at        <span class="js-listcard-hover" data-list-url="/users/story/lists/446781/taphandles-llc?storyType=1">
+            <a href="https://stackoverflow.com/users/story/lists/446781/taphandles-llc?storyType=1">Taphandles LLC</a>
+        </span>
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">html</span>
+            <span class="flex--item s-tag">css</span>
+            <span class="flex--item s-tag">javascript</span>
+            <span class="flex--item s-tag">php</span>
+            <span class="flex--item s-tag">mysql</span>
+            <span class="flex--item s-tag">wordpress</span>
+            <span class="flex--item s-tag">photoshop</span>
+            <span class="flex--item s-tag">adobe-illustrator</span>
+            <span class="flex--item s-tag">adobe-indesign</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452602-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>Taphanldes is a firm focused on the craft beer industry. I was part of a design team working on production design projects as well as developing all client websites. I was the sole developer at the time.</p>
+<p>All websites that were produced at this time were built with wordpress, php, and MySql. The WP interface would be customized completely for the clients needs.</p>
+</span>
+        <span class="description-content-truncated"><p>Taphanldes is a firm focused on the craft beer industry. I was part of a design team working on production design projects as well as developing all client websites. I was the sole developer at the time.</p>
+<p>All websites that were produced at this time were built with wordpress, php, and MySql. The WP interface would be customized completely for the clients needs.</p>
+</span>
+        <label class="description-expander-label" for="item-452602-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+                        <div id="item-452603" class="timeline-item job" data-order-by="20100801-002-0000452603">
+    <div class="timeline-item-warning">
+        <div class="text ta-center">
+            <h4>Are you sure you want to do that?</h4>
+
+            <a class="s-btn s-btn__muted s-btn__outlined js-btn-warning">Cancel</a>
+            <a class="s-btn s-btn__filled s-btn__danger js-loader js-btn-confirm">Yes, delete it</a>
+        </div>
+    </div>
+
+
+        <header>
+                <span class="timeline-item-type">Position</span>
+
+
+                <span class="timeline-item-date">
+                Jul 2009 &#x2192; Aug 2010
+                    <span>(1 year, 2 months)</span>
+            </span>
+        </header>
+
+    <div class="timeline-item-content with-description">
+        
+    <div class="js-listcard-container" ></div>
+    <div class="g-center img logo logo-blank js-logo-blank dno align-self " data-list-url="">
+        <svg aria-hidden="true" class="svg-icon iconIndustry" width="18" height="18" viewBox="0 0 18 18"><path d="M10 16v-4H8v4H2V4c0-1.1.9-2 2-2h6c1.09 0 2 .91 2 2v2h2c1.09 0 2 .91 2 2v8h-6ZM4 4v2h2V4H4Zm0 4v2h2V8H4Zm4-4v2h2V4H8Zm0 4v2h2V8H8Zm-4 4v2h2v-2H4Zm8 0v2h2v-2h-2Zm0-4v2h2V8h-2Z"/></svg>
+    </div>
+
+
+        <div class="timeline-item-text">
+            <div class="timeline-item-title">
+         Web Developer at Progressive inovations / The Canopy club
+
+</div>
+    <div class="timeline-item-tags d-flex gs4 fl-none fw-wrap mt16">
+            <span class="flex--item s-tag">html</span>
+            <span class="flex--item s-tag">css</span>
+            <span class="flex--item s-tag">javascript</span>
+            <span class="flex--item s-tag">php</span>
+            <span class="flex--item s-tag">mysql</span>
+            <span class="flex--item s-tag">wordpress</span>
+            <span class="flex--item s-tag">photoshop</span>
+            <span class="flex--item s-tag">adobe-illustrator</span>
+            <span class="flex--item s-tag">adobe-indesign</span>
+    </div>
+
+
+    <div class="timeline-item-paragraph">
+    <div class="description">
+        <input class="dno description-expander" id="item-452603-collapsible-description" type="checkbox"/>
+        <span class="description-content-full"><p>I was in charge of all promotions media produced by the company, this ranged from print ads, posters, festival merchandise and signage, festival web sites, event web sites, and the company web site. </p>
+
+<p>All web sites were built on Wordpress with highly customized interfaces depending on the content that needed to be managed. The company would produce very large music festivals which resulted in very high traffic to the websites, I would combat this with heavy caching and optimization where possible. </p>
+</span>
+        <span class="description-content-truncated"><p>I was in charge of all promotions media produced by the company, this ranged from print ads, posters, festival merchandise and signage, festival web sites, event web sites, and the company web site. </p>
+
+<p>All web sites were built on Wordpress with highly customized interfaces depending on the content that needed to be managed. The company would produce very large music festivals which resulted in very high traffic to the websites, I would combat this with heavy caching and optimization where possible. </p>
+</span>
+        <label class="description-expander-label" for="item-452603-collapsible-description" data-less="Less" data-more="Read more"></label>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!-- /timeline-item -->
+
+            </div>
+
+        
+<div id="form-section-Readings" class="header-edit-section readings">
+
+    <div class="display-only">
+        
+    <h3 class="ta-center readings-title">Recommended reading</h3>
+    <div class="readings-list">
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0596516177" title="The Ruby Programming Language" rel="nofollow">The Ruby Programming Language</a>
+                    </div>
+
+                        <div class="readings-item-author" title="David Flanagan, Yukihiro Matsumoto">by David Flanagan, Yukihiro Matsumoto</div>
+
+                </div>
+            </div>
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321584104" title="Eloquent Ruby (Addison-Wesley Professional Ruby Series)" rel="nofollow">Eloquent Ruby (Addison-Wesley Professional Ruby Series)</a>
+                    </div>
+
+                        <div class="readings-item-author" title="Russ Olsen">by Russ Olsen</div>
+
+                </div>
+            </div>
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0596517742" title="JavaScript: The Good Parts" rel="nofollow">JavaScript: The Good Parts</a>
+                    </div>
+
+                        <div class="readings-item-author" title="Douglas Crockford">by Douglas Crockford</div>
+
+                </div>
+            </div>
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215" title="Domain Driven Design" rel="nofollow">Domain Driven Design</a>
+                    </div>
+
+                        <div class="readings-item-author" title="Eric Evans">by Eric Evans</div>
+
+                        <div class="readings-item-summary-wrapper">
+                            <div class="readings-item-summary">
+    <div class="description">
+        <input class="dno description-expander" id="form-section-Readings-9921450-summary" type="checkbox"/>
+        <span class="description-content-full"><p>Tackling Complexity in the Heart of Software.</p>
+</span>
+        <span class="description-content-truncated"><p>Tackling Complexity in the Heart of Software.</p>
+</span>
+        <label class="description-expander-label" for="form-section-Readings-9921450-summary" data-less="Less" data-more="Read more"></label>
+    </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/B08VL1BLHB/ref=sr_1_1?crid=3ELAJ4E98NJF&amp;dchild=1&amp;keywords=designing&#x2B;data&#x2B;intensive&#x2B;applications&amp;qid=1626480003&amp;s=b" title="Designing Data-Intensive Applications" rel="nofollow">Designing Data-Intensive Applications</a>
+                    </div>
+
+                        <div class="readings-item-author" title="Martin Kleppmann">by Martin Kleppmann</div>
+
+                        <div class="readings-item-summary-wrapper">
+                            <div class="readings-item-summary">
+    <div class="description">
+        <input class="dno description-expander" id="form-section-Readings-9921452-summary" type="checkbox"/>
+        <span class="description-content-full"><p>Mastering Reliability, Scalability and Maintainability in large applications.</p>
+</span>
+        <span class="description-content-truncated"><p>Mastering Reliability, Scalability and Maintainability in large applications.</p>
+</span>
+        <label class="description-expander-label" for="form-section-Readings-9921452-summary" data-less="Less" data-more="Read more"></label>
+    </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="readings-item">
+
+                <div class="readings-image is-empty"></div>
+
+                <div class="readings-item-text">
+                    <div class="readings-item-title">
+                            <a href="https://www.amazon.com/Refactoring-Ruby-Addison-Wesley-Professional/dp/0321984137/ref=sr_1_1?dchild=1&amp;keywords=Refactoring%3A&#x2B;Ruby&#x2B;edition&amp;qid=1626480033&amp;s=audible&amp;sr=1-1" title="Refactoring: Ruby Edition" rel="nofollow">Refactoring: Ruby Edition</a>
+                    </div>
+
+                        <div class="readings-item-author" title="Martin Fowler, Kent Beck">by Martin Fowler, Kent Beck</div>
+
+                        <div class="readings-item-summary-wrapper">
+                            <div class="readings-item-summary">
+    <div class="description">
+        <input class="dno description-expander" id="form-section-Readings-9921456-summary" type="checkbox"/>
+        <span class="description-content-full"><p>Martin Fowler's &quot;Refactoring&quot; but with ruby instead of Java.</p>
+</span>
+        <span class="description-content-truncated"><p>Martin Fowler's &quot;Refactoring&quot; but with ruby instead of Java.</p>
+</span>
+        <label class="description-expander-label" for="form-section-Readings-9921456-summary" data-less="Less" data-more="Read more"></label>
+    </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+
+    </div>
+</div>
+
+        <div class="footer-notice">
+            Company data powered by <a href="http://www.crunchbase.com" target="_blank" title="CrunchBase"></a>
+        </div>
+    </div>
+
+</div>
+    <script>
+        StackExchange.ready(function() {
+            if (StackExchange.user) {
+                StackExchange.user.initTimeline();
+                initTagRenderer("".split(" "), "".split(" "));
+            }
+        })
+    </script>
+
+    </div>
+
+    <div class="timeline-print d-none print:d-block">
+        
+
+<div class="wrapper">
+    <div class="col-full header">
+        <div class="name">
+            <h1>Jon Lunsford</h1>
+        </div>
+        <div class="personal-info" toggle-section="personal" toggle-section-title="Personal Info">
+ <span class="address" toggle-id="location" toggle-description="Address">San Luis Obispo, CA</span>  <span class="phone" toggle-id="phone" toggle-description="Phone">2069533666</span>  <span class="email" toggle-id="email" toggle-description="Email"><a href="mailto:jon@capturethecastle.net">jon@capturethecastle.net</a></span>  <span class="website" toggle-id="website" toggle-description="Web Site Url"><a href="http://www.capturethecastle.net">http://www.capturethecastle.net</a></span>  <span class="github" toggle-id="github" toggle-description="Github"><a href="https://github.com/jonlunsford">https://github.com/jonlunsford</a></span>         </div>
+    </div>
+
+        <div class="col-full statement" toggle-section="personal" toggle-section-title="Personal Info">
+            <blockquote toggle-id="personal-statement" toggle-description="Personal Statement">
+                <p>Hi there,</p>
+<p>I have been developing software for 10 years. I have extensive experience
+with many stacks, primarily Ruby On Rails and Phoenix. Today I like to write Ruby, Elixir, Go and ES6/React. I enjoy pair programming, reviewing code and giving constructive feedback.</p>
+<p>I've worked with large corporations, fast paced agencies, and lean startups producing production grade code for highly distributed, data intensive applications.</p>
+
+            </blockquote>
+        </div>
+
+        <div class="col-full skills" toggle-section="technical" toggle-section-title="Technical Skills">
+            <div class="col-left">
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="col-right">
+                <table>
+                        <tr toggle-id="likes" toggle-description="Likes">
+                            <td class="tags">Likes:</td>
+                            <td>elixir ruby go python machine-learning ruby-on-rails phoenix nerves-project iot</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+
+        
+    <div class="col-full">
+        <div class="col-left">
+            <h2>Experience</h2>
+        </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jan 2017 &#x2192; Current
+                        </em>
+                    </span>
+                    <strong>Sr. Engineer</strong>
+&ndash;                            <a href="http://convertkit.com/" class="title">
+                                ConvertKit
+                            </a>
+                        <div>ruby, ruby-on-rails, elixir, redis, sidekiq, amazon-web-services, heroku, github, go, mysql, postgresql, cassandra, elasticsearch, backend</div>
+                </div>
+                <div class="description">
+                    <p>Engineering highly concurrent and reliable systems ensuring millions of transactions per day. Tech Lead of Compliance/Fraud prevention.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Aug 2009 &#x2192; Jul 2021
+                        </em>
+                    </span>
+                    <strong>Owner / Engineer</strong>
+&ndash;                            <a href="https://capturethecastle.net" class="title">
+                                Capture The Castle
+                            </a>
+                        <div>ruby, elixir, phoenix, ruby-on-rails, rspec, backend</div>
+                </div>
+                <div class="description">
+                    <p>Capture The Castle was my personal freelancing business. Building software for small and large businesses.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Nov 2014 &#x2192; Jan 2017
+                        </em>
+                    </span>
+                    <strong>Full Stack Developer (Ruby On Rails)</strong>
+&ndash;                            <a href="https://www.kadenze.com/" class="title">
+                                Kadenze
+                            </a>
+                        <div>ruby, ruby-on-rails, knockout.js, javascript, sass, rspec, redis, sidekiq, haml, jst, jira, kanban, agile</div>
+                </div>
+                <div class="description">
+                    <p>Working fully remote. Implementing features for a MOOC and LMS platform focused on providing the best user experience for students from all over the world to learn about art, code, and creative collaboration. My responsibilities included gathering specifications and requirements from designers, marketers, customers, and building full stack solutions to solve those problems. From implementing the backend API in Rails to the front end UI and UX written in HAML, JS (A lot of Knockout), and SASS.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Aug 2012 &#x2192; Nov 2014
+                        </em>
+                    </span>
+                    <strong>Front End Engineer</strong>
+&ndash;                            <a href="http://mindbodyonline.com" class="title">
+                                MINDBODY
+                            </a>
+                        <div>tfs, visual-studio, less, javascript, scrum, agile</div>
+                </div>
+                <div class="description">
+                    <p>Front end engineer on a scrum team consisting of 7, in a department of 16 scrum teams.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jun 2014 &#x2192; Sep 2014
+                        </em>
+                    </span>
+                    <strong>Full Stack Developer (Ruby On Rails), contract.</strong>
+&ndash;                            <a href="http://www.alphasights.com" class="title">
+                                AlphaSights
+                            </a>
+                        <div>ruby, ruby-on-rails, vim, circleci, continuous-integration, rspec3, tmux</div>
+                </div>
+                <div class="description">
+                    <p>Working fully remote. Responsible for adding various, full stack, features to an email archive web service.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Nov 2011 &#x2192; Aug 2012
+                        </em>
+                    </span>
+                    <strong>Full Stack Developer</strong>
+&ndash;                            <span class="title">
+                                WINTR
+                            </span>
+                        <div>ruby, ruby-on-rails, capistrano, ssh, command-line, zsh, haml, javascript, css, html, amazon-elastic-beanstalk</div>
+                </div>
+                <div class="description">
+                    <p>Interactive web developer in a small fast paced agency working with several high profile clients and companies. I would work on the full stack of any website or application I was assigned, from back end to front end. Work was produced on fairly tight deadlines at a very quick rate. I was able to produce some of the best work of my career, the 2012 Sasquatch Festival website won a gold W3 award.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Oct 2010 &#x2192; Oct 2011
+                        </em>
+                    </span>
+                    <strong>Web Developer</strong>
+&ndash;                            <a href="https://www.taphandles.com/" class="title">
+                                Taphandles LLC
+                            </a>
+                        <div>html, css, javascript, php, mysql, wordpress, photoshop, adobe-illustrator, adobe-indesign</div>
+                </div>
+                <div class="description">
+                    <p>Taphanldes is a firm focused on the craft beer industry. I was part of a design team working on production design projects as well as developing all client websites. I was the sole developer at the time.</p>
+<p>All websites that were produced at this time were built with wordpress, php, and MySql. The WP interface would be customized completely for the clients needs.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jul 2009 &#x2192; Aug 2010
+                        </em>
+                    </span>
+                    <strong>Web Developer</strong>
+&ndash;                            <span class="title">
+                                Progressive inovations / The Canopy club
+                            </span>
+                        <div>html, css, javascript, php, mysql, wordpress, photoshop, adobe-illustrator, adobe-indesign</div>
+                </div>
+                <div class="description">
+                    <p>I was in charge of all promotions media produced by the company, this ranged from print ads, posters, festival merchandise and signage, festival web sites, event web sites, and the company web site. </p>
+
+<p>All web sites were built on Wordpress with highly customized interfaces depending on the content that needed to be managed. The company would produce very large music festivals which resulted in very high traffic to the websites, I would combat this with heavy caching and optimization where possible. </p>
+
+                </div>
+            </div>
+    </div>
+
+        
+
+        
+
+        
+
+        
+    <div class="col-full">
+        <div class="col-left">
+            <h2>Public Artifacts</h2>
+        </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Aug 2020
+                        </em>
+                    </span>
+                    <strong>EMx 104: Deploying Elixir with Mix, Terraform and Ansible with Jon Lunsford | Devchat.tv</strong>
+&ndash;                        <a class="title" href="https://devchat.tv/elixir-mix/emx-104-deploying-elixir-with-mix-terraform-and-ansible-with-jon-lunsford/">
+                            https://devchat.tv/elixir-mix/emx-104-deploying-elixir-with-mix-terraform-and-ansible-with-jon-lunsford/
+                        </a>
+                        <div>elixir, ansible, terraform, amazon-web-services, smtp</div>
+                </div>
+                <div class="description">
+                    <p>In this episode of Elixir Mix, we talk with Jon Lunsford about Elixir’s many releases and deployment options, why/how to deploy Elixir with Terraform and we learn why Jon built an SMTP server in Elixir! Sponsors Groxio.io | Career Rocket Fuel For Curious Coders CacheFly Panel Alex Koutmos Steven Nuñez Lars Wikman Sophie DeBenedetto Guest...</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jun 2020
+                        </em>
+                    </span>
+                    <strong>Deploying Elixir (3 of 3): Provisioning EC2 With Ansible</strong>
+&ndash;                        <a class="title" href="https://dev.to/jonlunsford/deploying-elixir-3-of-3-provisioning-ec2-with-ansible-10o4">
+                            https://dev.to/jonlunsford/deploying-elixir-3-of-3-provisioning-ec2-with-ansible-10o4
+                        </a>
+                        <div>elixir, ansible, terraform, amazon-web-services</div>
+                </div>
+                <div class="description">
+                    <p>Provision an EC2 instance with Ansible for elixir deployment. third in a series of three posts on deploying Elixir.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jun 2020
+                        </em>
+                    </span>
+                    <strong>Deploying Elixir (2 of 3): Terraforming an AWS EC2&#xA0;Instance</strong>
+&ndash;                        <a class="title" href="https://dev.to/jonlunsford/deploying-elixir-2-of-3-terraforming-an-aws-ec2-instance-1nh5">
+                            https://dev.to/jonlunsford/deploying-elixir-2-of-3-terraforming-an-aws-ec2-instance-1nh5
+                        </a>
+                        <div>elixir, ansible, terraform, amazon-web-services</div>
+                </div>
+                <div class="description">
+                    <p>Prepare an EC2 instance with Terraform for elixir deployment. Second in a series of three posts on deploying Elixir.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Jun 2020
+                        </em>
+                    </span>
+                    <strong>Deploying Elixir (1 of 3): Building Releases With Mix</strong>
+&ndash;                        <a class="title" href="https://dev.to/jonlunsford/deploying-elixir-1-of-3-building-releases-with-mix-1o4a">
+                            https://dev.to/jonlunsford/deploying-elixir-1-of-3-building-releases-with-mix-1o4a
+                        </a>
+                        <div>elixir, terraform, ansible</div>
+                </div>
+                <div class="description">
+                    <p>Build elixir releases locally with Docker &amp; Mix. First in a series of 3 posts on deploying Elixir.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            May 2019
+                        </em>
+                    </span>
+                    <strong>Elixir: Building a Small JSON Endpoint With Plug, Cowboy and Poison</strong>
+&ndash;                        <a class="title" href="https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826">
+                            https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826
+                        </a>
+                        <div>elixir, plug, cowboy, poison</div>
+                </div>
+                <div class="description">
+                    <p>Let’s see how easy it is to build a production ready endpoint with Plug, using Erlang’s Cowboy HTTP server</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Sep 2018
+                        </em>
+                    </span>
+                    <strong>Refactoring Ruby: Introduce Null Object</strong>
+&ndash;                        <a class="title" href="https://medium.com/@jonlunsford/refactoring-ruby-introduce-null-object-603c242f0d4e">
+                            https://medium.com/@jonlunsford/refactoring-ruby-introduce-null-object-603c242f0d4e
+                        </a>
+                        <div>ruby, refactoring</div>
+                </div>
+                <div class="description">
+                    <p>Introduce Null Object is a great refactoring tool when you find yourself checking for nil too often. nil checks are often signs of much…</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Sep 2018
+                        </em>
+                    </span>
+                    <strong>Refactoring Ruby: Extract Method</strong>
+&ndash;                        <a class="title" href="https://medium.com/@jonlunsford/refactoring-ruby-extract-method-36ead060efb7">
+                            https://medium.com/@jonlunsford/refactoring-ruby-extract-method-36ead060efb7
+                        </a>
+                        <div>ruby, refactoring</div>
+                </div>
+                <div class="description">
+                    <p>Extract Method can be used when you have several expressions, a code fragment, that can be grouped together. Even if there is one…</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Aug 2018
+                        </em>
+                    </span>
+                    <strong>Refactoring Ruby: Replace Temp with Query</strong>
+&ndash;                        <a class="title" href="https://medium.com/@jonlunsford/refactoring-ruby-replace-temp-with-query-f96c6afc6678">
+                            https://medium.com/@jonlunsford/refactoring-ruby-replace-temp-with-query-f96c6afc6678
+                        </a>
+                        <div>ruby, refactoring</div>
+                </div>
+                <div class="description">
+                    <p>Let’s look at another simple yet powerful refactoring method, Replace Temp with Query. You can use this when you have a temporary variable…</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Aug 2018
+                        </em>
+                    </span>
+                    <strong>Refactoring Ruby: Extract Variable</strong>
+&ndash;                        <a class="title" href="https://medium.com/@jonlunsford/refactoring-ruby-extract-variable-1d4bc9a2db22">
+                            https://medium.com/@jonlunsford/refactoring-ruby-extract-variable-1d4bc9a2db22
+                        </a>
+                        <div>ruby, refactoring</div>
+                </div>
+                <div class="description">
+                    <p>Let’s take a look at a simple way to add clarity to your ruby methods. Extract Variable or Introduce Explaining Variable, it’s probably one…</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Nov 2017
+                        </em>
+                    </span>
+                    <strong>Receiving Emails Over SMTP With Elixir</strong>
+&ndash;                        <a class="title" href="https://medium.com/@jonlunsford/receiving-emails-over-smtp-with-elixir-8adb923a4f9a">
+                            https://medium.com/@jonlunsford/receiving-emails-over-smtp-with-elixir-8adb923a4f9a
+                        </a>
+                        <div>elixir, smtp</div>
+                </div>
+                <div class="description">
+                    <p>Let’s see just how simple SMTP is with elixir/erlang. I began experimenting with this mostly as a learning tool to get more familiar with…</p>
+
+                </div>
+            </div>
+    </div>
+
+        
+    <div class="col-full">
+        <div class="col-left">
+            <h2>Apps &amp; Software</h2>
+        </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Sep 2020
+                        </em>
+                    </span>
+                    <strong>Myco Farm Co.</strong>
+&ndash;                        <a class="title" href="https://mycofarm.co/">
+                            https://mycofarm.co/
+                        </a>
+                        <div>elixir, nerves-project, iot, influxdb</div>
+                </div>
+                <div class="description">
+                    <p>Myco Farm Co. is a small scale farm specializing in gourmet &amp; medicinal mushrooms.</p>
+<p>Using proprietary technology, called MycoBot, we grow Maitake, Lion's Mane, Chestnut, King Oyster, Golden Oyster, Blue Oyster, Turkey Tail and more.</p>
+
+                </div>
+            </div>
+            <div class="col-right avoid-break">
+                <div class="meta">
+                    <span class="dates float-right">
+                        <em>
+                            Apr 2018
+                        </em>
+                    </span>
+                    <strong>Syndicate App.</strong>
+&ndash;                        <a class="title" href="https://syndicateapp.site/">
+                            https://syndicateapp.site/
+                        </a>
+                        <div>elixir, phoenix, redis, digital-ocean, dokku, postgresql</div>
+                </div>
+                <div class="description">
+                    <p>Automate email arrivals to your inbox with powerful rules. Take control of your Syndication with anonymity and automation.</p>
+
+                </div>
+            </div>
+    </div>
+
+        
+
+
+
+        <div class="col-full">
+            <div class="col-left">
+                <h2>Readings</h2>
+            </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>The Ruby Programming Language</strong>
+
+&ndash;
+                            <span class="title">
+                                David Flanagan, Yukihiro Matsumoto
+                            </span>
+&ndash;
+                            <span class="title">
+                                http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0596516177
+                            </span>
+                    </div>
+                    <div class="description">
+                        
+                    </div>
+                </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>Eloquent Ruby (Addison-Wesley Professional Ruby Series)</strong>
+
+&ndash;
+                            <span class="title">
+                                Russ Olsen
+                            </span>
+&ndash;
+                            <span class="title">
+                                http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional-Series/dp/0321584104%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0321584104
+                            </span>
+                    </div>
+                    <div class="description">
+                        
+                    </div>
+                </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>JavaScript: The Good Parts</strong>
+
+&ndash;
+                            <span class="title">
+                                Douglas Crockford
+                            </span>
+&ndash;
+                            <span class="title">
+                                http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742%3FSubscriptionId%3DAKIAIIBINOD46VC3JCLQ%26tag%3Dstackoverfl08-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0596517742
+                            </span>
+                    </div>
+                    <div class="description">
+                        
+                    </div>
+                </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>Domain Driven Design</strong>
+
+&ndash;
+                            <span class="title">
+                                Eric Evans
+                            </span>
+&ndash;
+                            <span class="title">
+                                https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215
+                            </span>
+                    </div>
+                    <div class="description">
+                        <p>Tackling Complexity in the Heart of Software.</p>
+
+                    </div>
+                </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>Designing Data-Intensive Applications</strong>
+
+&ndash;
+                            <span class="title">
+                                Martin Kleppmann
+                            </span>
+&ndash;
+                            <span class="title">
+                                https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/B08VL1BLHB/ref=sr_1_1?crid=3ELAJ4E98NJF&amp;dchild=1&amp;keywords=designing&#x2B;data&#x2B;intensive&#x2B;applications&amp;qid=1626480003&amp;s=b
+                            </span>
+                    </div>
+                    <div class="description">
+                        <p>Mastering Reliability, Scalability and Maintainability in large applications.</p>
+
+                    </div>
+                </div>
+                <div class="col-right avoid-break">
+                    <div class="meta">
+                        <strong>Refactoring: Ruby Edition</strong>
+
+&ndash;
+                            <span class="title">
+                                Martin Fowler, Kent Beck
+                            </span>
+&ndash;
+                            <span class="title">
+                                https://www.amazon.com/Refactoring-Ruby-Addison-Wesley-Professional/dp/0321984137/ref=sr_1_1?dchild=1&amp;keywords=Refactoring%3A&#x2B;Ruby&#x2B;edition&amp;qid=1626480033&amp;s=audible&amp;sr=1-1
+                            </span>
+                    </div>
+                    <div class="description">
+                        <p>Martin Fowler's &quot;Refactoring&quot; but with ruby instead of Java.</p>
+
+                    </div>
+                </div>
+        </div>
+
+
+        <div class="col-full" toggle-section="tools" toggle-section-title="Tools">
+            <div class="col-left">
+                <h2>Tools</h2>
+            </div>
+            <div class="col-right">
+                <table>
+                        <tr toggle-id="first-computer" toggle-description="First Computer">
+                            <td class="tools">First Computer:</td>
+                            <td>Macintosh</td>
+                        </tr>
+                        <tr toggle-id="favorite-editor" toggle-description="Favorite Editor">
+                            <td class="tools">Favorite Editor:</td>
+                            <td>vim &#x2B; tmux</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+</div>
+
+    </div>
+</body>
+</html>
