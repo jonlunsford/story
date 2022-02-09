@@ -3,6 +3,22 @@ defmodule Story.SOStoryScraper do
   Scraper for Stack Overflow Dev Stories
   """
 
+  def fetch_and_parse_story(url) do
+    case HTTPoison.get(url) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        parse_full_document({body, %{}})
+
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        %{status: "Not Found"}
+
+      {:ok, %HTTPoison.Response{status_code: code}} ->
+        %{status: code}
+
+      {:ok, %HTTPoison.Error{reason: reason}} ->
+        %{error: reason}
+    end
+  end
+
   def parse_full_document({html, map}) do
     get_name({html, map})
     |> get_job()
@@ -18,27 +34,27 @@ defmodule Story.SOStoryScraper do
   end
 
   def get_name({html, map}) do
-    [{_tag, _attrs, [name]}] =
+    name =
       parse_document(html)
-      |> Floki.find("#form-section-PersonalInfo div.name h4")
+      |> get_text("#form-section-PersonalInfo div.name h4")
 
     {html, Map.put(map, :name, name)}
   end
 
   def get_job({html, map}) do
-    [{_tag, _attrs, [job]}] =
+    job =
       parse_document(html)
-      |> Floki.find("#form-section-PersonalInfo div.job")
+      |> get_text("#form-section-PersonalInfo div.job")
 
-    {html, Map.put(map, :job, String.trim(job))}
+    {html, Map.put(map, :job, job)}
   end
 
   def get_location({html, map}) do
-    [{_tag, _attrs, [job]}] =
+    location =
       parse_document(html)
-      |> Floki.find("div#form-section-PersonalInfo div.ai-center div.wmx2.truncate")
+      |> get_text("div#form-section-PersonalInfo div.ai-center div.wmx2.truncate")
 
-    {html, Map.put(map, :location, String.trim(job))}
+    {html, Map.put(map, :location, location)}
   end
 
   def get_links({html, map}) do
@@ -58,13 +74,21 @@ defmodule Story.SOStoryScraper do
   end
 
   def get_rep({html, map}) do
-    parsed =
-      parse_document(html)
-      |> Floki.find("div#form-section-PersonalInfo div.network-account [title='Stack Overflow']")
+    parsed = parse_document(html)
 
-    [href] = Floki.attribute(parsed, "href")
+    result =
+      case Floki.find(
+             parsed,
+             "div#form-section-PersonalInfo div.network-account [title='Stack Overflow']"
+           ) do
+        [] ->
+          nil
 
-    result = %{rep: Floki.text(parsed), href: href}
+        el ->
+          [href] = Floki.attribute(el, "href")
+
+          %{rep: Floki.text(el), href: href}
+      end
 
     {html, Map.put(map, :so, result)}
   end
@@ -73,7 +97,7 @@ defmodule Story.SOStoryScraper do
     parsed =
       parse_document(html)
       |> Floki.find("div#form-section-PersonalStatementAndTools span.description-content-full p")
-      |> Floki.raw_html(encode: true)
+      |> Floki.raw_html()
 
     {html, Map.put(map, :intro_statement, parsed)}
   end
@@ -104,28 +128,37 @@ defmodule Story.SOStoryScraper do
   end
 
   def get_assessments({html, map}) do
+    parsed = parse_document(html)
+
     logo =
-      parse_document(html)
-      |> Floki.find("div.js-featured-assessments div.feature-banner--logo img")
-      |> then(fn html ->
-        [src] = Floki.attribute(html, "src")
-        [alt] = Floki.attribute(html, "alt")
-        %{img: src, alt: alt}
-      end)
+      case Floki.find(parsed, "div.js-featured-assessments div.feature-banner--logo img") do
+        [] ->
+          ""
+
+        el ->
+          [src] = Floki.attribute(el, "src")
+          [alt] = Floki.attribute(el, "alt")
+          %{img: src, alt: alt}
+      end
 
     items =
-      parse_document(html)
-      |> Floki.find(
-        "div.js-featured-assessments div.feature-banner--iqs div.feature-banner--items"
-      )
-      |> Enum.map(fn item ->
-        img = Floki.find(item, "a img")
-        tag = Floki.find(item, "span.s-tag") |> Floki.text()
-        [src] = Floki.attribute(img, "src")
-        [alt] = Floki.attribute(img, "alt")
+      case Floki.find(
+             parsed,
+             "div.js-featured-assessments div.feature-banner--iqs div.feature-banner--items"
+           ) do
+        [] ->
+          ""
 
-        %{tag: tag, img: src, alt: alt}
-      end)
+        els ->
+          Enum.map(els, fn item ->
+            img = Floki.find(item, "a img")
+            tag = Floki.find(item, "span.s-tag") |> Floki.text()
+            [src] = Floki.attribute(img, "src")
+            [alt] = Floki.attribute(img, "alt")
+
+            %{tag: tag, img: src, alt: alt}
+          end)
+      end
 
     {html, Map.put(map, :assessments, %{banner_logo: logo, items: items})}
   end
@@ -229,5 +262,12 @@ defmodule Story.SOStoryScraper do
   defp parse_document(html) when is_binary(html) do
     {:ok, doc} = Floki.parse_document(html)
     doc
+  end
+
+  defp get_text(html, selector) do
+    case Floki.find(html, selector) do
+      [{_tag, _attrs, [text]}] -> String.trim(text)
+      _ -> ""
+    end
   end
 end
