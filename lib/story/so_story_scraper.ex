@@ -3,7 +3,7 @@ defmodule Story.SOStoryScraper do
   Scraper for Stack Overflow Dev Stories
   """
 
-  def fetch_and_parse_story(url) do
+  def fetch_and_parse(url) do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         parse_full_document({body, %{}})
@@ -19,6 +19,21 @@ defmodule Story.SOStoryScraper do
     end
   end
 
+  def fetch_and_save(url) do
+    case fetch_and_parse(url) do
+      {_html, map} ->
+        save_personal_info(map)
+        save_links(map)
+        save_stats(map)
+        save_readings(map)
+        save_timeline(map)
+        map
+
+      %{status: status} -> %{status: status}
+      %{error: reason} -> %{error: reason}
+    end
+  end
+
   def parse_full_document({html, map}) do
     get_name({html, map})
     |> get_job()
@@ -31,6 +46,102 @@ defmodule Story.SOStoryScraper do
     |> get_assessments()
     |> get_timeline()
     |> get_reading()
+  end
+
+  def save_personal_info(map) do
+    tools = String.split(map.tools, "•")
+
+    editor =
+      tools
+      |> List.first()
+      |> String.trim("Favorite editor: ")
+
+    computer =
+      tools
+      |> List.last()
+      |> String.trim("First computer: ")
+
+    attrs = %{
+      favorite_editor: editor,
+      first_computer: computer,
+      job_title: map.job,
+      location: map.location,
+      name: map.name,
+      statement: map.intro_statement
+    }
+
+    tags = Enum.map(map.technologies, fn name -> %{name: name} end)
+
+    Story.Profiles.create_and_tag_info(attrs, tags)
+  end
+
+  def save_links(map) do
+    Enum.map(map.links, fn link ->
+      {:ok, link} = Story.Profiles.create_link(%{url: link.href, text: link.text})
+      link
+    end)
+  end
+
+  def save_stats(map) do
+    assessment_stats =
+      Enum.map(map.assessments.items, fn item ->
+        %{
+          type: "assessment",
+          description: item.alt,
+          img: item.img,
+          tags: [item.tag]
+        }
+      end)
+
+    so_rep_stat = %{
+      type: "so_reputation",
+      description: map.so.rep,
+      url: map.so.href,
+      tags: []
+    }
+
+    all_stats = assessment_stats ++ [so_rep_stat]
+
+    Enum.map(all_stats, fn stat ->
+      {tags, attrs} = Map.pop(stat, :tags, [])
+      tags = Enum.map(tags, fn tag -> %{name: tag} end)
+
+      Story.Stats.create_and_tag_stat(attrs, tags)
+    end)
+  end
+
+  def save_readings(map) do
+    Enum.map(map.reading, fn reading ->
+      {:ok, reading} = Story.Pages.create_reading(reading)
+      reading
+    end)
+  end
+
+  def save_timeline(map) do
+    Enum.map(map.timeline, fn item ->
+      dates =
+        String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
+
+      {:ok, naive_start_date} = convert_date_to_db(List.first(dates))
+      {:ok, naive_end_date} = convert_date_to_db(List.last(dates))
+
+      tags = Enum.map(item.tags, fn tag -> %{name: tag} end)
+
+      Story.Timelines.create_and_tag_item(%{
+        start_date: naive_start_date,
+        end_date: naive_end_date,
+        current_position: String.equivalent?(List.last(dates), "Current"),
+        description: item.description,
+        img: item.img,
+        location: item.location,
+        order_by: 0,
+        title: item.title,
+        type: item.type,
+        url: item.url,
+        #user_id: nil,
+        #page_id: nil,
+      }, tags)
+    end)
   end
 
   def get_name({html, map}) do
@@ -82,7 +193,7 @@ defmodule Story.SOStoryScraper do
              "div#form-section-PersonalInfo div.network-account [title='Stack Overflow']"
            ) do
         [] ->
-          nil
+          %{rep: "", href: ""}
 
         el ->
           [href] = Floki.attribute(el, "href")
@@ -96,7 +207,7 @@ defmodule Story.SOStoryScraper do
   def get_intro_statement({html, map}) do
     parsed =
       parse_document(html)
-      |> Floki.find("div#form-section-PersonalStatementAndTools span.description-content-full p")
+      |> Floki.find("div#form-section-PersonalStatementAndTools span.description-content-full *")
       |> Floki.raw_html()
 
     {html, Map.put(map, :intro_statement, parsed)}
@@ -133,7 +244,7 @@ defmodule Story.SOStoryScraper do
     logo =
       case Floki.find(parsed, "div.js-featured-assessments div.feature-banner--logo img") do
         [] ->
-          ""
+          %{}
 
         el ->
           [src] = Floki.attribute(el, "src")
@@ -147,7 +258,7 @@ defmodule Story.SOStoryScraper do
              "div.js-featured-assessments div.feature-banner--iqs div.feature-banner--items"
            ) do
         [] ->
-          ""
+          []
 
         els ->
           Enum.map(els, fn item ->
@@ -269,5 +380,50 @@ defmodule Story.SOStoryScraper do
       [{_tag, _attrs, [text]}] -> String.trim(text)
       _ -> ""
     end
+  end
+
+  defp convert_date_to_db("Jan" <> year),
+    do: NaiveDateTime.new(parse_year(year), 1, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Feb" <> year),
+    do: NaiveDateTime.new(parse_year(year), 2, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Mar" <> year),
+    do: NaiveDateTime.new(parse_year(year), 3, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Apr" <> year),
+    do: NaiveDateTime.new(parse_year(year), 4, 1, 0, 0, 0)
+
+  defp convert_date_to_db("May" <> year),
+    do: NaiveDateTime.new(parse_year(year), 5, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Jun" <> year),
+    do: NaiveDateTime.new(parse_year(year), 6, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Jul" <> year),
+    do: NaiveDateTime.new(parse_year(year), 7, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Aug" <> year),
+    do: NaiveDateTime.new(parse_year(year), 8, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Sep" <> year),
+    do: NaiveDateTime.new(parse_year(year), 9, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Oct" <> year),
+    do: NaiveDateTime.new(parse_year(year), 10, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Nov" <> year),
+    do: NaiveDateTime.new(parse_year(year), 11, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Dec" <> year),
+    do: NaiveDateTime.new(parse_year(year), 12, 1, 0, 0, 0)
+
+  defp convert_date_to_db("Current"), do: {:ok, NaiveDateTime.utc_now()}
+  defp convert_date_to_db(_), do: {:ok, nil}
+
+  def parse_year(string) do
+    string
+    |> String.trim()
+    |> String.to_integer()
   end
 end

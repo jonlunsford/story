@@ -22,6 +22,45 @@ defmodule Story.SOStoryScraperTest do
            ]
   end
 
+  test "it saves personal info" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    {_html, result} = SOStoryScraper.parse_full_document({html, %{}})
+
+    assert %Story.Profiles.Info{} = SOStoryScraper.save_personal_info(result)
+  end
+
+  test "it saves stats" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+    result = SOStoryScraper.save_stats(parsed)
+
+    assert %Story.Stats.Stat{} = List.first(result)
+  end
+
+  test "it saves links" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+    result = SOStoryScraper.save_links(parsed)
+
+    assert %Story.Profiles.Link{} = List.first(result)
+  end
+
+  test "it saves readings" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+    result = SOStoryScraper.save_readings(parsed)
+
+    assert %Story.Pages.Reading{} = List.first(result)
+  end
+
+  test "it saves timelines" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+    result = SOStoryScraper.save_timeline(parsed)
+
+    assert %Story.Timelines.Item{} = List.first(result)
+  end
+
   test "it gets the name" do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
     {_html, result} = SOStoryScraper.get_name({html, %{}})
