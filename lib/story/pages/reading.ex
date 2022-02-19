@@ -7,8 +7,8 @@ defmodule Story.Pages.Reading do
     field :description, :string
     field :title, :string
     field :url, :string
-    field :page_id, :id
-    field :user_id, :id
+    belongs_to :page, Story.Pages.Page
+    belongs_to :user, Story.Accounts.User
 
     timestamps()
   end

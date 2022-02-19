@@ -7,6 +7,11 @@ defmodule Story.Pages.Page do
     field :slug, :string
     field :title, :string
     field :user_id, :id
+    has_many :readings, Story.Pages.Reading
+    has_many :stats, Story.Stats.Stat
+    has_many :timeline_items, Story.Timelines.Item
+    has_many :links, Story.Profiles.Link
+    has_one :personal_information, Story.Profiles.Info
 
     timestamps()
   end

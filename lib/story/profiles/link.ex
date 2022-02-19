@@ -6,8 +6,8 @@ defmodule Story.Profiles.Link do
     field :active, :boolean, default: true
     field :text, :string
     field :url, :string
-    field :page_id, :id
     field :user_id, :id
+    belongs_to :page, Story.Pages.Page
 
     timestamps()
   end

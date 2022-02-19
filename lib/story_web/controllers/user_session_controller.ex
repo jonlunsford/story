@@ -8,6 +8,10 @@ defmodule StoryWeb.UserSessionController do
     render(conn, "new.html", error_message: nil)
   end
 
+  def create_from_preview(conn, params) do
+    create(conn, params)
+  end
+
   def create(conn, %{"user" => user_params}) do
     %{"email" => email, "password" => password} = user_params
 

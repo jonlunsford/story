@@ -21,6 +21,7 @@ defmodule StoryWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/story/:slug", PageController, :show
   end
 
   # Other scopes may use custom stacks.
@@ -65,11 +66,14 @@ defmodule StoryWeb.Router do
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
     get "/users/log_in", UserSessionController, :new
+    get "/users/log_in_from_preview", UserSessionController, :create_from_preview
     post "/users/log_in", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
+
+    live "/users/story/preview", PreviewLive
   end
 
   scope "/", StoryWeb do

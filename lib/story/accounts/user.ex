@@ -7,6 +7,7 @@ defmodule Story.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :slug, :string
 
     timestamps()
   end
@@ -30,9 +31,25 @@ defmodule Story.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :slug])
     |> validate_email()
     |> validate_password(opts)
+    |> validate_length(:slug, max: 50)
+    |> format_slug()
+    |> unique_constraint(:slug)
+  end
+
+  defp format_slug(changeset) do
+    formatted_slug =
+      case get_change(changeset, :slug) do
+        nil -> nil
+        slug ->
+          slug
+          |> String.replace(" ", "-")
+          |> String.trim()
+      end
+
+    put_change(changeset, :slug, formatted_slug)
   end
 
   defp validate_email(changeset) do
@@ -67,6 +84,15 @@ defmodule Story.Accounts.User do
     else
       changeset
     end
+  end
+
+  def slug_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:slug])
+    |> format_slug()
+    |> validate_length(:slug, max: 50)
+    |> validate_required(:slug)
+    |> unique_constraint(:slug)
   end
 
   @doc """

@@ -3,13 +3,16 @@ defmodule Story.SOStoryScraper do
   Scraper for Stack Overflow Dev Stories
   """
 
+  alias Story.Pages.{Page, Reading}
+  alias Story.Profiles.{Info, Link}
+  alias Story.Tags.Tag
+  alias Story.Stats.Stat
+  alias Story.Timelines.Item
+
   def fetch_and_parse(url) do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         parse_full_document({body, %{}})
-
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-        %{status: "Not Found"}
 
       {:ok, %HTTPoison.Response{status_code: code}} ->
         %{status: code}
@@ -29,13 +32,92 @@ defmodule Story.SOStoryScraper do
         save_timeline(map)
         map
 
-      %{status: status} -> %{status: status}
-      %{error: reason} -> %{error: reason}
+      %{status: status} ->
+        %{status: status}
+
+      %{error: reason} ->
+        %{error: reason}
     end
+  end
+
+  def parse_to_structs({html, map}) do
+    {_html, map} = parse_full_document({html, map})
+
+    slug = String.downcase(map.name) |> String.replace(" ", "-")
+
+    stats =
+      Enum.map(map.assessments.items, fn assessment ->
+        %Stat{
+          description: assessment.alt,
+          title: assessment.alt,
+          img: assessment.img,
+          type: "assessment",
+          tags: [%Tag{name: assessment.tag}]
+        }
+      end)
+
+    stats =
+      stats ++
+        [%Stat{title: "Stack Overflow Reputation", description: map.so.rep, type: "so_rep"}]
+
+    %Page{
+      description: "Imported From StackOverflow",
+      slug: slug,
+      title: "#{map.name}'s DevStory",
+      readings: Enum.map(map.reading, fn reading -> struct(%Reading{}, reading) end),
+      stats: stats,
+      links: Enum.map(map.links, fn link -> %Link{url: link.href, text: link.text} end),
+      timeline_items: Enum.map(map.timeline, &build_item/1),
+      personal_information: build_info(map)
+    }
+  end
+
+  def build_item(item) do
+    tags = Enum.map(item.tags, fn tag -> %Tag{name: tag} end)
+    dates = String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
+    current_position = String.equivalent?(List.last(dates), "Current")
+
+    {:ok, naive_start_date} = convert_date_to_db(List.first(dates))
+    {:ok, naive_end_date} = convert_date_to_db(List.last(dates))
+
+    item =
+      item
+      |> Map.put(:tags, tags)
+      |> Map.put(:start_date, naive_start_date)
+      |> Map.put(:end_date, naive_end_date)
+      |> Map.put(:current_position, current_position)
+
+    struct(%Item{}, item)
+  end
+
+  def build_info(map) do
+    tools = String.split(map.tools, "•")
+
+    editor =
+      tools
+      |> List.first()
+      |> String.trim("Favorite editor: ")
+
+    computer =
+      tools
+      |> List.last()
+      |> String.trim(" First computer: ")
+
+    %Info{
+      statement: map.intro_statement,
+      job_title: map.job,
+      name: map.name,
+      location: map.location,
+      favorite_editor: editor,
+      first_computer: computer,
+      picture_url: map.picture_url,
+      tags: Enum.map(map.technologies, fn tech -> %Tag{name: tech} end)
+    }
   end
 
   def parse_full_document({html, map}) do
     get_name({html, map})
+    |> get_picture_url()
     |> get_job()
     |> get_location()
     |> get_links()
@@ -119,29 +201,45 @@ defmodule Story.SOStoryScraper do
 
   def save_timeline(map) do
     Enum.map(map.timeline, fn item ->
-      dates =
-        String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
+      dates = String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
 
       {:ok, naive_start_date} = convert_date_to_db(List.first(dates))
       {:ok, naive_end_date} = convert_date_to_db(List.last(dates))
 
       tags = Enum.map(item.tags, fn tag -> %{name: tag} end)
 
-      Story.Timelines.create_and_tag_item(%{
-        start_date: naive_start_date,
-        end_date: naive_end_date,
-        current_position: String.equivalent?(List.last(dates), "Current"),
-        description: item.description,
-        img: item.img,
-        location: item.location,
-        order_by: 0,
-        title: item.title,
-        type: item.type,
-        url: item.url,
-        #user_id: nil,
-        #page_id: nil,
-      }, tags)
+      Story.Timelines.create_and_tag_item(
+        %{
+          start_date: naive_start_date,
+          end_date: naive_end_date,
+          current_position: String.equivalent?(List.last(dates), "Current"),
+          description: item.description,
+          img: item.img,
+          location: item.location,
+          order_by: 0,
+          title: item.title,
+          type: item.type,
+          url: item.url
+          # user_id: nil,
+          # page_id: nil,
+        },
+        tags
+      )
     end)
+  end
+
+  def get_picture_url({html, map}) do
+    parsed = parse_document(html)
+
+    result =
+      case Floki.find(parsed, "#form-section-PersonalInfo .bs-md img") do
+        [] -> nil
+        el ->
+          [src] = Floki.attribute(el, "src")
+          src
+      end
+
+    {html, Map.put(map, :picture_url, result)}
   end
 
   def get_name({html, map}) do
@@ -152,12 +250,12 @@ defmodule Story.SOStoryScraper do
     {html, Map.put(map, :name, name)}
   end
 
-  def get_job({html, map}) do
+  def get_job({html, page}) do
     job =
       parse_document(html)
       |> get_text("#form-section-PersonalInfo div.job")
 
-    {html, Map.put(map, :job, job)}
+    {html, Map.put(page, :job, job)}
   end
 
   def get_location({html, map}) do
@@ -289,9 +387,10 @@ defmodule Story.SOStoryScraper do
             Floki.find(item, "span.timeline-item-date")
             |> Floki.text(deep: false)
             |> String.trim(),
-          description: Floki.find(item, ".description-content-truncated p") |> Floki.raw_html(),
+          description: Floki.find(item, ".description-content-truncated *") |> Floki.raw_html(),
           tags: Floki.find(item, ".s-tag") |> Enum.map(fn tag -> Floki.text(tag) end),
           title: details.title,
+          content_img: details.content_img,
           img: details.img,
           location: details.location,
           order_by: order_by,
@@ -331,7 +430,8 @@ defmodule Story.SOStoryScraper do
       title: alt |> String.trim("Title: "),
       img: src,
       location: nil,
-      url: nil
+      url: nil,
+      content_img: nil
     }
   end
 
@@ -360,11 +460,19 @@ defmodule Story.SOStoryScraper do
         _ -> nil
       end
 
+    content_img =
+      case Floki.find(item, ".img.full img") |> Floki.attribute("src") do
+        [src] -> src
+        [] -> nil
+        _ -> nil
+      end
+
     %{
       title: title_info.title,
       location: title_info.location,
       url: url,
-      img: img
+      img: img,
+      content_img: content_img
     }
   end
 

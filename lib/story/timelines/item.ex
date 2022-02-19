@@ -8,14 +8,15 @@ defmodule Story.Timelines.Item do
     field :current_position, :boolean
     field :description, :string
     field :img, :string
+    field :content_img, :string
     field :location, :string
     field :order_by, :integer
     field :title, :string
     field :type, :string
     field :url, :string
     field :user_id, :id
-    field :page_id, :id
     many_to_many :tags, Story.Tags.Tag, join_through: Story.Tags.TimelineItemTag
+    belongs_to :page, Story.Pages.Page
 
     timestamps()
   end
@@ -28,6 +29,7 @@ defmodule Story.Timelines.Item do
       :end_date,
       :current_position,
       :description,
+      :content_img,
       :img,
       :location,
       :order_by,

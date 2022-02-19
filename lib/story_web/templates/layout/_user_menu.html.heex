@@ -1,10 +1,16 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<div class="dropdown dropdown-end">
+  <div class="avatar cursor-pointer">
+    <div class="rounded-full w-10 h-10 m-1">
+      <a href="#" class="inline-block">
+        <img tab-index="0" title={@current_user.email} src={gravatar_for(@current_user.email)}>
+      </a>
+    </div>
+  </div>
+  <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 text-base-content rounded-box w-52">
+    <li class="menu-title">
+      <span><%= @current_user.email %></span>
+    </li>
+    <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
+    <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
+  </ul>
+</div>

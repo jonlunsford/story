@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="corporate">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,20 +10,30 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-          <%= render "_user_menu.html", assigns %>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
+    <header class="mb-8 bg-neutral">
+      <section class="container mx-auto">
+        <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+          <div class="flex-1 px-2 lg:flex-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+            </svg>
+            <a href="/" class="text-lg font-bold">DevStory</a>
+          </div>
+          <div class="flex justify-end flex-1 px-2">
+            <div class="flex items-stretch">
+              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <%= link "Live Dashboard", to: Routes.live_dashboard_path(@conn, :home), class: "btn btn-ghost rounded-btn" %>
+              <% end %>
+
+              <%= if @current_user do %>
+                  <%= render "_user_menu.html", assigns %>
+              <% else %>
+                <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
+                <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </section>
     </header>
     <%= @inner_content %>

@@ -1,26 +1,41 @@
-<h1>Reset password</h1>
+<h1 class="text-5xl font-bold mb-8">Reset password</h1>
 
 <.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+  <div class="p-10 card bg-base-200 mb-8">
+    <%= if @changeset.action do %>
+      <div class="alert alert-error">
+        <div class="flex-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+          </svg>
+          <label>Oops, something went wrong! Please check the errors below.</label>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-control mb-8">
+      <%= label f, :password, class: "label" do %>
+        <span class="label-text font-bold">New password</span>
+      <% end %>
+      <%= password_input f, :password, required: true, class: "input" %>
+      <%= error_tag f, :password %>
     </div>
-  <% end %>
 
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+    <div class="form-control mb-8">
+      <%= label f, :password_confirmation, class: "label" do %>
+        <span class="label-text font-bold">New password</span>
+      <% end %>
+      <%= password_input f, :password_confirmation, required: true, class: "input" %>
+      <%= error_tag f, :password_confirmation %>
+    </div>
 
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
-
-  <div>
-    <%= submit "Reset password" %>
+    <div>
+      <%= submit "Reset password", class: "btn btn-primary" %>
+    </div>
   </div>
 </.form>
 
 <p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+  <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "link link-primary" %> |
+  <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "link link-primary" %>
 </p>

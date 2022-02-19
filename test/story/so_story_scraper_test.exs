@@ -14,12 +14,20 @@ defmodule Story.SOStoryScraperTest do
              :links,
              :location,
              :name,
+             :picture_url,
              :reading,
              :so,
              :technologies,
              :timeline,
              :tools
            ]
+  end
+
+  test "it parses to changesets" do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    result = SOStoryScraper.parse_to_structs({html, %{}})
+
+    assert %Story.Pages.Page{} = result
   end
 
   test "it saves personal info" do

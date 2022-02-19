@@ -1,0 +1,74 @@
+<div  class="text-center w-1/2 mx-auto mb-12">
+
+  <%= if @page.personal_information.picture_url do %>
+    <img class="mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" tab-index="0" title={@page.personal_information.name} src={@page.personal_information.picture_url} />
+  <% end %>
+
+  <h4 class="text-2xl font-bold mb-2"><%= @page.personal_information.name %></h4>
+
+  <div class="mb-2 text-xl text-base-content italic"><%= @page.personal_information.job_title %></div>
+
+  <div class="mb-8">
+    <span class="text-secondary text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+      </svg>
+      <%= @page.personal_information.location %>
+    </span>
+
+    <%= for link <- @page.links do %>
+      <.icon_link url={link.url} text={link.text} />
+    <% end %>
+  </div>
+
+  <div id="intro-statement" class="prose lg:prose-xl mx-auto line-clamp-4 mb-2">
+    <%= raw @page.personal_information.statement %>
+  </div>
+  <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
+
+  <div class="divider my-6 w-1/4 mx-auto"></div>
+
+  <p class="mb-8">
+    <%= if @page.personal_information.favorite_editor do %>
+      <strong>Favorite editor:</strong> <%= @page.personal_information.favorite_editor %> •
+    <% end %>
+
+    <%= if @page.personal_information.first_computer do %>
+      <strong>First computer:</strong> <%= @page.personal_information.first_computer %>
+    <% end %>
+  </p>
+
+  <%= if Enum.any?(@page.personal_information.tags) do %>
+    <p class="mb-2">I want to work with:</p>
+  <% end %>
+
+  <%= for tag <- @page.personal_information.tags do %>
+    <span class="badge badge-secondary badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+  <% end %>
+</div>
+
+<div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
+
+<div class="mt-8 mb-12 flex flex-wrap justify-center">
+  <%= for stat <-  @page.stats do %>
+    <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
+  <% end %>
+</div>
+
+<div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
+
+<div class="min-h-full relative mt-8 mb-24 pt-16 mx-auto pb-48" style="width: 815px;">
+  <div class="w-px absolute left-1/2 border h-full"></div>
+
+  <%= for item <- @page.timeline_items do %>
+    <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type) %>
+  <% end %>
+</div>
+
+<div class="divider my-8 w-1/2 mx-auto text-secondary">Recommended Reading</div>
+
+<div class="grid grid-cols-3 gap-4 mx-auto mb-12" style="width: 800px;">
+  <%= for reading <- @page.readings do %>
+    <%= StoryWeb.PageView.render("reading.html", reading: reading) %>
+  <% end %>
+</div>

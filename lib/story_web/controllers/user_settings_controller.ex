@@ -4,7 +4,7 @@ defmodule StoryWeb.UserSettingsController do
   alias Story.Accounts
   alias StoryWeb.UserAuth
 
-  plug :assign_email_and_password_changesets
+  plug :assign_changesets
 
   def edit(conn, _params) do
     render(conn, "edit.html")
@@ -50,6 +50,20 @@ defmodule StoryWeb.UserSettingsController do
     end
   end
 
+  def update(conn, %{"action" => "update_slug"} = params) do
+    user = conn.assigns.current_user
+    %{"user" => user_params} = params
+
+    case Accounts.apply_user_slug(user, user_params) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Vanity URL updated successfully.")
+        |> redirect(to: Routes.user_settings_path(conn, :edit))
+      {:error, changeset} ->
+        render(conn, "edit.html", slug_changeset: changeset)
+    end
+  end
+
   def confirm_email(conn, %{"token" => token}) do
     case Accounts.update_user_email(conn.assigns.current_user, token) do
       :ok ->
@@ -64,11 +78,12 @@ defmodule StoryWeb.UserSettingsController do
     end
   end
 
-  defp assign_email_and_password_changesets(conn, _opts) do
+  defp assign_changesets(conn, _opts) do
     user = conn.assigns.current_user
 
     conn
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
+    |> assign(:slug_changeset, Accounts.change_user_slug(user))
   end
 end

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "daisyui": "^1.25.4",
+    "tailwindcss": "^3.0.22"
+  }
+}

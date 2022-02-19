@@ -108,6 +108,16 @@ defmodule Story.Accounts do
     User.email_changeset(user, attrs)
   end
 
+  def change_user_slug(user, attrs \\ %{}) do
+    User.slug_changeset(user, attrs)
+  end
+
+  def apply_user_slug(user, attrs) do
+    user
+    |> User.slug_changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.

@@ -31,7 +31,8 @@ defmodule StoryWeb do
     quote do
       use Phoenix.View,
         root: "lib/story_web/templates",
-        namespace: StoryWeb
+        namespace: StoryWeb,
+        pattern: "**/*"
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +46,8 @@ defmodule StoryWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {StoryWeb.LayoutView, "live.html"}
+        layout: {StoryWeb.LayoutView, "live.html"},
+        pattern: "**/*"
 
       unquote(view_helpers())
     end

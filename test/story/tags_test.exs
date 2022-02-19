@@ -149,7 +149,7 @@ defmodule Story.TagsTest do
 
     test "list_stat_tags/0 returns all stat_tags", %{tag_id: tag_id, stat_id: stat_id} do
       stat_tag = stat_tag_fixture(tag_id: tag_id, stat_id: stat_id)
-      assert List.last(Tags.list_stat_tags()) == stat_tag
+      assert Enum.member?(Tags.list_stat_tags(), stat_tag)
     end
 
     test "get_stat_tag!/1 returns the stat_tag with given id", %{tag_id: tag_id, stat_id: stat_id} do

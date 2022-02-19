@@ -10,7 +10,7 @@ defmodule Story.Stats.Stat do
     field :type, :string
     field :value, :float
     field :user_id, :id
-    field :page_id, :id
+    belongs_to :page, Story.Pages.Page
     many_to_many :tags, Story.Tags.Tag, join_through: Story.Tags.StatTag
 
     timestamps()
@@ -21,5 +21,6 @@ defmodule Story.Stats.Stat do
     stat
     |> cast(attrs, [:value, :title, :description, :url, :img, :type])
     |> validate_required([:description])
+    |> cast_assoc(:tags)
   end
 end
