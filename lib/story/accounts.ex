@@ -80,6 +80,20 @@ defmodule Story.Accounts do
     |> Repo.insert()
   end
 
+  def register_user_from_auth(%{provider: :github} = auth) do
+    email = auth.info.email
+
+    case get_user_by_email(email) do
+      nil ->
+        %User{}
+        |> User.oauth_changeset(%{email: email})
+        |> Repo.insert()
+
+      user ->
+        {:ok, user}
+    end
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 

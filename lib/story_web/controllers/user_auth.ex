@@ -81,6 +81,7 @@ defmodule StoryWeb.UserAuth do
     conn
     |> renew_session()
     |> delete_resp_cookie(@remember_me_cookie)
+    |> put_flash(:info, "You've been logged out.")
     |> redirect(to: "/")
   end
 

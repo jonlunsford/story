@@ -95,6 +95,12 @@ defmodule Story.Accounts.User do
     |> unique_constraint(:slug)
   end
 
+  def oauth_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email])
+    |> unique_constraint(:email)
+  end
+
   @doc """
   A user changeset for changing the email.
 

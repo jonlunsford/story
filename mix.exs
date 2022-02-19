@@ -52,7 +52,9 @@ defmodule Story.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 1.7"},
-      {:timex, "~> 3.7.6"}
+      {:timex, "~> 3.7.6"},
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_github, "~> 0.7"}
     ]
   end
 

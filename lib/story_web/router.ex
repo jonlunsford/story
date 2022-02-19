@@ -60,6 +60,16 @@ defmodule StoryWeb.Router do
 
   ## Authentication routes
 
+
+   scope "/auth", StoryWeb do
+      pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+      get "/:provider", OAuthController, :request
+      get "/:provider/callback", OAuthController, :callback
+      post "/:provider/callback", OAuthController, :callback
+      delete "/logout", OAuthController, :delete
+    end
+
   scope "/", StoryWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
