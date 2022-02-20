@@ -1,4 +1,4 @@
-  <div class={"timeline-item relative border p-4 w-96 rounded-md mb-8 #{String.replace(@type, " ", "-") |> String.downcase()}"}>
+  <div class={"timeline-item bg-base-100 shadow-sm relative border p-4 w-96 rounded-md mb-8 #{String.replace(@type, " ", "-") |> String.downcase()}"}>
     <header class="text-xs text-secondary mb-6">
       <%= @type %> •
     <%= if @item.start_date do %>

@@ -9,7 +9,11 @@ defmodule StoryWeb.UserSessionController do
   end
 
   def create_from_preview(conn, params) do
-    create(conn, params)
+    %{"so_url" => so_url} = params
+
+    conn
+    |> put_session(:user_return_to, Routes.live_path(conn, StoryWeb.ImportLive, %{so_url: so_url}))
+    |> create(params)
   end
 
   def create(conn, %{"user" => user_params}) do

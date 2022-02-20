@@ -6,7 +6,7 @@
   <.form let={f} for={@slug_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_slug">
     <%= hidden_input f, :action, name: "action", value: "update_slug" %>
 
-    <div class="p-10 card bg-base-200 border border-base-300">
+    <div class="p-10 card bg-base-100 border border-base-300">
       <%= if @slug_changeset.action do %>
         <div class="alert alert-danger">
           <p>Oops, something went wrong! Please check the errors below.</p>
@@ -39,7 +39,7 @@
 
     <%= hidden_input f, :action, name: "action", value: "update_email" %>
 
-    <div class="p-10 card bg-base-200 border border-base-300">
+    <div class="p-10 card bg-base-100 border border-base-300">
       <%= if @email_changeset.action do %>
         <div class="alert alert-danger">
           <p>Oops, something went wrong! Please check the errors below.</p>
@@ -74,7 +74,7 @@
 
     <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
-    <div class="p-10 card bg-base-200 border border-base-300 mb-8">
+    <div class="p-10 card bg-base-100 border border-base-300 mb-8">
       <%= if @password_changeset.action do %>
         <div class="alert alert-danger">
           <p>Oops, something went wrong! Please check the errors below.</p>

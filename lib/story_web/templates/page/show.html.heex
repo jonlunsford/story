@@ -57,15 +57,15 @@
 
 <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
 
-<div class="min-h-full relative mt-8 mb-24 pt-16 mx-auto pb-48" style="width: 815px;">
-  <div class="w-px absolute left-1/2 border h-full"></div>
+<div class="min-h-full relative mt-8 pt-16 mx-auto" style="width: 815px;">
+  <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
   <%= for item <- @page.timeline_items do %>
     <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type) %>
   <% end %>
 </div>
 
-<div class="divider my-8 w-1/2 mx-auto text-secondary">Recommended Reading</div>
+<div class="divider my-12 w-1/2 mx-auto text-secondary">Recommended Reading</div>
 
 <div class="grid grid-cols-3 gap-4 mx-auto mb-12" style="width: 800px;">
   <%= for reading <- @page.readings do %>

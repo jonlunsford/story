@@ -1,4 +1,4 @@
-<div class={"timeline-item relative border pt-4 w-96 rounded-md mb-8 #{String.replace(@type, " ", "-") |> String.downcase()}"}>
+<div class={"timeline-item bg-base-100 shadow-sm relative border pt-4 w-96 rounded-md mb-8 #{String.replace(@type, " ", "-") |> String.downcase()}"}>
   <header class="text-xs text-secondary mb-6 px-4">
     <%= @type %> •
     <%= Calendar.strftime(@item.start_date, "%B, %Y") %>

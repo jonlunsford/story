@@ -20,16 +20,16 @@ defmodule StoryWeb.PreviewLive do
     ~H"""
     <div class="lg:w-1/2 mx-auto mb-12 sticky -top-36 z-10">
       <h1 class="text-5xl font-bold mb-8">Preview</h1>
-      <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit and claim your DevStory vanity url.</p>
+      <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
 
       <%= if !@page do %>
         <form phx-submit="fetch-story">
-          <div class="p-10 card bg-base-200 border border-base-300">
+          <div class="p-10 card bg-base-100 shadow-lg border border-base-300">
             <div class="form-control mb-8">
-              <label for="so_id" class="label font-bold">
+              <label for="so_url" class="label font-bold">
                 <span class="label-text">StackOverflow Story URL:</span>
               </label>
-              <input type="text" class="input input-bordered" name="so_id" placeholder="https://stackoverflow.com/story/my-vanity-url" />
+              <input type="text" class="input input-bordered" name="so_url" placeholder="https://stackoverflow.com/story/my-vanity-url" />
               <p class="text-secondary text-xs pt-2">Example: <br /> https://stackoverflow.com/story/my-vanity-url <strong>OR</strong> https://stackoverflow.com/users/story/123456</p>
              </div>
              <div>
@@ -40,7 +40,7 @@ defmodule StoryWeb.PreviewLive do
       <% end %>
 
       <%= if @page do %>
-        <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 btn-block modal-button rounded-t-none">Create Account</button>
+        <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 btn-block modal-button rounded-t-none">Create Account to Save, Edit & Share</button>
         <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
       <% end %>
     </div>
@@ -51,14 +51,14 @@ defmodule StoryWeb.PreviewLive do
     """
   end
 
-  def handle_event("fetch-story", %{"so_id" => so_id}, socket) do
-    {html, story} = SOStoryScraper.fetch_and_parse(so_id)
+  def handle_event("fetch-story", %{"so_url" => so_url}, socket) do
+    {html, story} = SOStoryScraper.fetch_and_parse(so_url)
     page = SOStoryScraper.parse_to_structs({html, story})
 
     slug =
-      case String.contains?(so_id, "stackoverflow.com/story/") do
+      case String.contains?(so_url, "stackoverflow.com/story/") do
         true ->
-          "https://stackoverflow.com/story/" <> vanity_slug = so_id
+          "https://stackoverflow.com/story/" <> vanity_slug = so_url
           vanity_slug
 
         false ->
@@ -67,8 +67,8 @@ defmodule StoryWeb.PreviewLive do
 
     {:noreply,
      socket
+     |> assign(:so_url, so_url)
      |> assign(:vanity_slug, slug)
-     |> push_event("toggle-class", %{selector: ".modal", class: "modal-open"})
      |> assign(:page, page)}
   end
 
@@ -84,7 +84,7 @@ defmodule StoryWeb.PreviewLive do
         {:noreply,
          socket
          |> put_flash(:info, "Account created! Hang tight while your content is now imported.")
-         |> redirect(to: Routes.user_session_path(StoryWeb.Endpoint, :create_from_preview, %{user: user_params}))}
+         |> redirect(to: Routes.user_session_path(StoryWeb.Endpoint, :create_from_preview, %{user: user_params, so_url: socket.assigns.so_url}))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
