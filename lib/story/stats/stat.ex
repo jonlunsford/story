@@ -19,8 +19,8 @@ defmodule Story.Stats.Stat do
   @doc false
   def changeset(stat, attrs) do
     stat
-    |> cast(attrs, [:value, :title, :description, :url, :img, :type])
-    |> validate_required([:description])
+    |> cast(attrs, [:value, :title, :description, :url, :img, :type, :user_id, :page_id])
+    |> validate_required([:description, :user_id])
     |> cast_assoc(:tags)
   end
 end

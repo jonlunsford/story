@@ -6,7 +6,7 @@ defmodule Story.Profiles.Link do
     field :active, :boolean, default: true
     field :text, :string
     field :url, :string
-    field :user_id, :id
+    belongs_to :user, Story.Accounts.User
     belongs_to :page, Story.Pages.Page
 
     timestamps()
@@ -15,7 +15,7 @@ defmodule Story.Profiles.Link do
   @doc false
   def changeset(link, attrs) do
     link
-    |> cast(attrs, [:url, :text, :active])
-    |> validate_required([:url, :text])
+    |> cast(attrs, [:url, :text, :active, :user_id, :page_id])
+    |> validate_required([:url, :text, :user_id, :page_id])
   end
 end

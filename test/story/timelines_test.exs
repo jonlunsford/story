@@ -3,6 +3,13 @@ defmodule Story.TimelinesTest do
 
   alias Story.Timelines
 
+  setup do
+    user = Story.AccountsFixtures.user_fixture()
+    page = Story.PagesFixtures.page_fixture(%{user_id: user.id})
+
+    {:ok, page_id: page.id, user_id: user.id}
+  end
+
   describe "timeline_items" do
     alias Story.Timelines.Item
 
@@ -31,7 +38,7 @@ defmodule Story.TimelinesTest do
       assert Timelines.get_item!(item.id) == item
     end
 
-    test "create_item/1 with valid data creates a item" do
+    test "create_item/1 with valid data creates a item", %{user_id: user_id, page_id: page_id} do
       valid_attrs = %{
         start_date: ~N[2022-02-09 05:03:00],
         description: "some description",
@@ -40,7 +47,9 @@ defmodule Story.TimelinesTest do
         order_by: 42,
         title: "some title",
         type: "some type",
-        url: "some url"
+        url: "some url",
+        user_id: user_id,
+        page_id: page_id
       }
 
       assert {:ok, %Item{} = item} = Timelines.create_item(valid_attrs)
@@ -54,14 +63,26 @@ defmodule Story.TimelinesTest do
       assert item.url == "some url"
     end
 
-    test "create_and_tag_item/2 with valid data returns the item" do
+    test "create_and_tag_item/2 with valid data returns the item", %{
+      user_id: user_id,
+      page_id: page_id
+    } do
       result =
-        Timelines.create_and_tag_item(%{start_date: ~N[2022-09-09 00:00:00], title: "Foo"}, [
-          %{name: "Biz"},
-          %{name: "Baz"}
-        ])
+        Timelines.create_and_tag_item(
+          %{
+            start_date: ~N[2022-09-09 00:00:00],
+            title: "Foo",
+            user_id: user_id,
+            page_id: page_id
+          },
+          [
+            %{name: "Biz"},
+            %{name: "Baz"}
+          ]
+        )
 
-      assert %Item{start_date: _, title: "Foo", tags: [%Story.Tags.Tag{}, %Story.Tags.Tag{}]} = result
+      assert %Item{start_date: _, title: "Foo", tags: [%Story.Tags.Tag{}, %Story.Tags.Tag{}]} =
+               result
     end
 
     test "create_item/1 with invalid data returns error changeset" do

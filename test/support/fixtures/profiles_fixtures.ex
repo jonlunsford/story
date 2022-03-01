@@ -17,7 +17,9 @@ defmodule Story.ProfilesFixtures do
         location: "some location",
         name: "some name",
         picture_url: "some picture_url",
-        statement: "some statement"
+        statement: "some statement",
+        page_id: Story.PagesFixtures.page_fixture().id,
+        user_id: Story.AccountsFixtures.user_fixture().id
       })
       |> Story.Profiles.create_info()
 
@@ -38,7 +40,9 @@ defmodule Story.ProfilesFixtures do
       |> Enum.into(%{
         active: true,
         text: "some text",
-        url: "some url"
+        url: "some url",
+        page_id: Story.PagesFixtures.page_fixture().id,
+        user_id: Story.AccountsFixtures.user_fixture().id
       })
       |> Story.Profiles.create_link()
 

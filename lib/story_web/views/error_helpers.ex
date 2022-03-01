@@ -17,6 +17,26 @@ defmodule StoryWeb.ErrorHelpers do
     end)
   end
 
+  def serilize_errors(%Ecto.Changeset{} = changeset) do
+    Enum.map(changeset.errors, fn error ->
+      {field, {message, _validation}} = error
+
+      Map.new()
+      |> Map.put(field, message)
+    end)
+  end
+
+  def get_error_messages(%Ecto.Changeset{} = changeset) do
+    Enum.map(changeset.errors, fn error ->
+      {_field, {message, _validation}} = error
+      message
+    end)
+  end
+
+  def error_to_string(:too_large), do: "Too large"
+  def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+  def error_to_string(:too_many_files), do: "You have selected too many files"
+
   @doc """
   Translates an error message using gettext.
   """

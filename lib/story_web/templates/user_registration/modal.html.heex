@@ -1,7 +1,7 @@
 <div id="regisration-modal" class="modal">
   <div class="modal-box">
-    <h3 class="font-bold text-lg">Register & save your story</h3>
-    <p class="text-secondary text-sm mb-2">After registering you will be able to modify anything you like.</p>
+    <h3 class="font-bold text-lg">Create an Account to Save, Edit & Share</h3>
+    <p class="text-secondary text-sm mb-2">After creating an account you will be able to modify anything you like.</p>
 
     <.form let={f} for={@changeset} phx-submit={@on_submit}>
       <%= if @changeset.action do %>
@@ -47,7 +47,7 @@
 
       <div class="modal-action">
         <a href="#" phx-click={JS.remove_class("modal-open", to: "#regisration-modal")} class="btn btn-ghost">Cancel</a>
-        <%= submit "Register", class: "btn btn-primary" %>
+        <%= submit "Create Account", class: "btn btn-primary" %>
       </div>
     </.form>
   </div>

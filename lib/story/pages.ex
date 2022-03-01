@@ -38,6 +38,33 @@ defmodule Story.Pages do
   def get_page!(id), do: Repo.get!(Page, id)
 
   @doc """
+  Gets a single page by slug.
+
+  Raises `Ecto.NoResultsError` if the Page does not exist.
+
+  ## Examples
+
+      iex> create_page(%{slug: "Foo"})
+      iex> get_page_by_slug("Foo")
+      {:ok, %Page{slug: "Foo"}}
+  """
+  def get_page_by_slug_for_user(slug, user_id),
+    do: Repo.get_by!(Page, slug: slug, user_id: user_id)
+
+  def get_user_latest_page(user) do
+    Page
+    |> where(user_id: ^user.id)
+    |> last()
+    |> Repo.one()
+    |> Repo.preload(
+      personal_information: [:tags],
+      stats: [:tags],
+      timeline_items: [:tags],
+      readings: []
+    )
+  end
+
+  @doc """
   Creates a page.
 
   ## Examples
@@ -53,6 +80,33 @@ defmodule Story.Pages do
     %Page{}
     |> Page.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates or finds a page.
+
+  ## Examples
+
+      iex> create_or_find_page(slug: "Foo")
+      {:ok, %Tag{}}
+
+      iex> create_or_find_page(name: "Bar")
+      iex> create_or_find_page(name: "Bar")
+      {:ok, %Page{name: "Bar"}}
+  """
+  def create_or_find_page(attrs \\ %{}) do
+    changeset = Page.changeset(%Page{}, attrs)
+
+    case Repo.insert(changeset) do
+      {:error,
+       %Ecto.Changeset{
+         errors: [slug: {_reason, [constraint: :unique, constraint_name: "pages_slug_index"]}]
+       }} ->
+        get_page_by_slug_for_user(changeset.changes.slug, changeset.changes.user_id)
+
+      {:ok, page} ->
+        page
+    end
   end
 
   @doc """
@@ -182,6 +236,7 @@ defmodule Story.Pages do
 
   """
   def delete_reading(%Reading{} = reading) do
+    reading = Repo.get_by!(Reading, user_id: reading.user_id, id: reading.id)
     Repo.delete(reading)
   end
 

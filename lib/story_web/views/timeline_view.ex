@@ -1,5 +1,6 @@
 defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
+  alias Phoenix.LiveView.JS
 
   def render_item("assessment", assigns) do
     render("items/assessment.html", assigns)
@@ -7,6 +8,11 @@ defmodule StoryWeb.TimelineView do
 
   def render_item(_, assigns) do
     render("items/default.html", assigns)
+  end
+
+  def year_select_range() do
+    cur_year = DateTime.utc_now().year
+    (cur_year - 50)..cur_year
   end
 
   def pretty_time_difference(start_date, end_date) do

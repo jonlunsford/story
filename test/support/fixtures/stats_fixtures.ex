@@ -14,7 +14,8 @@ defmodule Story.StatsFixtures do
         description: "some description",
         title: "some title",
         url: "some url",
-        value: 120.5
+        value: 120.5,
+        user_id: Story.AccountsFixtures.user_fixture().id
       })
       |> Story.Stats.create_stat()
 

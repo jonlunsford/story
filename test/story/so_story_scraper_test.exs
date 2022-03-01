@@ -3,15 +3,25 @@ defmodule Story.SOStoryScraperTest do
 
   alias Story.SOStoryScraper
 
+  import Story.AccountsFixtures
+  import Story.PagesFixtures
+
+  setup_all do
+    user = user_fixture()
+    page = page_fixture(%{user_id: user.id})
+
+    {:ok, %{user_id: user.id, page_id: page.id}}
+  end
+
   test "it parses an entire document" do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
     {_html, result} = SOStoryScraper.parse_full_document({html, %{}})
 
     assert Map.keys(result) == [
              :assessments,
+             :github,
              :intro_statement,
              :job,
-             :links,
              :location,
              :name,
              :picture_url,
@@ -19,7 +29,9 @@ defmodule Story.SOStoryScraperTest do
              :so,
              :technologies,
              :timeline,
-             :tools
+             :tools,
+             :twitter,
+             :website
            ]
   end
 
@@ -30,40 +42,43 @@ defmodule Story.SOStoryScraperTest do
     assert %Story.Pages.Page{} = result
   end
 
-  test "it saves personal info" do
+  test "it saves personal info", %{user_id: user_id, page_id: page_id} do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    {_html, result} = SOStoryScraper.parse_full_document({html, %{}})
 
-    assert %Story.Profiles.Info{} = SOStoryScraper.save_personal_info(result)
+    {_html, parsed} =
+      SOStoryScraper.parse_full_document({html, %{user_id: user_id, page_id: page_id}})
+
+    assert %Story.Profiles.Info{} = SOStoryScraper.save_personal_info(parsed)
   end
 
-  test "it saves stats" do
+  test "it saves stats", %{user_id: user_id, page_id: page_id} do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+
+    {_html, parsed} =
+      SOStoryScraper.parse_full_document({html, %{user_id: user_id, page_id: page_id}})
+
     result = SOStoryScraper.save_stats(parsed)
 
     assert %Story.Stats.Stat{} = List.first(result)
   end
 
-  test "it saves links" do
+  test "it saves readings", %{user_id: user_id, page_id: page_id} do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
-    result = SOStoryScraper.save_links(parsed)
 
-    assert %Story.Profiles.Link{} = List.first(result)
-  end
+    {_html, parsed} =
+      SOStoryScraper.parse_full_document({html, %{user_id: user_id, page_id: page_id}})
 
-  test "it saves readings" do
-    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
     result = SOStoryScraper.save_readings(parsed)
 
     assert %Story.Pages.Reading{} = List.first(result)
   end
 
-  test "it saves timelines" do
+  test "it saves timelines", %{user_id: user_id, page_id: page_id} do
     {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    {_html, parsed} = SOStoryScraper.parse_full_document({html, %{}})
+
+    {_html, parsed} =
+      SOStoryScraper.parse_full_document({html, %{user_id: user_id, page_id: page_id}})
+
     result = SOStoryScraper.save_timeline(parsed)
 
     assert %Story.Timelines.Item{} = List.first(result)
@@ -95,14 +110,9 @@ defmodule Story.SOStoryScraperTest do
     {_html, result} = SOStoryScraper.get_links({html, %{}})
 
     assert result == %{
-             links: [
-               %{
-                 href: "http://www.capturethecastle.net",
-                 text: "http://www.capturethecastle.net"
-               },
-               %{href: "https://twitter.com/jonlunsford1", text: "jonlunsford1"},
-               %{href: "https://github.com/jonlunsford", text: "jonlunsford"}
-             ]
+             website: "http://www.capturethecastle.net",
+             twitter: "jonlunsford1",
+             github: "jonlunsford"
            }
   end
 

@@ -19,8 +19,13 @@ defmodule Story.Pages.Page do
   @doc false
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:slug, :title, :description])
-    |> validate_required([:slug, :title, :description])
+    |> cast(attrs, [:slug, :title, :description, :user_id])
+    |> validate_required([:slug, :title, :description, :user_id])
     |> unique_constraint(:slug)
+    |> cast_assoc(:readings)
+    |> cast_assoc(:stats)
+    |> cast_assoc(:timeline_items)
+    |> cast_assoc(:links)
+    |> cast_assoc(:personal_information)
   end
 end

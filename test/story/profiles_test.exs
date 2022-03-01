@@ -4,6 +4,13 @@ defmodule Story.ProfilesTest do
   alias Story.Profiles
   alias Story.Tags.Tag
 
+  setup do
+    user = Story.AccountsFixtures.user_fixture()
+    page = Story.PagesFixtures.page_fixture(%{user_id: user.id})
+
+    {:ok, %{user_id: user.id, page_id: page.id}}
+  end
+
   describe "personal_information" do
     alias Story.Profiles.Info
 
@@ -29,7 +36,7 @@ defmodule Story.ProfilesTest do
       assert Profiles.get_info!(info.id) == info
     end
 
-    test "create_info/1 with valid data creates a info" do
+    test "create_info/1 with valid data creates a info", %{user_id: user_id, page_id: page_id} do
       valid_attrs = %{
         favorite_editor: "some favorite_editor",
         first_computer: "some first_computer",
@@ -37,7 +44,9 @@ defmodule Story.ProfilesTest do
         location: "some location",
         name: "some name",
         picture_url: "some picture_url",
-        statement: "some statement"
+        statement: "some statement",
+        user_id: user_id,
+        page_id: page_id
       }
 
       assert {:ok, %Info{} = info} = Profiles.create_info(valid_attrs)
@@ -54,8 +63,8 @@ defmodule Story.ProfilesTest do
       assert {:error, %Ecto.Changeset{}} = Profiles.create_info(@invalid_attrs)
     end
 
-    test "create_and_tag_info/2 with valid data returns the info" do
-      result = Profiles.create_and_tag_info(%{name: "Foo", job_title: "Bar"}, [%{name: "Biz"}, %{name: "Baz"}])
+    test "create_and_tag_info/2 with valid data returns the info", %{user_id: user_id, page_id: page_id} do
+      result = Profiles.create_and_tag_info(%{name: "Foo", job_title: "Bar", user_id: user_id, page_id: page_id}, [%{name: "Biz"}, %{name: "Baz"}])
 
       assert %Info{name: "Foo", tags: [%Tag{}, %Tag{}]} = result
     end
@@ -118,8 +127,8 @@ defmodule Story.ProfilesTest do
       assert Profiles.get_link!(link.id) == link
     end
 
-    test "create_link/1 with valid data creates a link" do
-      valid_attrs = %{active: true, text: "some text", url: "some url"}
+    test "create_link/1 with valid data creates a link", %{page_id: page_id, user_id: user_id} do
+      valid_attrs = %{active: true, text: "some text", url: "some url", page_id: page_id, user_id: user_id}
 
       assert {:ok, %Link{} = link} = Profiles.create_link(valid_attrs)
       assert link.active == true

@@ -94,6 +94,7 @@ defmodule StoryWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/users/story/import", ImportLive
+    live "/users/story/edit", EditLive
   end
 
   scope "/", StoryWeb do

@@ -17,6 +17,7 @@ defmodule Story.Pages.Reading do
   def changeset(reading, attrs) do
     reading
     |> cast(attrs, [:author, :description, :title, :url, :page_id, :user_id])
-    |> validate_required([:title])
+    |> validate_required([:title, :user_id])
+    |> foreign_key_constraint(:user_id, name: :readings_user_id_fkey)
   end
 end

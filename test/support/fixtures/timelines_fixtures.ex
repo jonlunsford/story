@@ -8,6 +8,8 @@ defmodule Story.TimelinesFixtures do
   Generate a item.
   """
   def item_fixture(attrs \\ %{}) do
+    user = Story.AccountsFixtures.user_fixture()
+
     {:ok, item} =
       attrs
       |> Enum.into(%{
@@ -20,7 +22,9 @@ defmodule Story.TimelinesFixtures do
         order_by: 42,
         title: "some title",
         type: "some type",
-        url: "some url"
+        url: "some url",
+        user_id: user.id,
+        page_id: Story.PagesFixtures.page_fixture(%{use_id: user.id}).id
       })
       |> Story.Timelines.create_item()
 

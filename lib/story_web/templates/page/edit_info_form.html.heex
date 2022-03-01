@@ -1,0 +1,110 @@
+<.form id="edit-info" let={f} for={@changeset} phx-submit="save" phx-change="validate" phx-target={@myself} class="hidden bg-base-100 p-4 border shadow-sm rounded-md text-left mb-8">
+  <h5 class="text-xl font-bold mb-4">Personal Information</h5>
+
+  <div class="mb-4" phx-drop-target={@uploads.avatar.ref}>
+    <div class="text-center mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" style="width: 136px;">
+      <%= if !Enum.any?(@uploads.avatar.entries) do %>
+        <img class="" tab-index="0" title={@info.name} src={@info.picture_url} />
+      <% end %>
+
+      <%= for entry <- @uploads.avatar.entries do %>
+        <article class="mx-auto" style="width: 136px;">
+          <figure class="w-24">
+            <%= live_img_preview entry %>
+          </figure>
+        </article>
+      <% end %>
+    </div>
+
+    <div class="w-24 mx-auto">
+      <%= live_file_input @uploads.avatar %>
+    </div>
+
+    <%= for err <- upload_errors(@uploads.avatar) do %>
+      <div class="alert shadow-lg alert-error">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span><%= error_to_string(err) %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-2">
+    <div class="form-control">
+      <%= label f, :name, class: "label" do %>
+        <span class="label-text font-bold">Name</span>
+      <% end %>
+      <%= text_input f, :name, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :name %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :job_title, class: "label" do %>
+        <span class="label-text font-bold">Title</span>
+      <% end %>
+      <%= text_input f, :job_title, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :job_title %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :location, class: "label" do %>
+        <span class="label-text font-bold">Location</span>
+      <% end %>
+      <%= text_input f, :location, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :location %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :website, class: "label" do %>
+        <span class="label-text font-bold">Website</span>
+      <% end %>
+      <%= text_input f, :website, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :website %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :twitter, class: "label" do %>
+        <span class="label-text font-bold">Twitter username</span>
+      <% end %>
+      <%= text_input f, :twitter, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :twitter %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :github, class: "label" do %>
+        <span class="label-text font-bold">GitHub username</span>
+      <% end %>
+      <%= text_input f, :github, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :github %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :favorite_editor, class: "label" do %>
+        <span class="label-text font-bold">Favorite Editor</span>
+      <% end %>
+      <%= text_input f, :favorite_editor, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :favorite_editor %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :first_computer, class: "label" do %>
+        <span class="label-text font-bold">First Computer</span>
+      <% end %>
+      <%= text_input f, :first_computer, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :first_computer %>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <%= label f, :statement, class: "label" do %>
+      <span class="label-text font-bold">Personal Statement</span>
+    <% end %>
+    <%= textarea f, :statement, class: "textarea input-bordered w-full", rows: 8 %>
+  </div>
+
+  <div class="text-right">
+    <button phx-click={JS.add_class("hidden", to: "#edit-info") |> JS.remove_class("hidden", to: "#info")} class="btn btn-ghost">Cancel</button>
+    <%= submit "Save", class: "btn btn-accent" %>
+  </div>
+</.form>

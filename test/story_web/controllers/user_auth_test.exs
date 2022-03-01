@@ -53,6 +53,7 @@ defmodule StoryWeb.UserAuthTest do
         conn
         |> put_session(:user_token, user_token)
         |> put_req_cookie(@remember_me_cookie, user_token)
+        |> fetch_flash()
         |> fetch_cookies()
         |> UserAuth.log_out_user()
 
@@ -69,13 +70,14 @@ defmodule StoryWeb.UserAuthTest do
 
       conn
       |> put_session(:live_socket_id, live_socket_id)
+      |> fetch_flash()
       |> UserAuth.log_out_user()
 
       assert_receive %Phoenix.Socket.Broadcast{event: "disconnect", topic: ^live_socket_id}
     end
 
     test "works even if user is already logged out", %{conn: conn} do
-      conn = conn |> fetch_cookies() |> UserAuth.log_out_user()
+      conn = conn |> fetch_flash() |> fetch_cookies() |> UserAuth.log_out_user()
       refute get_session(conn, :user_token)
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
       assert redirected_to(conn) == "/"

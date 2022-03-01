@@ -40,7 +40,7 @@ defmodule Story.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_view, "~> 0.17.7"},
       {:floki, "~> 0.32"},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
@@ -54,7 +54,8 @@ defmodule Story.MixProject do
       {:httpoison, "~> 1.7"},
       {:timex, "~> 3.7.6"},
       {:ueberauth, "~> 0.6"},
-      {:ueberauth_github, "~> 0.7"}
+      {:ueberauth_github, "~> 0.7"},
+      {:secure_random, "~> 0.5.1"}
     ]
   end
 

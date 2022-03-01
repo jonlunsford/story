@@ -6,25 +6,21 @@ defmodule StoryWeb.PreviewLive do
   alias Story.SOStoryScraper
 
   def mount(_params, _session, socket) do
-    # {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    # page = SOStoryScraper.parse_to_structs({html, %{}})
-
     {:ok,
      socket
-     |> assign(:changeset, Accounts.change_user_registration(%User{}))
-     |> assign(:vanity_slug, nil)
+     |> assign(:changeset, nil)
      |> assign(:page, nil)}
   end
 
   def render(assigns) do
     ~H"""
-    <div class="lg:w-1/2 mx-auto mb-12 sticky -top-36 z-10">
-      <h1 class="text-5xl font-bold mb-8">Preview</h1>
-      <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
+    <%= if !@page do %>
+      <div class="lg:w-1/2 mx-auto mb-12">
+        <h1 class="text-5xl font-bold mb-8">StackOverflow Preview</h1>
+        <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
 
-      <%= if !@page do %>
         <form phx-submit="fetch-story">
-          <div class="p-10 card bg-base-100 shadow-lg border border-base-300">
+          <div class="p-10 card bg-base-100 shadow-sm border border-base-300">
             <div class="form-control mb-8">
               <label for="so_url" class="label font-bold">
                 <span class="label-text">StackOverflow Story URL:</span>
@@ -37,16 +33,18 @@ defmodule StoryWeb.PreviewLive do
              </div>
           </div>
         </form>
-      <% end %>
-
-      <%= if @page do %>
-        <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 btn-block modal-button rounded-t-none">Create Account to Save, Edit & Share</button>
-        <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
     <%= if @page do %>
-      <%= StoryWeb.PageView.render("show.html", page: @page) %>
+      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
+      <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
+    <% end %>
+
+    <%= if @page do %>
+      <div class="mt-8">
+        <%= StoryWeb.PageView.render("show.html", page: @page) %>
+      </div>
     <% end %>
     """
   end
@@ -65,10 +63,12 @@ defmodule StoryWeb.PreviewLive do
           nil
       end
 
+    changeset = Accounts.change_user_registration(%User{}, %{slug: slug})
+
     {:noreply,
      socket
      |> assign(:so_url, so_url)
-     |> assign(:vanity_slug, slug)
+     |> assign(:changeset, changeset)
      |> assign(:page, page)}
   end
 
@@ -90,11 +90,4 @@ defmodule StoryWeb.PreviewLive do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
-
-  # defp load_file(relative_path) do
-  # (File.cwd!() <> relative_path)
-  # |> Path.expand(relative_path)
-  # |> Path.absname()
-  # |> File.read()
-  # end
 end

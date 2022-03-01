@@ -3,6 +3,12 @@ defmodule Story.PagesTest do
 
   alias Story.Pages
 
+  setup do
+    user = Story.AccountsFixtures.user_fixture()
+
+    {:ok, %{user_id: user.id}}
+  end
+
   describe "readings" do
     alias Story.Pages.Reading
 
@@ -20,8 +26,8 @@ defmodule Story.PagesTest do
       assert Pages.get_reading!(reading.id) == reading
     end
 
-    test "create_reading/1 with valid data creates a reading" do
-      valid_attrs = %{author: "some author", description: "some description", title: "some title", url: "some url"}
+    test "create_reading/1 with valid data creates a reading", %{user_id: user_id} do
+      valid_attrs = %{author: "some author", description: "some description", title: "some title", url: "some url", user_id: user_id}
 
       assert {:ok, %Reading{} = reading} = Pages.create_reading(valid_attrs)
       assert reading.author == "some author"
@@ -34,9 +40,9 @@ defmodule Story.PagesTest do
       assert {:error, %Ecto.Changeset{}} = Pages.create_reading(@invalid_attrs)
     end
 
-    test "update_reading/2 with valid data updates the reading" do
+    test "update_reading/2 with valid data updates the reading", %{user_id: user_id} do
       reading = reading_fixture()
-      update_attrs = %{author: "some updated author", description: "some updated description", title: "some updated title", url: "some updated url"}
+      update_attrs = %{author: "some updated author", description: "some updated description", title: "some updated title", url: "some updated url", user_id: user_id}
 
       assert {:ok, %Reading{} = reading} = Pages.update_reading(reading, update_attrs)
       assert reading.author == "some updated author"

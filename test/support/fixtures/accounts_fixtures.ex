@@ -4,8 +4,12 @@ defmodule Story.AccountsFixtures do
   entities via the `Story.Accounts` context.
   """
 
-  def unique_user_email, do: "user#{System.unique_integer()}@example.com"
-  def unique_slug, do: "user#{System.unique_integer()}-my-slug"
+  def time_stamp do
+    {:ok, time} = DateTime.now("Etc/UTC")
+    DateTime.to_unix(time)
+  end
+  def unique_user_email, do: "user#{System.unique_integer()}-#{time_stamp()}@example.com"
+  def unique_slug, do: "user#{System.unique_integer()}-my-#{time_stamp()}-slug"
   def valid_user_password, do: "hello world!"
 
   def valid_user_attributes(attrs \\ %{}) do

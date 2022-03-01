@@ -1,0 +1,5 @@
+<div id="info" class="group hover:bg-base-300 relative">
+  <button phx-click={JS.add_class("hidden", to: "#info") |> JS.remove_class("hidden", to: "#edit-info")} class="group-hover:visible right-0 top-0 absolute invisible rounded-sm btn btn-secondary btn-outline btn-sm">Edit</button>
+
+  <%= StoryWeb.PageView.render("_info.html", info: @info) %>
+</div>

@@ -208,7 +208,7 @@ defmodule Story.TagsTest do
 
     test "list_timeline_item_tags/0 returns all timeline_item_tags", %{tag_id: tag_id, item_id: item_id} do
       timeline_item_tag = timeline_item_tag_fixture(tag_id: tag_id, timeline_item_id: item_id)
-      assert List.last(Tags.list_timeline_item_tags()) == timeline_item_tag
+      assert Enum.member?(Tags.list_timeline_item_tags(), timeline_item_tag)
     end
 
     test "get_timeline_item_tag!/1 returns the timeline_item_tag with given id", %{tag_id: tag_id, item_id: item_id} do

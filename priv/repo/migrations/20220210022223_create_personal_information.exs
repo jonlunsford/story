@@ -11,11 +11,12 @@ defmodule Story.Repo.Migrations.CreatePersonalInformation do
       add :first_computer, :string
       add :picture_url, :string
       add :user_id, references(:users, on_delete: :delete_all)
-      belongs_to, :page, Story.Pages.Page
+      add :page_id, references(:pages, on_delete: :nothing)
 
       timestamps()
     end
 
     create index(:personal_information, [:user_id])
+    create index(:personal_information, [:page_id])
   end
 end

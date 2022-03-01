@@ -46,18 +46,58 @@ Hooks.ToggleClass = {
   },
 }
 
+Hooks.ContentEditable = {
+  mounted() {
+    this.el.contentEditable = true;
+    this.el.addEventListener("blur", this.handleInput.bind(this));
+  },
+  handleInput(event) {
+    let target = event.target
+    let dataset = event.target.dataset
+
+    dataset[dataset.attr] = target.innerText
+
+    this.pushEvent(dataset.handleEvent, dataset, (reply, ref) => {
+      if(reply.success == true) {
+        target.classList.add("save-success")
+
+        setTimeout((el) => {
+          el.classList.remove("save-success")
+        }, 500, target)
+      } else {
+        target.classList.add("save-failure")
+
+        setTimeout((el) => {
+          el.classList.remove("save-failure")
+        }, 500, target)
+
+        target.innerText = reply.errors.join(" ")
+      }
+    })
+  }
+}
+
+window.addEventListener("phx:remove-class", event => {
+  let target = event.target
+
+  document.querySelectorAll(event.detail.selector).forEach(el => {
+    el.classList.remove(event.detail.class)
+  })
+})
+
+window.addEventListener("phx:add-class", event => {
+  let target = event.target
+
+  document.querySelectorAll(event.detail.selector).forEach(el => {
+    el.classList.add(event.detail.class)
+  })
+})
+
 window.addEventListener("phx:toggle-class", event => {
   let target = event.target
 
   document.querySelectorAll(event.detail.selector).forEach(el => {
-    console.log(event)
     el.classList.toggle(event.detail.class)
-
-    if(target.innerText == event.detail.textOff) {
-      target.innerText = event.detail.textOn
-    } else {
-      target.innerText = event.detail.textOff
-    }
   })
 })
 

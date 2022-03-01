@@ -3,6 +3,12 @@ defmodule Story.StatsTest do
 
   alias Story.Stats
 
+  setup do
+    user = Story.AccountsFixtures.user_fixture()
+
+    {:ok, %{user_id: user.id}}
+  end
+
   describe "stats" do
     alias Story.Stats.Stat
 
@@ -20,8 +26,8 @@ defmodule Story.StatsTest do
       assert Stats.get_stat!(stat.id) == stat
     end
 
-    test "create_stat/1 with valid data creates a stat" do
-      valid_attrs = %{description: "some description", title: "some title", url: "some url", value: 120.5}
+    test "create_stat/1 with valid data creates a stat", %{user_id: user_id} do
+      valid_attrs = %{description: "some description", title: "some title", url: "some url", value: 120.5, user_id: user_id}
 
       assert {:ok, %Stat{} = stat} = Stats.create_stat(valid_attrs)
       assert stat.description == "some description"
@@ -34,15 +40,15 @@ defmodule Story.StatsTest do
       assert {:error, %Ecto.Changeset{}} = Stats.create_stat(@invalid_attrs)
     end
 
-    test "create_and_tag_stat/2 with valid data returns the info" do
-      result = Story.Stats.create_and_tag_stat(%{description: "Foo"}, [%{name: "Biz"}, %{name: "Baz"}])
+    test "create_and_tag_stat/2 with valid data returns the info", %{user_id: user_id} do
+      result = Story.Stats.create_and_tag_stat(%{description: "Foo", user_id: user_id}, [%{name: "Biz"}, %{name: "Baz"}])
 
       assert %Stat{description: "Foo", tags: [%Story.Tags.Tag{}, %Story.Tags.Tag{}]} = result
     end
 
-    test "update_stat/2 with valid data updates the stat" do
+    test "update_stat/2 with valid data updates the stat", %{user_id: user_id} do
       stat = stat_fixture()
-      update_attrs = %{description: "some updated description", title: "some updated title", url: "some updated url", value: 456.7}
+      update_attrs = %{description: "some updated description", title: "some updated title", url: "some updated url", value: 456.7, user_id: user_id}
 
       assert {:ok, %Stat{} = stat} = Stats.update_stat(stat, update_attrs)
       assert stat.description == "some updated description"

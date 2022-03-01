@@ -4,7 +4,7 @@ defmodule Story.SOStoryScraper do
   """
 
   alias Story.Pages.{Page, Reading}
-  alias Story.Profiles.{Info, Link}
+  alias Story.Profiles.Info
   alias Story.Tags.Tag
   alias Story.Stats.Stat
   alias Story.Timelines.Item
@@ -22,16 +22,22 @@ defmodule Story.SOStoryScraper do
     end
   end
 
-  def fetch_and_save(url) do
+  def fetch_and_save(url, attrs \\ %{}) do
     case fetch_and_parse(url) do
       {_html, map} ->
-        save_personal_info(map)
-        save_links(map)
-        save_stats(map)
-        save_readings(map)
-        save_timeline(map)
-        map
+        map = Map.merge(map, attrs)
 
+        info = save_personal_info(map)
+        stats = save_stats(map)
+        readings = save_readings(map)
+        timeline = save_timeline(map)
+
+        %Page{
+          readings: readings,
+          stats: stats,
+          timeline_items: timeline,
+          personal_information: info
+        }
       %{status: status} ->
         %{status: status}
 
@@ -39,6 +45,7 @@ defmodule Story.SOStoryScraper do
         %{error: reason}
     end
   end
+
 
   def parse_to_structs({html, map}) do
     {_html, map} = parse_full_document({html, map})
@@ -66,7 +73,6 @@ defmodule Story.SOStoryScraper do
       title: "#{map.name}'s DevStory",
       readings: Enum.map(map.reading, fn reading -> struct(%Reading{}, reading) end),
       stats: stats,
-      links: Enum.map(map.links, fn link -> %Link{url: link.href, text: link.text} end),
       timeline_items: Enum.map(map.timeline, &build_item/1),
       personal_information: build_info(map)
     }
@@ -110,6 +116,9 @@ defmodule Story.SOStoryScraper do
       location: map.location,
       favorite_editor: editor,
       first_computer: computer,
+      github: map.github,
+      twitter: map.twitter,
+      website: map.website,
       picture_url: map.picture_url,
       tags: Enum.map(map.technologies, fn tech -> %Tag{name: tech} end)
     }
@@ -141,27 +150,26 @@ defmodule Story.SOStoryScraper do
     computer =
       tools
       |> List.last()
-      |> String.trim("First computer: ")
+      |> String.trim(" First computer: ")
 
     attrs = %{
+      statement: map.intro_statement,
+      job_title: map.job,
+      name: map.name,
+      location: map.location,
       favorite_editor: editor,
       first_computer: computer,
-      job_title: map.job,
-      location: map.location,
-      name: map.name,
-      statement: map.intro_statement
+      picture_url: map.picture_url,
+      twitter: map.twitter,
+      github: map.github,
+      website: map.website,
+      user_id: map.user_id,
+      page_id: map.page_id
     }
 
     tags = Enum.map(map.technologies, fn name -> %{name: name} end)
 
     Story.Profiles.create_and_tag_info(attrs, tags)
-  end
-
-  def save_links(map) do
-    Enum.map(map.links, fn link ->
-      {:ok, link} = Story.Profiles.create_link(%{url: link.href, text: link.text})
-      link
-    end)
   end
 
   def save_stats(map) do
@@ -171,6 +179,8 @@ defmodule Story.SOStoryScraper do
           type: "assessment",
           description: item.alt,
           img: item.img,
+          user_id: map.user_id,
+          page_id: map.page_id,
           tags: [item.tag]
         }
       end)
@@ -179,6 +189,8 @@ defmodule Story.SOStoryScraper do
       type: "so_reputation",
       description: map.so.rep,
       url: map.so.href,
+      user_id: map.user_id,
+      page_id: map.page_id,
       tags: []
     }
 
@@ -194,7 +206,12 @@ defmodule Story.SOStoryScraper do
 
   def save_readings(map) do
     Enum.map(map.reading, fn reading ->
-      {:ok, reading} = Story.Pages.create_reading(reading)
+      attrs =
+        reading
+        |> Map.put(:user_id, map.user_id)
+        |> Map.put(:page_id, map.page_id)
+
+      {:ok, reading} = Story.Pages.create_reading(attrs)
       reading
     end)
   end
@@ -219,9 +236,9 @@ defmodule Story.SOStoryScraper do
           order_by: 0,
           title: item.title,
           type: item.type,
-          url: item.url
-          # user_id: nil,
-          # page_id: nil,
+          url: item.url,
+          user_id: map.user_id,
+          page_id: map.page_id
         },
         tags
       )
@@ -233,7 +250,9 @@ defmodule Story.SOStoryScraper do
 
     result =
       case Floki.find(parsed, "#form-section-PersonalInfo .bs-md img") do
-        [] -> nil
+        [] ->
+          nil
+
         el ->
           [src] = Floki.attribute(el, "src")
           src
@@ -279,7 +298,32 @@ defmodule Story.SOStoryScraper do
         %{href: href, text: Floki.text(html)}
       end)
 
-    {html, Map.put(map, :links, list)}
+    github =
+      case Enum.find(list, fn link -> String.contains?(link.href, "https://github.com/") end) do
+        nil -> nil
+        link -> link.text
+      end
+
+    twitter =
+      case Enum.find(list, fn link -> String.contains?(link.href, "https://twitter.com/") end) do
+        nil -> nil
+        link -> link.text
+      end
+
+    website =
+      case Enum.find(list, fn link -> !String.contains?(link.href, "twitter.com") && !String.contains?(link.text, "github.com") end) do
+        nil -> nil
+        link -> link.text
+      end
+
+    result =
+      %{
+        github: github,
+        twitter: twitter,
+        website: website
+      }
+
+    {html, Map.merge(map, result)}
   end
 
   def get_rep({html, map}) do
@@ -527,7 +571,7 @@ defmodule Story.SOStoryScraper do
     do: NaiveDateTime.new(parse_year(year), 12, 1, 0, 0, 0)
 
   defp convert_date_to_db("Current"), do: {:ok, NaiveDateTime.utc_now()}
-  defp convert_date_to_db(_), do: {:ok, nil}
+  defp convert_date_to_db(_), do: {:ok, NaiveDateTime.utc_now()}
 
   def parse_year(string) do
     string

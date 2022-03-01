@@ -105,6 +105,8 @@ defmodule Story.Timelines do
 
   """
   def delete_item(%Item{} = item) do
+    item = Repo.get_by!(Item, user_id: item.user_id, id: item.id)
+
     Repo.delete(item)
   end
 

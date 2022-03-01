@@ -4,6 +4,51 @@
 
 /* This file is for your main application CSS */
 
+[contenteditable=true], .editable {
+  @apply border border-secondary border-dashed border-opacity-50 p-1;
+}
+
+[contenteditable=true].border-none {
+  border: none;
+}
+
+.save-success {
+  transition-property: background-color;
+  animation-name: bg-success;
+  animation-duration: 500ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.save-failure {
+  transition-property: background-color;
+  animation-name: bg-error;
+  animation-duration: 200ms;
+  animation-iteration-count: 2;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes bg-success {
+  0% {
+    background-color: #66cba0;
+  }
+
+  100% {
+    background-color: inherit;
+  }
+}
+
+@keyframes bg-error {
+  0% {
+    background-color: #FEE1E9;
+  }
+
+  100% {
+    background-color: inherit;
+  }
+}
+
+
 .timeline-item {
   min-height: 200px;
 }
