@@ -1,0 +1,4 @@
+<%= if @item.start_date do %>
+  <%= Calendar.strftime(@item.start_date, "%Y") %> →
+  <%= Calendar.strftime(@item.end_date, "%Y") %>
+<% end %>

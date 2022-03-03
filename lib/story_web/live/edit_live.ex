@@ -2,6 +2,7 @@ defmodule StoryWeb.EditLive do
   use StoryWeb, :live_view
 
   import StoryWeb.LayoutView, only: [underscore_string: 1]
+  import StoryWeb.TimelineView, only: [order_timeline: 1]
 
   alias Story.Accounts
   alias Story.Pages
@@ -20,7 +21,6 @@ defmodule StoryWeb.EditLive do
     ~H"""
     <%= if @page do %>
       <div class="mt-8">
-
         <.live_component
           module={StoryWeb.EditInfoLive}
           id={"info-#{@page.personal_information.id}"}
@@ -39,7 +39,7 @@ defmodule StoryWeb.EditLive do
         <div class="min-h-full relative mt-8 pt-16 mx-auto" style="width: 815px;">
           <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
-          <%= for item <- @page.timeline_items do %>
+          <%= for item <- order_timeline(@page.timeline_items) do %>
             <.live_component
               module={StoryWeb.EditTimelineItemLive}
               current_user={@current_user}

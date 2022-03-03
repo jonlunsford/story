@@ -103,6 +103,16 @@
     <%= textarea f, :statement, class: "textarea input-bordered w-full", rows: 8 %>
   </div>
 
+  <%= if Enum.any?(@info.tags) do %>
+    <p class="font-bold label-text mt-4 mb-2">I want to work with: (Editing coming soon!)</p>
+  <% end %>
+
+  <div class="mb-4 p-2 pb-1 rounded bg-base-200">
+    <%= for tag <- @info.tags do %>
+      <span class="badge badge-secondary badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+    <% end %>
+  </div>
+
   <div class="text-right">
     <button phx-click={JS.add_class("hidden", to: "#edit-info") |> JS.remove_class("hidden", to: "#info")} class="btn btn-ghost">Cancel</button>
     <%= submit "Save", class: "btn btn-accent" %>

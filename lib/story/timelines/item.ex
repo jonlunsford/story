@@ -5,12 +5,12 @@ defmodule Story.Timelines.Item do
   schema "timeline_items" do
     field :start_date, :naive_datetime
     field :end_date, :naive_datetime
+    field :order_by, :naive_datetime
     field :current_position, :boolean
     field :description, :string
     field :img, :string
     field :content_img, :string
     field :location, :string
-    field :order_by, :integer
     field :title, :string
     field :type, :string
     field :url, :string

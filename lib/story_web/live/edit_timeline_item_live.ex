@@ -6,6 +6,8 @@ defmodule StoryWeb.EditTimelineItemLive do
   alias Story.Timelines
 
   def update(assigns, socket) do
+    IO.inspect(underscore_string(assigns.item.type))
+
     {:ok,
      socket
      |> assign(:current_user_id, assigns.current_user.id)
@@ -42,6 +44,15 @@ defmodule StoryWeb.EditTimelineItemLive do
   end
 
   def handle_event("save", %{"item" => item_params}, socket) do
+    picture_url = get_image_url(socket)
+
+    item_params =
+      if picture_url do
+        Map.put(item_params, "img", picture_url)
+      else
+        item_params
+      end
+
     case Timelines.update_item(socket.assigns.item, item_params) do
       {:ok, item} ->
         {:noreply,
@@ -63,5 +74,16 @@ defmodule StoryWeb.EditTimelineItemLive do
     {:noreply,
      socket
      |> push_event("add-class", %{selector: "#edit-timeline-item-#{id}", class: "hidden"})}
+  end
+
+  defp get_image_url(socket) do
+    consume_uploaded_entries(socket, :avatar, fn %{path: path}, entry ->
+      dest = Path.join("priv/static/uploads", Path.basename(path)) <> "-" <> entry.client_name
+
+      File.cp!(path, dest)
+
+      {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
+    end)
+    |> List.first()
   end
 end

@@ -146,6 +146,11 @@
   background-size: 16px 16px;
 }
 
+.timeline-item.add-new:before {
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>') center center no-repeat;
+  background-size: 16px 16px;
+}
+
 .timeline-item:nth-child(even):before {
   right: -39px;
 }
@@ -167,13 +172,17 @@ pre {
   max-width: 100%;
 }
 
-code {
+pre code {
   overflow-x: scroll;
   padding: 10px;
   background: #e5e7eb;
   margin: 5px 0;
   display: block;
   max-width: 100%;
+}
+
+code {
+  background: #e5e7eb;
 }
 
 /* Alerts and form errors used by phx.new */

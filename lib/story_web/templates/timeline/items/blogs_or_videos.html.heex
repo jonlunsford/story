@@ -2,7 +2,7 @@
 
   <%= if @myself do %>
     <%= StoryWeb.TimelineView.render(
-        "items/default_form.html",
+        "items/blogs_or_videos_form.html",
         changeset: @changeset,
         item: @item,
         uploads: @uploads,
@@ -13,7 +13,7 @@
     <header class="text-xs text-secondary mb-6 flex items-center justify-between">
       <div>
         <%= @type %> •
-        <%= StoryWeb.TimelineView.render_date_display(@item) %>
+        <%= StoryWeb.TimelineView.render("items/_date_display_single.html", item: @item) %>
       </div>
 
       <%= if @myself do %>
@@ -34,13 +34,9 @@
     </header>
 
     <p class="font-bold mb-6">
-      <%= if @item.url do %>
-        <a class="link link-primary" href={@item.url} alt={@item.title}>
-          <%= @item.title %>
-        </a>
-      <% else %>
+      <a class="link link-primary" href={@item.url} alt={@item.title}>
         <%= @item.title %>
-      <% end %>
+      </a>
     </p>
 
     <%= if Enum.any?(@item.tags) do %>

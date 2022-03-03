@@ -19,7 +19,7 @@ defmodule Story.TimelinesFixtures do
         description: "some description",
         img: "some img",
         location: "some location",
-        order_by: 42,
+        order_by: ~N[2022-02-09 05:03:00],
         title: "some title",
         type: "some type",
         url: "some url",

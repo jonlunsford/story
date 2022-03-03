@@ -7,7 +7,7 @@ defmodule Story.Repo.Migrations.CreateTimelineItems do
       add :description, :text
       add :img, :string
       add :location, :string
-      add :order_by, :integer
+      add :order_by, :naive_datetime
       add :title, :string
       add :type, :string
       add :url, :string

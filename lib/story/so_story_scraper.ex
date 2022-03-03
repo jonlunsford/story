@@ -38,6 +38,7 @@ defmodule Story.SOStoryScraper do
           timeline_items: timeline,
           personal_information: info
         }
+
       %{status: status} ->
         %{status: status}
 
@@ -45,7 +46,6 @@ defmodule Story.SOStoryScraper do
         %{error: reason}
     end
   end
-
 
   def parse_to_structs({html, map}) do
     {_html, map} = parse_full_document({html, map})
@@ -83,14 +83,26 @@ defmodule Story.SOStoryScraper do
     dates = String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
     current_position = String.equivalent?(List.last(dates), "Current")
 
-    {:ok, naive_start_date} = convert_date_to_db(List.first(dates))
-    {:ok, naive_end_date} = convert_date_to_db(List.last(dates))
+    order_by = convert_order_by_to_db(item.order_by)
+
+    start_date =
+      case convert_date_to_db(List.first(dates)) do
+        {:ok, naive_start_date} -> naive_start_date
+        {:error, :no_date_found} -> order_by
+      end
+
+    end_date =
+      case convert_date_to_db(List.last(dates)) do
+        {:ok, naive_end_date} -> naive_end_date
+        {:error, :no_date_found} -> order_by
+      end
 
     item =
       item
       |> Map.put(:tags, tags)
-      |> Map.put(:start_date, naive_start_date)
-      |> Map.put(:end_date, naive_end_date)
+      |> Map.put(:start_date, start_date)
+      |> Map.put(:end_date, end_date)
+      |> Map.put(:order_tpy, order_by)
       |> Map.put(:current_position, current_position)
 
     struct(%Item{}, item)
@@ -219,21 +231,32 @@ defmodule Story.SOStoryScraper do
   def save_timeline(map) do
     Enum.map(map.timeline, fn item ->
       dates = String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
+      order_by = convert_order_by_to_db(item.order_by)
 
-      {:ok, naive_start_date} = convert_date_to_db(List.first(dates))
-      {:ok, naive_end_date} = convert_date_to_db(List.last(dates))
+      start_date =
+        case convert_date_to_db(List.first(dates)) do
+          {:ok, naive_start_date} -> naive_start_date
+          {:error, :no_date_found} -> order_by
+        end
+
+      end_date =
+        case convert_date_to_db(List.last(dates)) do
+          {:ok, naive_end_date} -> naive_end_date
+          {:error, :no_date_found} -> order_by
+        end
 
       tags = Enum.map(item.tags, fn tag -> %{name: tag} end)
 
       Story.Timelines.create_and_tag_item(
         %{
-          start_date: naive_start_date,
-          end_date: naive_end_date,
+          start_date: start_date,
+          end_date: end_date,
           current_position: String.equivalent?(List.last(dates), "Current"),
           description: item.description,
-          img: item.img,
+          img: item.img || item.content_img,
+          content_img: item.content_img,
           location: item.location,
-          order_by: 0,
+          order_by: order_by,
           title: item.title,
           type: item.type,
           url: item.url,
@@ -311,17 +334,19 @@ defmodule Story.SOStoryScraper do
       end
 
     website =
-      case Enum.find(list, fn link -> !String.contains?(link.href, "twitter.com") && !String.contains?(link.text, "github.com") end) do
+      case Enum.find(list, fn link ->
+             !String.contains?(link.href, "twitter.com") &&
+               !String.contains?(link.text, "github.com")
+           end) do
         nil -> nil
         link -> link.text
       end
 
-    result =
-      %{
-        github: github,
-        twitter: twitter,
-        website: website
-      }
+    result = %{
+      github: github,
+      twitter: twitter,
+      website: website
+    }
 
     {html, Map.merge(map, result)}
   end
@@ -571,11 +596,27 @@ defmodule Story.SOStoryScraper do
     do: NaiveDateTime.new(parse_year(year), 12, 1, 0, 0, 0)
 
   defp convert_date_to_db("Current"), do: {:ok, NaiveDateTime.utc_now()}
-  defp convert_date_to_db(_), do: {:ok, NaiveDateTime.utc_now()}
+
+  defp convert_date_to_db(<<year::binary-size(4)>> = _date) do
+    NaiveDateTime.new(parse_year(year), 12, 1, 0, 0, 0)
+  end
+
+  defp convert_date_to_db(_), do: {:error, :no_date_found}
 
   def parse_year(string) do
     string
     |> String.trim()
     |> String.to_integer()
+  end
+
+  defp convert_order_by_to_db(string) when is_binary(string) do
+    <<year::binary-size(4), month::binary-size(2), day::binary-size(2)>> <> _rest = string
+
+    year = String.to_integer(year)
+    month = String.to_integer(month)
+    day = String.to_integer(day)
+
+    {:ok, datetime} = NaiveDateTime.new(year, month, day, 0, 0, 0)
+    datetime
   end
 end

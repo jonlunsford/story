@@ -1,18 +1,18 @@
 <.form id={"item-#{@item.id}-form"} class="hidden" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
   <div class="form-control">
-    <%= label f, :url, class: "label" do %>
-      <span class="label-text font-bold">URL:</span>
-    <% end %>
-    <%= text_input f, :url, class: "input input-sm input-bordered" %>
-    <%= error_tag f, :url %>
-  </div>
-
-  <div class="form-control">
     <%= label f, :title, class: "label" do %>
       <span class="label-text font-bold">Title or description (Required)</span>
     <% end %>
     <%= text_input f, :title, class: "input input-sm input-bordered" %>
     <%= error_tag f, :title %>
+  </div>
+
+  <div class="form-control">
+    <%= label f, :url, class: "label" do %>
+      <span class="label-text font-bold">URL:</span>
+    <% end %>
+    <%= text_input f, :url, class: "input input-sm input-bordered" %>
+    <%= error_tag f, :url %>
   </div>
 
   <div class="border p-2 my-4 text-center">
@@ -61,7 +61,7 @@
   <div class="form-control flex mb-4">
     <div>
       <%= label f, :start_date, class: "label" do %>
-        <span class="label-text font-bold">Date (required)</span>
+        <span class="label-text font-bold">Release date (required)</span>
       <% end %>
     </div>
     <div>

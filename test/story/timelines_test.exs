@@ -44,7 +44,7 @@ defmodule Story.TimelinesTest do
         description: "some description",
         img: "some img",
         location: "some location",
-        order_by: 42,
+        order_by: ~N[2022-02-09 05:03:00],
         title: "some title",
         type: "some type",
         url: "some url",
@@ -57,7 +57,7 @@ defmodule Story.TimelinesTest do
       assert item.description == "some description"
       assert item.img == "some img"
       assert item.location == "some location"
-      assert item.order_by == 42
+      assert item.order_by == ~N[2022-02-09 05:03:00]
       assert item.title == "some title"
       assert item.type == "some type"
       assert item.url == "some url"
@@ -97,7 +97,7 @@ defmodule Story.TimelinesTest do
         description: "some updated description",
         img: "some updated img",
         location: "some updated location",
-        order_by: 43,
+        order_by: ~N[2022-02-09 05:03:00],
         title: "some updated title",
         type: "some updated type",
         url: "some updated url"
@@ -108,7 +108,7 @@ defmodule Story.TimelinesTest do
       assert item.description == "some updated description"
       assert item.img == "some updated img"
       assert item.location == "some updated location"
-      assert item.order_by == 43
+      assert item.order_by == ~N[2022-02-09 05:03:00]
       assert item.title == "some updated title"
       assert item.type == "some updated type"
       assert item.url == "some updated url"

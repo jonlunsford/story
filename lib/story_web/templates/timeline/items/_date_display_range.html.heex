@@ -1,0 +1,9 @@
+<%= if @item.start_date do %>
+  <%= Calendar.strftime(@item.start_date, "%b, %Y") %> →
+  <%= if @item.current_position do %>
+    Current
+  <% else %>
+    <%= Calendar.strftime(@item.end_date, "%b, %Y") %>
+  <% end %>
+    <%= pretty_time_difference(@item.start_date, @item.end_date) %>
+<% end %>

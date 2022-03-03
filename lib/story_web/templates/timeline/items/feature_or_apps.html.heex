@@ -2,7 +2,7 @@
 
   <%= if @myself do %>
     <%= StoryWeb.TimelineView.render(
-        "items/default_form.html",
+        "items/feature_or_apps_form.html",
         changeset: @changeset,
         item: @item,
         uploads: @uploads,
@@ -13,7 +13,9 @@
     <header class="text-xs text-secondary mb-6 flex items-center justify-between">
       <div>
         <%= @type %> •
-        <%= StoryWeb.TimelineView.render_date_display(@item) %>
+        <%= if @item.start_date do %>
+          <%= Calendar.strftime(@item.start_date, "%b, %Y") %>
+        <% end %>
       </div>
 
       <%= if @myself do %>
@@ -33,36 +35,41 @@
       <% end %>
     </header>
 
-    <p class="font-bold mb-6">
-      <%= if @item.url do %>
-        <a class="link link-primary" href={@item.url} alt={@item.title}>
-          <%= @item.title %>
-        </a>
-      <% else %>
-        <%= @item.title %>
+    <div class="flex">
+      <%= if @item.img do %>
+        <div class="mr-4 w-1/4">
+          <img class="w-auto" src={@item.img} />
+        </div>
       <% end %>
-    </p>
 
-    <%= if Enum.any?(@item.tags) do %>
-      <p class="text-xs text-secondary mb-2">Technologies:</p>
+      <div class={if @item.img, do: "w-3/4", else: ""}>
+        <p class="font-bold mb-6">
+          <a class="link link-primary" href={@item.url} alt={@item.title}>
+            <%= @item.title %>
+          </a>
+        </p>
 
-      <div class="mb-4 p-2 pb-1 rounded bg-base-200">
-        <%= for tag <- @item.tags do %>
-          <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+        <%= if Enum.any?(@item.tags) do %>
+          <p class="text-xs text-secondary mb-2">Technologies:</p>
+          <div class="mb-4 p-2 pb-1 rounded bg-base-200">
+            <%= for tag <- @item.tags do %>
+              <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+
+        <%= if @item.content_img do %>
+          <div class="mb-1">
+            <img class="w-full" src={@item.content_img} alt={@item.title} />
+          </div>
+        <% end %>
+
+        <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
+
+        <%= if @item.description && String.length(@item.description) >= 150 do %>
+          <button id={"item-#{@item.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-secondary text-xs">Show More</button>
         <% end %>
       </div>
-    <% end %>
-
-    <%= if @item.content_img do %>
-      <div class="mb-1">
-        <img class="w-full" src={@item.content_img} alt={@item.title} />
-      </div>
-    <% end %>
-
-    <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
-
-    <%= if @item.description && String.length(@item.description) >= 150 do %>
-      <button id={"item-#{@item.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-secondary text-xs">Show More</button>
-    <% end %>
+    </div>
   </div>
 </div>
