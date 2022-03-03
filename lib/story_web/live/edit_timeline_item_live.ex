@@ -6,8 +6,6 @@ defmodule StoryWeb.EditTimelineItemLive do
   alias Story.Timelines
 
   def update(assigns, socket) do
-    IO.inspect(underscore_string(assigns.item.type))
-
     {:ok,
      socket
      |> assign(:current_user_id, assigns.current_user.id)
