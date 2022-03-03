@@ -12,7 +12,7 @@
   <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
   <%= for item <- @page.timeline_items do %>
-    <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, myself: nil, type: item.type, on_timeline_delete: @on_timeline_delete) %>
+    <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, myself: nil, type: item.type, myself: @myself) %>
   <% end %>
 </div>
 

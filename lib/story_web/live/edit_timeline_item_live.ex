@@ -10,7 +10,6 @@ defmodule StoryWeb.EditTimelineItemLive do
      socket
      |> assign(:current_user_id, assigns.current_user.id)
      |> assign(:changeset, Timelines.change_item(assigns.item))
-     |> assign(:on_timeline_delete, "delete")
      |> assign(:item, assigns.item)
      |> allow_upload(:avatar,
        accept: ~w(.jpg .jpeg .png),
@@ -28,8 +27,7 @@ defmodule StoryWeb.EditTimelineItemLive do
           type: @item.type,
           myself: @myself,
           uploads: @uploads,
-          changeset: @changeset,
-          on_timeline_delete: @on_timeline_delete) %>
+          changeset: @changeset) %>
     </div>
     """
   end

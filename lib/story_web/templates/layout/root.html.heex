@@ -10,32 +10,70 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="min-h-full">
-    <header class="mb-8 bg-neutral">
-      <section class="container mx-auto">
-        <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
-          <div class="flex-1 px-2 lg:flex-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-            </svg>
-            <a href="/" class="text-lg font-bold">DevStory</a>
-          </div>
-          <div class="flex justify-end flex-1 px-2">
-            <div class="flex items-stretch">
-              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                <%= link "Live Dashboard", to: Routes.live_dashboard_path(@conn, :home), class: "btn btn-ghost rounded-btn" %>
-              <% end %>
+    <%= if @current_user do %>
+      <header class="bg-neutral">
+        <section class="container mx-auto">
+          <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+            <div class="flex-1 px-2 lg:flex-none">
+              <a href="/" class="text-xl font-extrabold relative inline-block leading-5">
+                Dev
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute top-1 -right-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <br />
+                <span class="tracking-wide">Story</span>
+              </a>
+            </div>
+            <div class="flex justify-end flex-1 px-2">
+              <div class="flex items-stretch">
+                <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                  <%= link "Live Dashboard", to: Routes.live_dashboard_path(@conn, :home), class: "btn btn-ghost rounded-btn" %>
+                <% end %>
 
+                <%= if @current_user do %>
+                    <%= render "_user_menu.html", assigns %>
+                <% else %>
+                  <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
+                  <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+
+    <% else %>
+      <header class="bg-white relative py-4 border-b">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
+            <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+              <div class="flex items-center justify-between w-full md:w-auto">
+                  <a href="/" class="text-xl font-extrabold relative inline-block leading-5">
+                    Dev
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute top-0.5 -right-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                    </svg>
+                    <br />
+                    <span class="tracking-wide">Story</span>
+                  </a>
+              </div>
+            </div>
+            <div class="md:block md:ml-10 md:pr-4">
               <%= if @current_user do %>
                   <%= render "_user_menu.html", assigns %>
               <% else %>
-                <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
-                <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "btn btn-ghost rounded-btn" %>
+                <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "btn btn-link font-bold" %>
+                <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "btn btn-link" %>
+              <% end %>
+
+              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <%= link "Live Dashboard", to: Routes.live_dashboard_path(@conn, :home), class: "btn btn-link" %>
               <% end %>
             </div>
-          </div>
+          </nav>
         </div>
-      </section>
-    </header>
+      </header>
+    <% end %>
     <%= @inner_content %>
   </body>
 </html>

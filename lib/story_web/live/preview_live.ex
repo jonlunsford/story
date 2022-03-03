@@ -15,12 +15,12 @@ defmodule StoryWeb.PreviewLive do
   def render(assigns) do
     ~H"""
     <%= if !@page do %>
-      <div class="lg:w-1/2 mx-auto mb-12">
-        <h1 class="text-5xl font-bold mb-8">StackOverflow Preview</h1>
+      <div class="lg:w-1/2 mx-auto my-12">
+        <h1 class="text-5xl font-extrabold mb-8">StackOverflow Preview</h1>
         <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
 
         <form phx-submit="fetch-story">
-          <div class="p-10 card bg-base-100 shadow-sm border border-base-300">
+          <div class="p-10 card bg-base-100 shadow-md border border-base-300">
             <div class="form-control mb-8">
               <label for="so_url" class="label font-bold">
                 <span class="label-text">StackOverflow Story URL:</span>
@@ -37,13 +37,13 @@ defmodule StoryWeb.PreviewLive do
     <% end %>
 
     <%= if @page do %>
-      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
+      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
       <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
     <% end %>
 
     <%= if @page do %>
       <div class="mt-8">
-        <%= StoryWeb.PageView.render("show.html", page: @page) %>
+        <%= StoryWeb.PageView.render("show.html", page: @page, myself: nil) %>
       </div>
     <% end %>
     """

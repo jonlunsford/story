@@ -84,7 +84,7 @@
   <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
   <%= for item <- @page.timeline_items do %>
-    <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type, on_timeline_delete: nil) %>
+    <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type, myself: @myself) %>
   <% end %>
 </div>
 
@@ -92,6 +92,6 @@
 
 <div class="grid grid-cols-3 gap-4 mx-auto mb-12" style="width: 800px;">
   <%= for reading <- @page.readings do %>
-    <%= StoryWeb.PageView.render("reading.html", reading: reading) %>
+    <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself) %>
   <% end %>
 </div>
