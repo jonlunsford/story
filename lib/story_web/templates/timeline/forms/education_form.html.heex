@@ -1,7 +1,7 @@
-<.form id={"item-#{@item.id}-form"} class="hidden" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
+<.form id={"item-#{@item.id}-form"} class="hidden item-form" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
   <div class="form-control">
     <%= label f, :title, class: "label" do %>
-      <span class="label-text font-bold">Name of the project (required)</span>
+      <span class="label-text font-bold">University or institution (required)</span>
     <% end %>
     <%= text_input f, :title, class: "input input-sm input-bordered" %>
     <%= error_tag f, :title %>
@@ -9,31 +9,31 @@
 
   <div class="form-control">
     <%= label f, :url, class: "label" do %>
-      <span class="label-text font-bold">Link to the repository (required)</span>
+      <span class="label-text font-bold">URL:</span>
     <% end %>
     <%= text_input f, :url, class: "input input-sm input-bordered" %>
     <%= error_tag f, :url %>
   </div>
 
   <div class="border p-2 my-4 text-center">
-    <%= if !Enum.any?(@uploads.avatar.entries) do %>
+    <%= if !Enum.any?(@uploads.img.entries) do %>
       <img class="w-auto mx-auto" src={@item.img} />
     <% end %>
 
-    <%= if !Enum.any?(@uploads.avatar.entries) && !@item.img do %>
-      <span class="text-xs text-secondary">Image <br /> Recommended size: 350x150px</span>
+    <%= if !Enum.any?(@uploads.img.entries) && !@item.img do %>
+      <span class="text-xs text-secondary">Recommended size: 350x150px</span>
     <% end %>
 
-    <%= for entry <- @uploads.avatar.entries do %>
+    <%= for entry <- @uploads.img.entries do %>
       <article class="mx-auto" style="width: 136px;">
         <%= live_img_preview entry %>
       </article>
     <% end %>
   </div>
 
-  <%= live_file_input @uploads.avatar %>
+  <%= live_file_input @uploads.img %>
 
-  <%= for err <- upload_errors(@uploads.avatar) do %>
+  <%= for err <- upload_errors(@uploads.img) do %>
     <div class="alert shadow-lg alert-error">
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -44,7 +44,7 @@
 
   <div class="my-4">
     <%= label f, :description, class: "label" do %>
-      <span class="label-text font-bold">Description</span>
+      <span class="label-text font-bold">Summary or achievements</span>
     <% end %>
     <%= textarea f, :description, class: "textarea input-bordered w-full", rows: 4 %>
   </div>
@@ -60,7 +60,7 @@
 
   <p class="label-text font-bold">Dates (required)</p>
 
-  <div class="form-control flex mb-4">
+  <div class="form-control flex">
     <div>
       <%= label f, :start_date, class: "label" do %>
         <span class="label-text font-bold">Start Date</span>
@@ -95,12 +95,12 @@
   <div class="form-control mt-4">
     <%= label f, :current_position, class: "cursor-pointer label justify-start" do %>
       <%= checkbox f, :current_position, class: "checkbox checkbox-primary" %>
-      <span class="label-text ml-2">Currently maintaining?</span>
+      <span class="label-text ml-2">I'm currently a student</span>
     <% end %>
   </div>
 
   <div class="text-right">
-    <button phx-click={JS.remove_class("hidden", to: "#item-#{@item.id}-content") |> JS.add_class("hidden", to: "#item-#{@item.id}-form")} class="btn btn-ghost">Cancel</button>
+    <a href="#" phx-click={@on_cancel.(@item)} class="btn btn-ghost">Cancel</a>
     <%= submit "Save", class: "btn btn-accent" %>
   </div>
 </.form>

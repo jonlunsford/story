@@ -27,6 +27,7 @@ defmodule Story.Timelines.Item do
   def changeset(item, attrs) do
     attrs = transform_start_date(attrs)
     attrs = transform_end_date(attrs)
+    attrs = transform_order_by(attrs)
 
     item
     |> cast(attrs, [
@@ -42,22 +43,29 @@ defmodule Story.Timelines.Item do
       :type,
       :url,
       :page_id,
-      :user_id
+      :user_id,
     ])
+    |> cast_assoc(:tags)
     |> validate_required([:start_date, :title, :user_id, :page_id])
   end
 
-  def transform_start_date(%{"start_date" => date} = attrs) do
+  def transform_start_date(%{"start_date" => date} = attrs) when is_map(date) do
     Map.put(attrs, "start_date", map_to_date(date))
   end
 
   def transform_start_date(attrs), do: attrs
 
-  def transform_end_date(%{"end_date" => date} = attrs) do
+  def transform_end_date(%{"end_date" => date} = attrs) when is_map(date) do
     Map.put(attrs, "end_date", map_to_date(date))
   end
 
   def transform_end_date(attrs), do: attrs
+
+  def transform_order_by(%{"order_by" => date} = attrs) when is_map(date) do
+    Map.put(attrs, "order_by", map_to_date(date))
+  end
+
+  def transform_order_by(attrs), do: attrs
 
   defp map_to_date(%{"month" => month, "year" => year}) do
     month = String.to_integer(month)

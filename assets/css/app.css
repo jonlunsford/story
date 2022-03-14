@@ -55,7 +55,14 @@
 
 
 .timeline-item {
+  @apply bg-base-100 shadow-sm relative border p-4 w-96 rounded-md mb-8;
   min-height: 200px;
+}
+
+.timeline-item.assessment {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
 }
 
 .timeline-item:nth-child(odd) {

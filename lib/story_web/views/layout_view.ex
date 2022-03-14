@@ -13,12 +13,14 @@ defmodule StoryWeb.LayoutView do
     "https://www.gravatar.com/avatar/#{hash}?#{params}"
   end
 
+  def dasherize_string(nil), do: nil
   def dasherize_string(string) when is_binary(string) do
     string
     |> String.replace(" ", "-")
     |> String.downcase()
   end
 
+  def underscore_string(nil), do: nil
   def underscore_string(string) when is_binary(string) do
     string
     |> String.replace(" ", "_")

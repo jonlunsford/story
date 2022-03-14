@@ -1,64 +1,40 @@
-<div id={"timeline-item-#{@item.id}"} class={"#{if @myself, do: "", else: "timeline-item"} bg-base-100 shadow-sm relative border p-4 w-96 rounded-md mb-8 #{String.replace(@type, " ", "-") |> String.downcase()}"}>
+<div id={"item-#{@item.id}-content"}>
+  <header class="text-xs text-secondary mb-6 flex items-center justify-between">
+    <div>
+      <%= @item.type %> •
+      <%= StoryWeb.TimelineView.render("shared/_date_display_range.html", item: @item) %>
+    </div>
 
-  <%= if @myself do %>
-    <%= StoryWeb.TimelineView.render(
-        "items/open_source_form.html",
-        changeset: @changeset,
-        item: @item,
-        uploads: @uploads,
-        myself: @myself) %>
+    <%= if @header_content do %>
+      <%= @header_content.(%{item: @item, myself: @myself}) %>
+    <% end %>
+  </header>
+
+  <p class="font-bold mb-6">
+    <a class="link link-primary" href={@item.url} alt={@item.title}>
+      <%= @item.title %>
+    </a>
+  </p>
+
+  <%= if Enum.any?(@item.tags) do %>
+    <p class="text-xs text-secondary mb-2">Technologies:</p>
+
+    <div class="mb-4 p-2 pb-1 rounded bg-base-200">
+      <%= for tag <- @item.tags do %>
+        <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+      <% end %>
+    </div>
   <% end %>
 
-  <div id={"item-#{@item.id}-content"}>
-    <header class="text-xs text-secondary mb-6 flex items-center justify-between">
-      <div>
-        <%= @type %> •
-        <%= StoryWeb.TimelineView.render("items/_date_display_range.html", item: @item) %>
-      </div>
+  <%= if @item.content_img do %>
+    <div class="mb-1">
+      <img class="w-full" src={@item.content_img} alt={@item.title} />
+    </div>
+  <% end %>
 
-      <%= if @myself do %>
-        <div class="dropdown dropdown-end text-base">
-          <label tabindex="0" class="cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </label>
+  <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
 
-            <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 border border-base-200 rounded-md w-32">
-              <li><a phx-click={JS.remove_class("hidden", to: "#item-#{@item.id}-form") |> JS.add_class("hidden", to: "#item-#{@item.id}-content")} phx-value-id={@item.id} phx-target={@myself}>Edit</a></li>
-              <li><a>Edit</a></li>
-            </ul>
-        </div>
-      <% end %>
-    </header>
-
-    <p class="font-bold mb-6">
-      <a class="link link-primary" href={@item.url} alt={@item.title}>
-        <%= @item.title %>
-      </a>
-    </p>
-
-    <%= if Enum.any?(@item.tags) do %>
-      <p class="text-xs text-secondary mb-2">Technologies:</p>
-
-      <div class="mb-4 p-2 pb-1 rounded bg-base-200">
-        <%= for tag <- @item.tags do %>
-          <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
-        <% end %>
-      </div>
-    <% end %>
-
-    <%= if @item.content_img do %>
-      <div class="mb-1">
-        <img class="w-full" src={@item.content_img} alt={@item.title} />
-      </div>
-    <% end %>
-
-    <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
-
-    <%= if @item.description && String.length(@item.description) >= 150 do %>
-      <button id={"item-#{@item.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-secondary text-xs">Show More</button>
-    <% end %>
-  </div>
+  <%= if @item.description && String.length(@item.description) >= 150 do %>
+    <button id={"item-#{@item.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-secondary text-xs">Show More</button>
+  <% end %>
 </div>

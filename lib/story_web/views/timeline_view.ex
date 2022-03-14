@@ -1,33 +1,35 @@
 defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
-  alias Phoenix.LiveView.JS
 
-  def render_item("assessment", assigns) do
-    render("items/assessment.html", assigns)
+  @available_forms [
+    "blogs_or_videos",
+    "default",
+    "education",
+    "feature_or_apps",
+    "open_source",
+    "position"
+  ]
+
+  @available_types [
+    "assessment",
+    "blogs_or_videos",
+    "default",
+    "education",
+    "feature_or_apps",
+    "open_source",
+    "position"
+  ]
+
+  def render_form(item_type, assigns) when item_type in @available_forms do
+    render("forms/#{item_type}_form.html", assigns)
   end
 
-  def render_item("blogs_or_videos", assigns) do
-    render("items/blogs_or_videos.html", assigns)
+  def render_form(_item_type, assigns) do
+    render("forms/default_form.html", assigns)
   end
 
-  def render_item("top_post", assigns) do
-    render("items/blogs_or_videos.html", assigns)
-  end
-
-  def render_item("open_source", assigns) do
-    render("items/open_source.html", assigns)
-  end
-
-  def render_item("feature_or_apps", assigns) do
-    render("items/feature_or_apps.html", assigns)
-  end
-
-  def render_item("position", assigns) do
-    render("items/position.html", assigns)
-  end
-
-  def render_item("education", assigns) do
-    render("items/education.html", assigns)
+  def render_item(item_type, assigns) when item_type in @available_types do
+    render("items/#{item_type}.html", assigns)
   end
 
   def render_item(_, assigns) do
@@ -36,7 +38,7 @@ defmodule StoryWeb.TimelineView do
 
   def render_date_display(item) do
     template = determine_date_display_template(item)
-    render("items/_#{template}.html", item: item)
+    render("shared/_#{template}.html", item: item)
   end
 
   def year_select_range() do
@@ -89,8 +91,20 @@ defmodule StoryWeb.TimelineView do
     )
   end
 
+  defp convert_date_time(nil) do
+    NaiveDateTime.utc_now()
+  end
+
   defp convert_date_time(naive_date_time) do
     NaiveDateTime.to_date(naive_date_time)
+  end
+
+  defp determine_date_display_template(%{start_date: nil} = item) do
+    "date_display_single"
+  end
+
+  defp determine_date_display_template(%{end_date: nil} = item) do
+    "date_display_single"
   end
 
   defp determine_date_display_template(item) do
