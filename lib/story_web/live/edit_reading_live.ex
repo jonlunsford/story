@@ -7,7 +7,7 @@ defmodule StoryWeb.EditReadingLive do
   def update(assigns, socket) do
     {:ok,
       socket
-      |> assign(:current_user_id, assigns.current_user.id)
+      |> assign(:current_user_id, assigns.current_user_id)
       |> assign(:changeset, Pages.change_reading(assigns.reading))
       |> assign(:reading, assigns.reading)}
   end

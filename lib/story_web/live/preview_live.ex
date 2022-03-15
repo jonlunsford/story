@@ -5,9 +5,12 @@ defmodule StoryWeb.PreviewLive do
   alias Phoenix.LiveView.JS
   alias Story.SOStoryScraper
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    current_user = Accounts.get_user_by_session_token(session["user_token"])
+
     {:ok,
      socket
+     |> assign(:current_user_id, current_user.id)
      |> assign(:changeset, nil)
      |> assign(:page, nil)}
   end
@@ -36,7 +39,7 @@ defmodule StoryWeb.PreviewLive do
       </div>
     <% end %>
 
-    <%= if @page do %>
+    <%= if @page && !@current_user_id do %>
       <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
       <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
     <% end %>

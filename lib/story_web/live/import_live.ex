@@ -21,7 +21,7 @@ defmodule StoryWeb.ImportLive do
   def render(assigns) do
     ~H"""
     <%= if @so_url && !@page do %>
-      <div class="lg:w-1/2 mx-auto alert shadow-sm alert-info">
+      <div class="lg:w-1/2 mx-auto alert shadow-sm alert-info my-12">
         <div class="items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6 mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           <span>Importing your story. This page will update when the process is complete.</span>
@@ -30,7 +30,7 @@ defmodule StoryWeb.ImportLive do
     <% end %>
 
     <%= if !@so_url do %>
-      <div class="lg:w-1/2 mx-auto mb-12">
+      <div class="lg:w-1/2 mx-auto my-12">
         <h1 class="text-5xl font-bold mb-8">StackOverflow Import</h1>
         <p class="mb-4 text-secondary">Import your StackOverflow story.</p>
 

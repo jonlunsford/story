@@ -3,7 +3,6 @@ defmodule StoryWeb.EditInfoLive do
 
   alias Story.Profiles
   alias Story.S3UploadHelpers
-  alias Phoenix.LiveView.JS
 
   def mount(socket) do
     {:ok,
@@ -19,6 +18,8 @@ defmodule StoryWeb.EditInfoLive do
   def update(assigns, socket) do
     {:ok,
      socket
+     |> assign(:page_id, assigns.page_id)
+     |> assign(:current_user_id, assigns.current_user_id)
      |> assign(:info, assigns.info)
      |> assign(:changeset, Profiles.change_info(assigns.info))}
   end
@@ -58,8 +59,16 @@ defmodule StoryWeb.EditInfoLive do
         info_params
       end
 
-    case Profiles.update_info(info, info_params) do
+    info_params =
+      info_params
+      |> Map.put("user_id", socket.assigns.current_user_id)
+      |> Map.put("page_id", socket.assigns.page_id)
+
+    case create_or_update(info, info_params) do
       {:ok, info} ->
+
+        info = Story.Repo.preload(info, [:tags])
+
         {:noreply,
          socket
          |> assign(:info, info)
@@ -69,6 +78,15 @@ defmodule StoryWeb.EditInfoLive do
 
       {:error, changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
+    end
+  end
+
+  defp create_or_update(info, info_params) do
+    case info.id do
+      nil ->
+        Profiles.create_info(info_params)
+      _ ->
+        Profiles.update_info(info, info_params)
     end
   end
 

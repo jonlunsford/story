@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="min-h-full bg-base-200" lang="en" data-theme="corporate">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Story", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body class="min-h-full">
+    <header class="bg-white py-4 border-b mb-12 text-center">
+      <a href="/" class="text-xl font-extrabold relative inline-block leading-5 text-left">
+        Dev
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute top-0.5 -right-1" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+        </svg>
+        <br />
+        <span class="tracking-wide">Story</span>
+      </a>
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>

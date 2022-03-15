@@ -21,7 +21,7 @@ defmodule StoryWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/story/:slug", PageController, :show
+    get "/:slug", PageController, :show
   end
 
   # Other scopes may use custom stacks.
@@ -95,6 +95,7 @@ defmodule StoryWeb.Router do
 
     live "/users/story/import", ImportLive
     live "/users/story/edit", EditLive
+    live "/users/story/new", NewLive
   end
 
   scope "/", StoryWeb do

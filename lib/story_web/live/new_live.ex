@@ -1,15 +1,15 @@
-defmodule StoryWeb.EditLive do
+defmodule StoryWeb.NewLive do
   use StoryWeb, :live_view
 
   import StoryWeb.LayoutView, only: [underscore_string: 1]
   import StoryWeb.TimelineView, only: [order_timeline: 1]
 
   alias Story.Accounts
-  alias Story.Pages
+  alias Story.{Pages, Profiles}
 
   def mount(_params, session, socket) do
     current_user = Accounts.get_user_by_session_token(session["user_token"])
-    page = Pages.get_user_latest_page(current_user)
+    page = create_or_find_page(current_user)
 
     {:ok,
      socket
@@ -24,18 +24,20 @@ defmodule StoryWeb.EditLive do
       <div class="mt-8">
         <.live_component
           module={StoryWeb.EditInfoLive}
-          current_user_id={@current_user_id}
           id={"info-#{@page.personal_information.id}"}
+          current_user_id={@current_user_id}
           page_id={@page.id}
           info={@page.personal_information} />
 
-        <div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
+        <%= if Enum.any?(@page.stats) do %>
+          <div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
 
-        <div class="mt-8 mb-12 flex flex-wrap justify-center">
-          <%= for stat <-  @page.stats do %>
-            <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
-          <% end %>
-        </div>
+          <div class="mt-8 mb-12 flex flex-wrap justify-center">
+            <%= for stat <-  @page.stats do %>
+              <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
+            <% end %>
+          </div>
+        <% end %>
 
         <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
 
@@ -56,7 +58,6 @@ defmodule StoryWeb.EditLive do
               item={item} />
           <% end %>
         </div>
-
         <div class="relative mx-auto" style="width: 800px;">
           <div class="divider my-12 w-1/2 mx-auto text-secondary">Recommended Reading</div>
 
@@ -69,6 +70,7 @@ defmodule StoryWeb.EditLive do
                 current_user_id={@current_user_id} />
             <% end %>
           </div>
+            ADD
         </div>
       </div>
     <% end %>
@@ -79,5 +81,31 @@ defmodule StoryWeb.EditLive do
     items = socket.assigns.timeline_items ++ [item]
 
     {:noreply, assign(socket, :timeline_items, items)}
+  end
+
+  defp create_or_find_page(current_user) do
+    page =
+      Pages.create_or_find_page(%{
+        description: "DevStory",
+        slug: current_user.slug || "story-#{current_user.id}",
+        title: "My DevStory",
+        user_id: current_user.id
+      })
+      |> Story.Repo.preload(
+        personal_information: [:tags],
+        stats: [:tags],
+        timeline_items: [:tags],
+        readings: []
+      )
+
+    {_, page} =
+      Map.get_and_update(page, :personal_information, fn(current_value) ->
+        case current_value do
+          nil -> {current_value, %Profiles.Info{user_id: current_user.id, page_id: page.id, tags: []}}
+          _ -> {current_value, current_value}
+        end
+      end)
+
+    page
   end
 end

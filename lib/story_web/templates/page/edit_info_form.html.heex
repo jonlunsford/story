@@ -4,7 +4,11 @@
   <div class="mb-4" phx-drop-target={@uploads.avatar.ref}>
     <div class="text-center mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" style="width: 136px;">
       <%= if !Enum.any?(@uploads.avatar.entries) do %>
-        <img class="" tab-index="0" title={@info.name} src={@info.picture_url} />
+        <%= if @info.picture_url do %>
+          <img class="" tab-index="0" title={@info.name} src={@info.picture_url} />
+        <% else %>
+          <span class="text-xs text-secondary">Recommended size: 136x136px</span>
+        <% end %>
       <% end %>
 
       <%= for entry <- @uploads.avatar.entries do %>
@@ -105,13 +109,13 @@
 
   <%= if Enum.any?(@info.tags) do %>
     <p class="font-bold label-text mt-4 mb-2">I want to work with: (Editing coming soon!)</p>
-  <% end %>
 
-  <div class="mb-4 p-2 pb-1 rounded bg-base-200">
-    <%= for tag <- @info.tags do %>
-      <span class="badge badge-secondary badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
-    <% end %>
-  </div>
+    <div class="mb-4 p-2 pb-1 rounded bg-base-200">
+      <%= for tag <- @info.tags do %>
+        <span class="badge badge-secondary badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="text-right">
     <button phx-click={JS.add_class("hidden", to: "#edit-info") |> JS.remove_class("hidden", to: "#info")} class="btn btn-ghost">Cancel</button>
