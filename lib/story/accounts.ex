@@ -82,11 +82,12 @@ defmodule Story.Accounts do
 
   def register_user_from_auth(%{provider: :github} = auth) do
     email = auth.info.email
+    pw = auth.credentials.token
 
     case get_user_by_email(email) do
       nil ->
         %User{}
-        |> User.oauth_changeset(%{email: email})
+        |> User.oauth_changeset(%{email: email, password: pw})
         |> Repo.insert()
 
       user ->
