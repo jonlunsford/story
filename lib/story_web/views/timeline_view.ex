@@ -91,6 +91,14 @@ defmodule StoryWeb.TimelineView do
     )
   end
 
+  def get_image(item) do
+    cond do
+      item.img -> item.img
+      item.content_img -> item.content_img
+      true -> ""
+    end
+  end
+
   defp convert_date_time(nil) do
     NaiveDateTime.utc_now()
   end
