@@ -11,9 +11,9 @@
   </header>
 
   <div class="flex">
-    <%= if @item.img do %>
+    <%= if get_image(@item) do %>
       <div class="mr-4 w-1/4">
-        <img class="w-auto" src={@item.img} />
+        <img class="w-auto" src={get_image(@item)} />
       </div>
     <% end %>
 
@@ -30,12 +30,6 @@
           <%= for tag <- @item.tags do %>
             <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
           <% end %>
-        </div>
-      <% end %>
-
-      <%= if @item.content_img do %>
-        <div class="mb-1">
-          <img class="w-full" src={@item.content_img} alt={@item.title} />
         </div>
       <% end %>
 

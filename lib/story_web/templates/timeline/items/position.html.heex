@@ -42,12 +42,6 @@
         </div>
       <% end %>
 
-      <%= if @item.content_img do %>
-        <div class="mb-1">
-          <img class="w-full" src={@item.content_img} alt={@item.title} />
-        </div>
-      <% end %>
-
       <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
 
       <%= if @item.description && String.length(@item.description) >= 150 do %>

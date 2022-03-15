@@ -30,9 +30,11 @@
     </div>
   <% end %>
 
-  <div class="mb-1">
-    <img class="w-full" src={get_image(@item)} alt={@item.title} />
-  </div>
+  <%= if get_image(@item) do %>
+    <div class="mb-4">
+      <img class="w-full" src={get_image(@item)} alt={@item.title} />
+    </div>
+  <% end %>
 
   <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
 

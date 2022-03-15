@@ -28,7 +28,6 @@ defmodule StoryWeb.AddNewTimelineItemLive do
     ~H"""
     <div class="timeline-item add-new">
 
-      <%= @form %>
       <%= StoryWeb.TimelineView.render_form(
           "#{@form}",
           changeset: @new_changeset,
@@ -85,7 +84,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
             Certification
           </a>
 
-          <a class="text-center text-secondary text-xs" href="#" phx-click="show-form" phx-value-type="assessment" phx-value-form="default" phx-target={@myself}>
+          <a class="text-center text-secondary text-xs" href="#" phx-click="show-form" phx-value-type="assessment" phx-value-form="assessment" phx-target={@myself}>
             <svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9 4a1 1 0 10-2 0v6a1 1 0 102 0V7zm-3 2a1 1 0 10-2 0v4a1 1 0 102 0V9zm-3 3a1 1 0 10-2 0v1a1 1 0 102 0v-1z" clip-rule="evenodd" />
             </svg><br />
@@ -166,8 +165,8 @@ defmodule StoryWeb.AddNewTimelineItemLive do
      socket
      |> assign(:form, form)
      |> assign(:type, type)
-     |> assign(:new_changeset, Timelines.change_item(item))
-     |> push_event("remove-class", %{selector: ".item-form", class: "hidden"})
+     |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{}))
+     |> push_event("remove-class", %{selector: "#item-new-form", class: "hidden"})
      |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})}
   end
 

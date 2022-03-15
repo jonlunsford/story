@@ -11,9 +11,9 @@
   </header>
 
   <div class="flex">
-    <%= if @item.img do %>
+    <%= if get_image(@item) do %>
       <div class="mr-4 w-1/4">
-        <img class="w-auto" src={@item.img} />
+        <img class="w-full" src={get_image(@item)} alt={@item.title} />
       </div>
     <% end %>
 

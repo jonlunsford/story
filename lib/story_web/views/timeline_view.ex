@@ -2,6 +2,7 @@ defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
 
   @available_forms [
+    "assessment",
     "blogs_or_videos",
     "default",
     "education",
@@ -46,7 +47,13 @@ defmodule StoryWeb.TimelineView do
     (cur_year - 50)..cur_year
   end
 
-  def pretty_time_difference(start_date, end_date) do
+  def pretty_time_difference(start_date, end_date, current_position \\ false) do
+    end_date =
+      cond do
+        current_position -> NaiveDateTime.utc_now()
+      true -> end_date
+      end
+
     years = Timex.diff(end_date, start_date, :year)
     months = Timex.diff(end_date, start_date, :month) - years * 12 + 1
 
@@ -86,7 +93,7 @@ defmodule StoryWeb.TimelineView do
   def order_timeline(timeline_items) do
     Enum.sort_by(
       timeline_items,
-      &(convert_date_time(&1.order_by)),
+      &(convert_date_time(&1)),
       {:desc, Date}
     )
   end
@@ -95,23 +102,27 @@ defmodule StoryWeb.TimelineView do
     cond do
       item.img -> item.img
       item.content_img -> item.content_img
-      true -> ""
+      true -> nil
     end
   end
 
-  defp convert_date_time(nil) do
+  defp convert_date_time(%{current_position: true}) do
     NaiveDateTime.utc_now()
   end
 
-  defp convert_date_time(naive_date_time) do
-    NaiveDateTime.to_date(naive_date_time)
+  defp convert_date_time(%{order_by: nil}) do
+    NaiveDateTime.utc_now()
   end
 
-  defp determine_date_display_template(%{start_date: nil} = item) do
+  defp convert_date_time(%{order_by: order_by}) do
+    NaiveDateTime.to_date(order_by)
+  end
+
+  defp determine_date_display_template(%{start_date: nil} = _item) do
     "date_display_single"
   end
 
-  defp determine_date_display_template(%{end_date: nil} = item) do
+  defp determine_date_display_template(%{end_date: nil} = _item) do
     "date_display_single"
   end
 

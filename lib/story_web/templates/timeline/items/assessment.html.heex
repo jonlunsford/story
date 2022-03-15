@@ -10,8 +10,8 @@
     <% end %>
   </header>
 
-  <%= if @item.img do %>
-    <img class="w-full" src={@item.img} alt={@item.description} />
+  <%= if get_image(@item) do %>
+    <img class="w-full" src={get_image(@item)} alt={@item.description} />
   <% end %>
 
   <%= if Enum.any?(@item.tags) do %>

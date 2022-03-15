@@ -26,9 +26,9 @@
     </div>
   <% end %>
 
-  <%= if @item.content_img do %>
-    <div class="mb-1">
-      <img class="w-full" src={@item.content_img} alt={@item.title} />
+  <%= if get_image(@item) do %>
+    <div class="mb-4">
+      <img class="w-full" src={get_image(@item)} alt={@item.title} />
     </div>
   <% end %>
 
