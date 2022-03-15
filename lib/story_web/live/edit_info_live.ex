@@ -2,6 +2,7 @@ defmodule StoryWeb.EditInfoLive do
   use StoryWeb, :live_component
 
   alias Story.Profiles
+  alias Story.S3UploadHelpers
   alias Phoenix.LiveView.JS
 
   def mount(socket) do
@@ -10,7 +11,8 @@ defmodule StoryWeb.EditInfoLive do
      |> allow_upload(:avatar,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
-       max_file_size: 4_000_000
+       max_file_size: 4_000_000,
+       external: &presign_upload/2
      )}
   end
 
@@ -46,7 +48,7 @@ defmodule StoryWeb.EditInfoLive do
   end
 
   def handle_event("save", %{"info" => info_params}, socket) do
-    picture_url = get_image_url(socket)
+    picture_url = S3UploadHelpers.get_image_url(socket)
     info = socket.assigns.info
 
     info_params =
@@ -59,24 +61,18 @@ defmodule StoryWeb.EditInfoLive do
     case Profiles.update_info(info, info_params) do
       {:ok, info} ->
         {:noreply,
-          socket
-          |> assign(:info, info)
-          |> push_event("remove-class", %{selector: "#info", class: "hidden"})
-          |> push_event("add-class", %{selector: "#edit-info", class: "hidden"})
-          |> assign(:changeset, Profiles.change_info(info))}
+         socket
+         |> assign(:info, info)
+         |> push_event("remove-class", %{selector: "#info", class: "hidden"})
+         |> push_event("add-class", %{selector: "#edit-info", class: "hidden"})
+         |> assign(:changeset, Profiles.change_info(info))}
+
       {:error, changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end
 
-  defp get_image_url(socket) do
-    consume_uploaded_entries(socket, :avatar, fn %{path: path}, entry ->
-      dest = Path.join("priv/static/uploads", Path.basename(path)) <> "-" <> entry.client_name
-
-      File.cp!(path, dest)
-
-      {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
-    end)
-    |> List.first()
+  defp presign_upload(entry, socket) do
+    S3UploadHelpers.presign_upload(entry, socket, :avatar)
   end
 end

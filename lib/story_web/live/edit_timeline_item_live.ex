@@ -5,6 +5,7 @@ defmodule StoryWeb.EditTimelineItemLive do
 
   alias Story.Timelines
   alias Phoenix.LiveView.JS
+  alias Story.S3UploadHelpers
 
   def update(assigns, socket) do
     {:ok,
@@ -15,7 +16,8 @@ defmodule StoryWeb.EditTimelineItemLive do
      |> allow_upload(:img,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
-       max_file_size: 4_000_000
+       max_file_size: 4_000_000,
+       external: &presign_upload/2
      )}
   end
 
@@ -67,7 +69,7 @@ defmodule StoryWeb.EditTimelineItemLive do
   end
 
   def handle_event("save", %{"item" => item_params}, socket) do
-    picture_url = get_image_url(socket)
+    picture_url = S3UploadHelpers.get_image_url(socket, :img)
 
     item_params =
       if picture_url do
@@ -111,14 +113,7 @@ defmodule StoryWeb.EditTimelineItemLive do
     |> JS.add_class("hidden", to: "#item-#{item.id}-form")
   end
 
-  defp get_image_url(socket) do
-    consume_uploaded_entries(socket, :img, fn %{path: path}, entry ->
-      dest = Path.join("priv/static/uploads", Path.basename(path)) <> "-" <> entry.client_name
-
-      File.cp!(path, dest)
-
-      {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
-    end)
-    |> List.first()
+  defp presign_upload(entry, socket) do
+    S3UploadHelpers.presign_upload(entry, socket, :img)
   end
 end

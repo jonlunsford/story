@@ -40,14 +40,11 @@ defmodule StoryWeb.EditLive do
         <div class="min-h-full relative mt-8 mt-16 mx-auto" style="width: 815px;">
           <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
-
-          <!--
           <.live_component
             module={StoryWeb.AddNewTimelineItemLive}
             id="add-new-item"
             current_user_id={@current_user.id}
             page_id={@page.id} />
-          -->
 
           <%= for item <- order_timeline(@timeline_items) do %>
             <.live_component
