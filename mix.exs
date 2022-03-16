@@ -20,7 +20,7 @@ defmodule Story.MixProject do
   def application do
     [
       mod: {Story.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:honeybadger, :logger, :runtime_tools]
     ]
   end
 
@@ -55,7 +55,8 @@ defmodule Story.MixProject do
       {:timex, "~> 3.7.6"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_github, "~> 0.7"},
-      {:secure_random, "~> 0.5.1"}
+      {:secure_random, "~> 0.5.1"},
+      {:honeybadger, "~> 0.7"}
     ]
   end
 

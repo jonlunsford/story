@@ -1,5 +1,6 @@
 defmodule StoryWeb.Router do
   use StoryWeb, :router
+  use Honeybadger.Plug
 
   import StoryWeb.UserAuth
 
