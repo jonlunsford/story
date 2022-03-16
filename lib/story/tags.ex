@@ -6,7 +6,7 @@ defmodule Story.Tags do
   import Ecto.Query, warn: false
   alias Story.Repo
 
-  alias Story.Tags.Tag
+  alias __MODULE__.Tag
 
   @doc """
   Returns the list of tags.

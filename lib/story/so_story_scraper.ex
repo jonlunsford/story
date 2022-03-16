@@ -5,7 +5,7 @@ defmodule Story.SOStoryScraper do
 
   alias Story.Pages.{Page, Reading}
   alias Story.Profiles.Info
-  alias Story.Tags
+  alias Story.Tags.Tag
   alias Story.Stats.Stat
   alias Story.Timelines.Item
 
@@ -59,7 +59,7 @@ defmodule Story.SOStoryScraper do
           title: assessment.alt,
           img: assessment.img,
           type: "assessment",
-          tags: [%Tags.Tag{name: assessment.tag}]
+          tags: [%Tag{name: assessment.tag}]
         }
       end)
 
@@ -79,7 +79,7 @@ defmodule Story.SOStoryScraper do
   end
 
   def build_item(item) do
-    tags = Enum.map(item.tags, fn tag -> %Tags.Tag{name: tag} end)
+    tags = Enum.map(item.tags, fn tag -> %Tag{name: tag} end)
     dates = String.split(item.date, "→") |> Enum.map(fn date -> String.trim(date) end)
     current_position = String.equivalent?(List.last(dates), "Current")
 
@@ -132,7 +132,7 @@ defmodule Story.SOStoryScraper do
       twitter: map.twitter,
       website: map.website,
       picture_url: map.picture_url,
-      tags: Enum.map(map.technologies, fn tech -> %Tags.Tag{name: tech} end)
+      tags: Enum.map(map.technologies, fn tech -> %Tag{name: tech} end)
     }
   end
 
