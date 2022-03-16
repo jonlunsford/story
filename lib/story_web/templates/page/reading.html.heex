@@ -6,9 +6,14 @@
   </div>
 
   <div>
-    <a href={@reading.url} alt={@reading.title} class="link link-primary">
+    <%= if @reading.url do %>
+      <a href={@reading.url} alt={@reading.title} class="link link-primary">
+        <%= @reading.title %>
+      </a>
+    <% else %>
       <%= @reading.title %>
-    </a>
+    <% end %>
+
     <p class="text-xs text-neutral mt-1"><%= @reading.author %></p>
 
     <dif class="line-clamp-4 text-xs mt-2">

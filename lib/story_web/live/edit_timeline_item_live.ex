@@ -53,7 +53,7 @@ defmodule StoryWeb.EditTimelineItemLive do
 
       <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 border border-base-200 rounded-md w-32">
         <li><a phx-click={show_form(@item)}>Edit</a></li>
-        <li><a phx-click="delete" phx-value-id={@item.id} phx-target={@myself}>Delete</a></li>
+        <li><a data-confirm="Are you sure? This cannot be undone." phx-click="delete" phx-value-id={@item.id} phx-target={@myself}>Delete</a></li>
       </ul>
     </div>
     """

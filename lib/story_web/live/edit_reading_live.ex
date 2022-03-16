@@ -30,9 +30,14 @@ defmodule StoryWeb.EditReadingLive do
       </div>
 
       <div>
-        <a href={@reading.url} alt={@reading.title} class="link link-primary">
+        <%= if @reading.url do %>
+          <a href={@reading.url} alt={@reading.title} class="link link-primary">
+            <%= @reading.title %>
+          </a>
+        <% else %>
           <%= @reading.title %>
-        </a>
+        <% end %>
+
         <p class="text-xs text-neutral mt-1"><%= @reading.author %></p>
 
         <dif class="line-clamp-4 text-xs mt-2">
@@ -51,7 +56,7 @@ defmodule StoryWeb.EditReadingLive do
 
           <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 border border-base-200 rounded-md w-32">
             <li><a phx-click={JS.remove_class("hidden", to: "#reading-#{@reading.id}-form") |> JS.add_class("hidden", to: "#reading-#{@reading.id}-content")} phx-value-id={@reading.id} phx-target={@myself}>Edit</a></li>
-            <li><a phx-click="delete" phx-value-id={@reading.id} phx-target={@myself}>Delete</a></li>
+            <li><a data-confirm="Are you sure? This cannot be undone." phx-click="delete" phx-value-id={@reading.id} phx-target={@myself}>Delete</a></li>
           </ul>
         </div>
       <% end %>

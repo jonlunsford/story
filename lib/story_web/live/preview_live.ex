@@ -17,7 +17,7 @@ defmodule StoryWeb.PreviewLive do
     <%= if !@page do %>
       <div class="lg:w-1/2 mx-auto my-12">
         <h1 class="text-5xl font-extrabold mb-8">StackOverflow Import</h1>
-        <p class="mb-4 text-neutral">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
+        <p class="mb-4 text-neutral">Preview your StackOverflow story, create an account to save, share and claim your DevStory vanity url.</p>
 
         <form phx-submit="fetch-story">
           <div class="p-10 card bg-base-100 shadow-md border border-base-300">
