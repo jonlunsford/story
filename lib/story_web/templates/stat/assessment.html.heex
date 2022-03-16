@@ -3,6 +3,6 @@
     <img height="28" class="h-8 flex-none" src={@stat.img} alt={@stat.title} />
   </a>
   <%= for tag <- @stat.tags do %>
-    <span class="ml-1 h-full rounded-md badge badge-secondary badge-outline"><%= tag.name %></span>
+    <span class="ml-1 h-full rounded-md badge badge-neutral badge-outline"><%= tag.name %></span>
   <% end %>
 </div>

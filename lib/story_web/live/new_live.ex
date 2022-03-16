@@ -22,9 +22,9 @@ import StoryWeb.LayoutView, only: [underscore_string: 1]
     ~H"""
     <%= if @page do %>
       <div class="py-8">
-        <div class="divider my-8 w-1/2 mx-auto text-secondary">Personal Information</div>
+        <div class="divider my-8 w-1/2 mx-auto text-neutral">Personal Information</div>
 
-        <p class="mt-4 text-secondary text-sm w-1/4 mx-auto text-center mb-8">Add some details about yourself so prospective employers can get to know you.</p>
+        <p class="mt-4 text-neutral text-sm w-1/4 mx-auto text-center mb-8">Add some details about yourself so prospective employers can get to know you.</p>
 
         <.live_component
           module={StoryWeb.EditInfoLive}
@@ -34,7 +34,7 @@ import StoryWeb.LayoutView, only: [underscore_string: 1]
           info={@page.personal_information} />
 
         <%= if Enum.any?(@page.stats) do %>
-          <div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
+          <div class="divider my-8 w-1/2 mx-auto text-neutral">Assessments</div>
 
           <div class="mt-8 mb-12 flex flex-wrap justify-center">
             <%= for stat <-  @page.stats do %>
@@ -43,9 +43,9 @@ import StoryWeb.LayoutView, only: [underscore_string: 1]
           </div>
         <% end %>
 
-        <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
+        <div class="divider my-8 w-1/4 mx-auto text-neutral">Timeline</div>
 
-        <p class="mt-4 text-secondary text-sm text-center w-1/4 mx-auto">Add items to your timeline that tells your story as a developer.</p>
+        <p class="mt-4 text-neutral text-sm text-center w-1/4 mx-auto">Add items to your timeline that tells your story as a developer.</p>
 
         <div class="min-h-full relative mt-8 mt-16 mx-auto" style="width: 815px;">
           <div class="w-px absolute top-0 left-1/2 border h-full"></div>
@@ -66,7 +66,15 @@ import StoryWeb.LayoutView, only: [underscore_string: 1]
         </div>
 
         <div class="relative mx-auto mt-24" style="width: 800px;">
-          <div class="divider my-12 w-1/2 mx-auto text-secondary">Recommended Reading</div>
+          <div class="divider my-12 w-1/2 mx-auto text-neutral">Recommended Reading</div>
+
+          <p class="text-neutral text-sm text-center w-1/2 mx-auto mb-8">What are some of your favorite readings? Highlight anything you've read that will help potential employers learn more about what you're learning.</p>
+
+          <.live_component
+            id="add-new-reading"
+            current_user_id={@current_user_id}
+            page_id={@page.id}
+            module={StoryWeb.AddNewReadingLive} />
 
           <div class="grid grid-cols-3 gap-4 mx-auto mb-8" style="width: 800px;">
             <%= for reading <- @readings do %>
@@ -77,14 +85,6 @@ import StoryWeb.LayoutView, only: [underscore_string: 1]
                 current_user_id={@current_user_id} />
             <% end %>
           </div>
-
-          <p class="text-secondary text-sm text-center w-1/2 mx-auto mb-8">What are some of your favorite readings? Highlight anything you've read that will help potential employers learn more about what you're learning.</p>
-
-          <.live_component
-            id="add-new-reading"
-            current_user_id={@current_user_id}
-            page_id={@page.id}
-            module={StoryWeb.AddNewReadingLive} />
         </div>
       </div>
     <% end %>

@@ -7,17 +7,17 @@
             <span class="block xl:inline">Resume's & CV's</span><br />
             <span class="block text-indigo-600 xl:inline">For Developers</span>
           </h1>
-          <p class="mt-3 pr-24 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">Traditional resume's and CV's don't communicate the evolving work and contributions of developers. Your work history is a story to tell. Find your next role by sharing your <u class="font-bold">DevStory</u>.</p>
+          <p class="mt-3 pr-24 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">Traditional resume's and CV's don't communicate the evolving work and contributions of developers. Your work history is a story to tell. Find your next role by sharing your <strong class="font-bold">DevStory</strong>.</p>
           <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
             <div class="rounded-md shadow">
               <%= link "Get Started", to: Routes.user_registration_path(@conn, :new), class: "btn btn-primary btn-lg text-white bg-indigo-600" %>
             </div>
             <div class="mt-3 sm:mt-0 sm:ml-3">
-              <a href="/jonlunsford" class="btn btn-secondary btn-lg text-white"> Live demo </a>
+              <a href="/jonlunsford" class="btn btn-outline btn-lg"> Live demo </a>
             </div>
           </div>
           <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-            <%= link "Import From StackOverflow", to: Routes.live_path(@conn, StoryWeb.PreviewLive), class: "btn btn-outline btn-lg" %>
+            <%= link "Import From StackOverflow", to: Routes.live_path(@conn, StoryWeb.PreviewLive), class: "btn btn-ghost btn-lg" %>
           </div>
         </div>
       </main>

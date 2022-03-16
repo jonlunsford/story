@@ -32,7 +32,7 @@ defmodule StoryWeb.ImportLive do
     <%= if !@so_url do %>
       <div class="lg:w-1/2 mx-auto my-12">
         <h1 class="text-5xl font-bold mb-8">StackOverflow Import</h1>
-        <p class="mb-4 text-secondary">Import your StackOverflow story.</p>
+        <p class="mb-4 text-neutral">Import your StackOverflow story.</p>
 
         <form phx-submit="fetch-story">
           <div class="p-10 card bg-base-100 shadow-sm border border-base-300">
@@ -41,7 +41,7 @@ defmodule StoryWeb.ImportLive do
                 <span class="label-text">StackOverflow Story URL:</span>
               </label>
               <input type="text" class="input input-bordered" name="so_url" placeholder="https://stackoverflow.com/story/my-vanity-url" />
-              <p class="text-secondary text-xs pt-2">Example: <br /> https://stackoverflow.com/story/my-vanity-url <strong>OR</strong> https://stackoverflow.com/users/story/123456</p>
+              <p class="text-neutral text-xs pt-2">Example: <br /> https://stackoverflow.com/story/my-vanity-url <strong>OR</strong> https://stackoverflow.com/users/story/123456</p>
              </div>
              <div>
                <button class="btn btn-primary">Import</button>

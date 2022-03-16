@@ -29,7 +29,7 @@
     <% end %>
 
     <%= if !Enum.any?(@uploads.img.entries) && !@item.img do %>
-      <span class="text-xs text-secondary">Recommended size: 350x150px</span>
+      <span class="text-xs text-neutral">Recommended size: 350x150px</span>
     <% end %>
 
     <%= for entry <- @uploads.img.entries do %>
@@ -61,7 +61,7 @@
     <p class="font-bold label-text mt-4 mb-2">Technologies: (Editing coming soon!)</p>
     <div class="mb-4 p-2 pb-1 rounded bg-base-200">
       <%= for tag <- @item.tags do %>
-        <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+        <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
       <% end %>
     </div>
   <% end %>

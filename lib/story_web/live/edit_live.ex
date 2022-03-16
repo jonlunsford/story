@@ -29,7 +29,7 @@ defmodule StoryWeb.EditLive do
           page_id={@page.id}
           info={@page.personal_information} />
 
-        <div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
+        <div class="divider my-8 w-1/2 mx-auto text-neutral">Assessments</div>
 
         <div class="mt-8 mb-12 flex flex-wrap justify-center">
           <%= for stat <-  @page.stats do %>
@@ -37,7 +37,7 @@ defmodule StoryWeb.EditLive do
           <% end %>
         </div>
 
-        <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
+        <div class="divider my-8 w-1/4 mx-auto text-neutral">Timeline</div>
 
         <div class="min-h-full relative mt-8 mt-16 mx-auto" style="width: 815px;">
           <div class="w-px absolute top-0 left-1/2 border h-full"></div>
@@ -58,7 +58,7 @@ defmodule StoryWeb.EditLive do
         </div>
 
         <div class="relative mx-auto" style="width: 800px;">
-          <div class="divider my-12 w-1/2 mx-auto text-secondary">Recommended Reading</div>
+          <div class="divider my-12 w-1/2 mx-auto text-neutral">Recommended Reading</div>
 
           <div class="grid grid-cols-3 gap-4 mx-auto mb-12" style="width: 800px;">
             <%= for reading <- @page.readings do %>

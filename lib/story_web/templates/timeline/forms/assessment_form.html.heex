@@ -1,5 +1,8 @@
 <.form id={"item-#{@item.id}-form"} class="hidden item-form" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
-  <p>Coming soon!</p>
+  <div class="p-4">
+    <p class="font-bold">Coming soon!</p>
+    <p>Verify your skills with our partners, and display official skill assessments within your story.</p>
+  </div>
 
   <div class="text-right">
     <a href="#" phx-click={@on_cancel.(@item)} class="btn btn-ghost">Back</a>

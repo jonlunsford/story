@@ -7,7 +7,7 @@
         <%= if @info.picture_url do %>
           <img class="" tab-index="0" title={@info.name} src={@info.picture_url} />
         <% else %>
-          <span class="text-xs text-secondary">Picture<br/> Recommended size: 136x136px</span>
+          <span class="text-xs text-neutral">Picture<br/> Recommended size: 136x136px</span>
         <% end %>
       <% end %>
 
@@ -112,7 +112,7 @@
 
     <div class="mb-4 p-2 pb-1 rounded bg-base-200">
       <%= for tag <- @info.tags do %>
-        <span class="badge badge-secondary badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+        <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
       <% end %>
     </div>
   <% end %>

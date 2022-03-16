@@ -6,7 +6,15 @@ defmodule StoryWeb.PageController do
   def index(conn, _params) do
     case conn.assigns.current_user do
       nil -> render(conn, "index.html")
-      user -> render(conn, "dashboard.html")
+      user ->
+        page = Pages.get_user_latest_page(user)
+
+        if page do
+          conn
+          |> redirect(to: Routes.live_path(conn, StoryWeb.NewLive))
+        else
+          render(conn, "dashboard.html")
+        end
     end
   end
 

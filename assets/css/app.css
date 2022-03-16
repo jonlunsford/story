@@ -10,7 +10,7 @@
 }
 
 [contenteditable=true], .editable {
-  @apply border border-secondary border-dashed border-opacity-50 p-1;
+  @apply border border-neutral border-dashed border-opacity-50 p-1;
 }
 
 [contenteditable=true].border-none {

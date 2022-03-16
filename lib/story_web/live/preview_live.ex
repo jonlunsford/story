@@ -6,11 +6,8 @@ defmodule StoryWeb.PreviewLive do
   alias Story.SOStoryScraper
 
   def mount(_params, session, socket) do
-    current_user = Accounts.get_user_by_session_token(session["user_token"])
-
     {:ok,
      socket
-     |> assign(:current_user_id, current_user.id)
      |> assign(:changeset, nil)
      |> assign(:page, nil)}
   end
@@ -19,8 +16,8 @@ defmodule StoryWeb.PreviewLive do
     ~H"""
     <%= if !@page do %>
       <div class="lg:w-1/2 mx-auto my-12">
-        <h1 class="text-5xl font-extrabold mb-8">StackOverflow Preview</h1>
-        <p class="mb-4 text-secondary">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
+        <h1 class="text-5xl font-extrabold mb-8">StackOverflow Import</h1>
+        <p class="mb-4 text-neutral">Preview your StackOverflow story, create an account to save, edit, share and claim your DevStory vanity url.</p>
 
         <form phx-submit="fetch-story">
           <div class="p-10 card bg-base-100 shadow-md border border-base-300">
@@ -29,7 +26,7 @@ defmodule StoryWeb.PreviewLive do
                 <span class="label-text">StackOverflow Story URL:</span>
               </label>
               <input type="text" class="input input-bordered" name="so_url" placeholder="https://stackoverflow.com/story/my-vanity-url" />
-              <p class="text-secondary text-xs pt-2">Example: <br /> https://stackoverflow.com/story/my-vanity-url <strong>OR</strong> https://stackoverflow.com/users/story/123456</p>
+              <p class="text-neutral text-xs pt-2">Example: <br /> https://stackoverflow.com/story/my-vanity-url <strong>OR</strong> https://stackoverflow.com/users/story/123456</p>
              </div>
              <div>
                <button class="btn btn-primary">Preview</button>
@@ -39,7 +36,7 @@ defmodule StoryWeb.PreviewLive do
       </div>
     <% end %>
 
-    <%= if @page && !@current_user_id do %>
+    <%= if @page do %>
       <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
       <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
     <% end %>

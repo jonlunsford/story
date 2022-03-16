@@ -1,5 +1,5 @@
 <div id={"item-#{@item.id}-content"}>
-  <header class="text-xs text-secondary mb-6 flex items-center justify-between">
+  <header class="text-xs text-neutral mb-6 flex items-center justify-between">
     <div>
       <%= capitalize_string(@item.type) %> •
       <%= StoryWeb.TimelineView.render("shared/_date_display_range.html", item: @item) %>
@@ -38,10 +38,10 @@
       </p>
 
       <%= if Enum.any?(@item.tags) do %>
-        <p class="text-xs text-secondary mb-2">Technologies:</p>
+        <p class="text-xs text-neutral mb-2">Technologies:</p>
         <div class="mb-4 p-2 pb-1 rounded bg-base-200">
           <%= for tag <- @item.tags do %>
-            <span class="text-xs badge badge-secondary badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+            <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
           <% end %>
         </div>
       <% end %>
@@ -49,7 +49,7 @@
       <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
 
       <%= if @item.description && String.length(@item.description) >= 150 do %>
-        <button id={"item-#{@item.id}-content-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-secondary text-xs">Show More</button>
+        <button id={"item-#{@item.id}-content-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-neutral text-xs">Show More</button>
       <% end %>
     </div>
   </div>

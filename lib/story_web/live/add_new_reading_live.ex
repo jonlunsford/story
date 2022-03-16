@@ -23,7 +23,7 @@ defmodule StoryWeb.AddNewReadingLive do
           reading: @reading,
           myself: @myself) %>
 
-      <button phx-click={JS.remove_class("hidden", to: "#reading-new-form")} class="rounded-sm btn btn-secondary btn-outline btn-sm mx-auto w-1/3">Add Reading</button>
+      <button phx-click={JS.remove_class("hidden", to: "#reading-new-form")} class="rounded-sm btn btn-neutral btn-outline btn-sm mx-auto w-1/3 mb-12">Add Reading</button>
     </div>
     """
   end
