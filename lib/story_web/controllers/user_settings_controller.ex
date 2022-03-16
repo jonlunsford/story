@@ -55,7 +55,7 @@ defmodule StoryWeb.UserSettingsController do
     %{"user" => user_params} = params
 
     case Accounts.apply_user_slug(user, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "Vanity URL updated successfully.")
         |> redirect(to: Routes.user_settings_path(conn, :edit))
