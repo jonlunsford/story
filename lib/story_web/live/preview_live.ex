@@ -5,7 +5,7 @@ defmodule StoryWeb.PreviewLive do
   alias Phoenix.LiveView.JS
   alias Story.SOStoryScraper
 
-  def mount(_params, session, socket) do
+  def mount(_params, _session, socket) do
     {:ok,
      socket
      |> assign(:changeset, nil)

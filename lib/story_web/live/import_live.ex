@@ -77,7 +77,7 @@ defmodule StoryWeb.ImportLive do
         user_id: current_user.id
       })
 
-    result = SOStoryScraper.fetch_and_save(so_url, %{page_id: page.id, user_id: current_user.id})
+    SOStoryScraper.fetch_and_save(so_url, %{page_id: page.id, user_id: current_user.id})
 
     {:noreply,
      socket

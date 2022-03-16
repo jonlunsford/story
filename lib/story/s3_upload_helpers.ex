@@ -1,6 +1,6 @@
 defmodule Story.S3UploadHelpers do
   def get_image_url(socket, upload_key \\ :avatar) do
-    Phoenix.LiveView.consume_uploaded_entries(socket, upload_key, fn %{key: key, url: url}, entry ->
+    Phoenix.LiveView.consume_uploaded_entries(socket, upload_key, fn %{key: key, url: url}, _entry ->
       if key do
         {:ok, "#{url}/#{key}"}
       else

@@ -161,8 +161,6 @@ defmodule StoryWeb.AddNewTimelineItemLive do
   end
 
   def handle_event("show-form", %{"form" => form, "type" => type}, socket) do
-    item = socket.assigns.item
-
     {:noreply,
      socket
      |> assign(:form, form)
