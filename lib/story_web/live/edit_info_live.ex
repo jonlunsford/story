@@ -74,6 +74,7 @@ defmodule StoryWeb.EditInfoLive do
          |> assign(:info, info)
          |> push_event("remove-class", %{selector: "#info", class: "hidden"})
          |> push_event("add-class", %{selector: "#edit-info", class: "hidden"})
+         |> push_event("add-class", %{selector: ".add-info-callout", class: "hidden"})
          |> assign(:changeset, Profiles.change_info(info))}
 
       {:error, changeset} ->

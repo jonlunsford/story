@@ -6,7 +6,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
   alias Story.S3UploadHelpers
 
   def update(assigns, socket) do
-    item = %Timelines.Item{ id: "new", type: nil, tags: [], }
+    item = %Timelines.Item{ id: "new", type: nil, tags: [] }
 
     {:ok,
      socket
@@ -112,7 +112,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
 
     {:noreply,
      socket
-     |> push_event("remove-class", %{selector: "#item-new-form", class: "hidden"})
+     |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})
      |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})
      |> assign(:new_changeset, changeset)}
   end
@@ -146,13 +146,14 @@ defmodule StoryWeb.AddNewTimelineItemLive do
         {:noreply,
          socket
          |> assign(:item, item)
+         |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{ id: "new", type: nil, tags: []}))
          |> push_event("remove-class", %{selector: "#item-new-content", class: "hidden"})
-         |> push_event("add-class", %{selector: "#item-orm", class: "hidden"})}
+         |> push_event("add-class", %{selector: ".add-new .item-form", class: "hidden"})}
 
       {:error, changeset} ->
         {:noreply,
          socket
-         |> push_event("remove-class", %{selector: ".item-form", class: "hidden"})
+         |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})
          |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})
          |> assign(:new_changeset, changeset)}
     end
@@ -166,7 +167,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
      |> assign(:form, form)
      |> assign(:type, type)
      |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{}))
-     |> push_event("remove-class", %{selector: "#item-new-form", class: "hidden"})
+     |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})
      |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})}
   end
 

@@ -8,6 +8,14 @@
   </div>
 
   <div class="form-control">
+    <%= label f, :location, class: "label" do %>
+      <span class="label-text font-bold">Company:</span>
+    <% end %>
+    <%= text_input f, :location, class: "input input-sm input-bordered" %>
+    <%= error_tag f, :location %>
+  </div>
+
+  <div class="form-control">
     <%= label f, :url, class: "label" do %>
       <span class="label-text font-bold">URL:</span>
     <% end %>

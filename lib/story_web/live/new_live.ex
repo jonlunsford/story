@@ -1,7 +1,6 @@
 defmodule StoryWeb.NewLive do
   use StoryWeb, :live_view
-
-  import StoryWeb.LayoutView, only: [underscore_string: 1]
+import StoryWeb.LayoutView, only: [underscore_string: 1]
   import StoryWeb.TimelineView, only: [order_timeline: 1]
 
   alias Story.Accounts
@@ -15,13 +14,18 @@ defmodule StoryWeb.NewLive do
      socket
      |> assign(:current_user_id, current_user.id)
      |> assign(:timeline_items, page.timeline_items)
+     |> assign(:readings, page.readings)
      |> assign(:page, page)}
   end
 
   def render(assigns) do
     ~H"""
     <%= if @page do %>
-      <div class="mt-8">
+      <div class="py-8">
+        <div class="divider my-8 w-1/2 mx-auto text-secondary">Personal Information</div>
+
+        <p class="mt-4 text-secondary text-sm w-1/4 mx-auto text-center mb-8">Add some details about yourself so prospective employers can get to know you.</p>
+
         <.live_component
           module={StoryWeb.EditInfoLive}
           id={"info-#{@page.personal_information.id}"}
@@ -41,6 +45,8 @@ defmodule StoryWeb.NewLive do
 
         <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
 
+        <p class="mt-4 text-secondary text-sm text-center w-1/4 mx-auto">Add items to your timeline that tells your story as a developer.</p>
+
         <div class="min-h-full relative mt-8 mt-16 mx-auto" style="width: 815px;">
           <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
@@ -58,11 +64,12 @@ defmodule StoryWeb.NewLive do
               item={item} />
           <% end %>
         </div>
-        <div class="relative mx-auto" style="width: 800px;">
+
+        <div class="relative mx-auto mt-24" style="width: 800px;">
           <div class="divider my-12 w-1/2 mx-auto text-secondary">Recommended Reading</div>
 
-          <div class="grid grid-cols-3 gap-4 mx-auto mb-12" style="width: 800px;">
-            <%= for reading <- @page.readings do %>
+          <div class="grid grid-cols-3 gap-4 mx-auto mb-8" style="width: 800px;">
+            <%= for reading <- @readings do %>
               <.live_component
                 id={"reading-#{reading.id}"}
                 module={StoryWeb.EditReadingLive}
@@ -70,7 +77,14 @@ defmodule StoryWeb.NewLive do
                 current_user_id={@current_user_id} />
             <% end %>
           </div>
-            ADD
+
+          <p class="text-secondary text-sm text-center w-1/2 mx-auto mb-8">What are some of your favorite readings? Highlight anything you've read that will help potential employers learn more about what you're learning.</p>
+
+          <.live_component
+            id="add-new-reading"
+            current_user_id={@current_user_id}
+            page_id={@page.id}
+            module={StoryWeb.AddNewReadingLive} />
         </div>
       </div>
     <% end %>
@@ -81,6 +95,12 @@ defmodule StoryWeb.NewLive do
     items = socket.assigns.timeline_items ++ [item]
 
     {:noreply, assign(socket, :timeline_items, items)}
+  end
+
+  def handle_info({:added_reading, reading}, socket) do
+    readings = socket.assigns.readings ++ [reading]
+
+    {:noreply, assign(socket, :readings, readings)}
   end
 
   defp create_or_find_page(current_user) do

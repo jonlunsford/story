@@ -47,6 +47,12 @@ Hooks.ToggleClass = {
   },
 }
 
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll("[phx-hook='ToggleClass']").forEach(el => {
+    el.addEventListener("click", Hooks.ToggleClass.toggleClass)
+  })
+});
+
 Hooks.ContentEditable = {
   mounted() {
     this.el.contentEditable = true;

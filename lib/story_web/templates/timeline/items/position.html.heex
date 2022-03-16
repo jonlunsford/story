@@ -1,7 +1,7 @@
 <div id={"item-#{@item.id}-content"}>
   <header class="text-xs text-secondary mb-6 flex items-center justify-between">
     <div>
-      <%= @item.type %> •
+      <%= capitalize_string(@item.type) %> •
       <%= StoryWeb.TimelineView.render("shared/_date_display_range.html", item: @item) %>
     </div>
 
@@ -28,8 +28,12 @@
           <%= @item.title %>
         <% end %>
 
-        <%= if @item.location do %>
+        <%= if @item.location && @item.url do %>
          at <a class="link link-primary" href={@item.url}><%= @item.location %></a>
+        <% end %>
+
+        <%= if @item.location && !@item.url do %>
+         at <%= @item.location %>
         <% end %>
       </p>
 

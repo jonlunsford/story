@@ -1,7 +1,7 @@
 <div id={"item-#{@item.id}-content"}>
   <header class="text-xs text-secondary mb-6 flex items-center justify-between">
     <div>
-      <%= @item.type %> •
+      <%= capitalize_string(@item.type) %> •
       <%= StoryWeb.TimelineView.render_date_display(@item) %>
     </div>
 

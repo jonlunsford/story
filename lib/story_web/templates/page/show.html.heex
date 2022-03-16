@@ -70,13 +70,15 @@
   <% end %>
 </div>
 
-<div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
+<%= if Enum.any?(@page.stats) do %>
+  <div class="divider my-8 w-1/2 mx-auto text-secondary">Assessments</div>
 
-<div class="mt-8 mb-12 flex flex-wrap justify-center">
-  <%= for stat <-  @page.stats do %>
-    <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
-  <% end %>
-</div>
+  <div class="mt-8 mb-12 flex flex-wrap justify-center">
+    <%= for stat <-  @page.stats do %>
+      <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="divider my-8 w-1/4 mx-auto text-secondary">Timeline</div>
 

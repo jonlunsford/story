@@ -5,8 +5,7 @@
 </div>
 
 <%= if !@info.id do %>
-  <div id="info" class="pt-24 w-full h-64">
+  <div id="info" class="pt-4 w-full h-64 add-info-callout">
     <button phx-click={JS.add_class("hidden", to: "#info") |> JS.remove_class("hidden", to: "#edit-info")} class="rounded-sm btn btn-secondary btn-outline btn-sm">Add personal information</button>
-    <p class="mt-4 text-secondary text-sm w-2/3 mx-auto">Add some details about yourself so prospective employers can get to know you.</p>
   </div>
 <% end %>

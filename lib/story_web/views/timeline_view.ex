@@ -1,6 +1,8 @@
 defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
 
+  import StoryWeb.LayoutView, only: [capitalize_string: 1]
+
   @available_forms [
     "assessment",
     "blogs_or_videos",

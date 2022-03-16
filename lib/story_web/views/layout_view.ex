@@ -17,6 +17,7 @@ defmodule StoryWeb.LayoutView do
   def dasherize_string(string) when is_binary(string) do
     string
     |> String.replace(" ", "-")
+    |> String.replace("_", "-")
     |> String.downcase()
   end
 
@@ -24,6 +25,15 @@ defmodule StoryWeb.LayoutView do
   def underscore_string(string) when is_binary(string) do
     string
     |> String.replace(" ", "_")
+    |> String.replace("-", "_")
     |> String.downcase()
+  end
+
+  def capitalize_string(nil), do: nil
+  def capitalize_string(string) when is_binary(string) do
+    string
+    |> String.replace("-", " ")
+    |> String.replace("_", " ")
+    |> String.capitalize()
   end
 end
