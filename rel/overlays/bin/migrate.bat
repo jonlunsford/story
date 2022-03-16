@@ -1,0 +1,1 @@
+call "%~dp0\story" eval Story.Release.migrate
