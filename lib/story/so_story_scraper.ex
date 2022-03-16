@@ -3,9 +3,9 @@ defmodule Story.SOStoryScraper do
   Scraper for Stack Overflow Dev Stories
   """
 
+  alias Story.Tags.Tag
   alias Story.Pages.{Page, Reading}
   alias Story.Profiles.Info
-  alias Story.Tags.Tag
   alias Story.Stats.Stat
   alias Story.Timelines.Item
 

@@ -6,17 +6,19 @@ defmodule Story.Tags do
   import Ecto.Query, warn: false
   alias Story.Repo
 
+  alias Story.Tags.Tag
+
   @doc """
   Returns the list of tags.
 
   ## Examples
 
       iex> list_tags()
-      [%Story.Tags.Tag{}, ...]
+      [%Tag{}, ...]
 
   """
   def list_tags do
-    Repo.all(Story.Tags.Tag)
+    Repo.all(Tag)
   end
 
   @doc """
@@ -27,13 +29,13 @@ defmodule Story.Tags do
   ## Examples
 
       iex> get_tag!(123)
-      %Story.Tags.Tag{}
+      %Tag{}
 
       iex> get_tag!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_tag!(id), do: Repo.get!(Story.Tags.Tag, id)
+  def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
   Gets a single tag by name.
@@ -44,9 +46,9 @@ defmodule Story.Tags do
 
       iex> create_tag(%{name: "Foo"})
       iex> get_tag_by_name("Foo")
-      {:ok, %Story.Tags.Tag{name: "Foo"}}
+      {:ok, %Tag{name: "Foo"}}
   """
-  def get_tag_by_name(name), do: Repo.get_by!(Story.Tags.Tag, name: name)
+  def get_tag_by_name(name), do: Repo.get_by!(Tag, name: name)
 
   @doc """
   Creates a tag.
@@ -54,15 +56,15 @@ defmodule Story.Tags do
   ## Examples
 
       iex> create_tag(%{field: value})
-      {:ok, %Story.Tags.Tag{}}
+      {:ok, %Tag{}}
 
       iex> create_tag(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
   def create_tag(attrs \\ %{}) do
-    %Story.Tags.Tag{}
-    |> Story.Tags.Tag.changeset(attrs)
+    %Tag{}
+    |> Tag.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -72,14 +74,14 @@ defmodule Story.Tags do
   ## Examples
 
       iex> create_or_find_tag(name: "Foo")
-      {:ok, %Story.Tags.Tag{}}
+      {:ok, %Tag{}}
 
       iex> create_or_find_tag(name: "Bar")
       iex> create_or_find_tag(name: "Bar")
-      {:ok, %Story.Tags.Tag{name: "Bar"}}
+      {:ok, %Tag{name: "Bar"}}
   """
   def create_or_find_tag(attrs \\ %{}) do
-    changeset = Story.Tags.Tag.changeset(%Story.Tags.Tag{}, attrs)
+    changeset = Tag.changeset(%Tag{}, attrs)
 
     case Repo.insert(changeset) do
       {:error,
@@ -97,7 +99,7 @@ defmodule Story.Tags do
   ## Examples
 
       iex> create_or_find_all_tags([%{name, "Foo"}, %{name: "Bar"}])
-      [%Story.Tags.Tag{name: "Foo"}, %Tag{name: "Bar"}]
+      [%Tag{name: "Foo"}, %Tag{name: "Bar"}]
   """
   def create_or_find_all_tags(tags_attrs) do
     Enum.map(tags_attrs, &create_or_find_tag/1)
@@ -109,15 +111,15 @@ defmodule Story.Tags do
   ## Examples
 
       iex> update_tag(tag, %{field: new_value})
-      {:ok, %Story.Tags.Tag{}}
+      {:ok, %Tag{}}
 
       iex> update_tag(tag, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_tag(%Story.Tags.Tag{} = tag, attrs) do
+  def update_tag(%Tag{} = tag, attrs) do
     tag
-    |> Story.Tags.Tag.changeset(attrs)
+    |> Tag.changeset(attrs)
     |> Repo.update()
   end
 
@@ -127,13 +129,13 @@ defmodule Story.Tags do
   ## Examples
 
       iex> delete_tag(tag)
-      {:ok, %Story.Tags.Tag{}}
+      {:ok, %Tag{}}
 
       iex> delete_tag(tag)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_tag(%Story.Tags.Tag{} = tag) do
+  def delete_tag(%Tag{} = tag) do
     Repo.delete(tag)
   end
 
@@ -143,11 +145,11 @@ defmodule Story.Tags do
   ## Examples
 
       iex> change_tag(tag)
-      %Ecto.Changeset{data: %Story.Tags.Tag{}}
+      %Ecto.Changeset{data: %Tag{}}
 
   """
-  def change_tag(%Story.Tags.Tag{} = tag, attrs \\ %{}) do
-    Story.Tags.Tag.changeset(tag, attrs)
+  def change_tag(%Tag{} = tag, attrs \\ %{}) do
+    Tag.changeset(tag, attrs)
   end
 
   alias Story.Tags.InfoTag
