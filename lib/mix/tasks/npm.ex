@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Npm do
 
   @shortdoc "Installs npm dependencies"
   def run(_) do
-    IO.puts("----------- Intalling npm dependencies --------------")
+    IO.puts("----------- Installing npm dependencies --------------")
 
     File.cd!("./assets", fn() ->
       System.cmd("npm", ["install"])
