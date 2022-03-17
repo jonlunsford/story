@@ -14,7 +14,18 @@ config :story, StoryWeb.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger,
+level: :info,
+ backends: [LogflareLogger.HttpBackend]
+
+config :logflare_logger_backend,
+  url: "https://api.logflare.app",
+  level: :info,
+  api_key: System.get_env("LOGFLARE_API_KEY"),
+  source_id: System.get_env("LOGFLARE_SOURCE_ID"),
+  flush_interval: 1_000,
+  max_batch_size: 50,
+  metadata: :all
 
 config :honeybadger,
   environment_name: :prod,
