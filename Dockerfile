@@ -17,9 +17,16 @@ ARG RUNNER_IMAGE="debian:bullseye-20210902-slim"
 
 FROM ${BUILDER_IMAGE} as builder
 
+
+
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential git \
-    && apt-get install -y yarn && apt-get clean && rm -f /var/lib/apt/lists/*_*
+&& apt-get install -y apt-transport-https && apt-get install -y curl \
+&& apt-get install -y software-properties-common && apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+
+RUN apt-get install -y nodejs
 
 # prepare build dir
 WORKDIR /app
@@ -50,13 +57,13 @@ COPY priv priv
 # step down so that `lib` is available.
 COPY assets assets
 
-# compile assets
-RUN mix assets.deploy
-
 # Compile the release
 COPY lib lib
 
 RUN mix compile
+
+# compile assets
+RUN mix assets.deploy
 
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
