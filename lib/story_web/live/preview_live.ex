@@ -19,7 +19,7 @@ defmodule StoryWeb.PreviewLive do
         <h1 class="text-5xl text-center md:text-left font-extrabold mb-8">StackOverflow Import</h1>
         <p class="mb-4 text-neutral text-center md:text-left">Preview your StackOverflow story, create an account to save, share and claim your DevStory vanity url.</p>
 
-        <form phx-submit="fetch-story">
+        <form phx-submit="fetch-story" phx-validate="validate">
           <div class="p-10 card bg-base-100 shadow-md border border-base-300">
             <div class="form-control mb-8">
               <label for="so_url" class="label font-bold">
@@ -50,26 +50,32 @@ defmodule StoryWeb.PreviewLive do
   end
 
   def handle_event("fetch-story", %{"so_url" => so_url}, socket) do
-    {html, story} = SOStoryScraper.fetch_and_parse(so_url)
-    page = SOStoryScraper.parse_to_structs({html, story})
+    case SOStoryScraper.fetch_and_parse(so_url) do
+      {:ok, page} ->
+        slug =
+          case String.contains?(so_url, "stackoverflow.com/story/") do
+            true ->
+              "https://stackoverflow.com/story/" <> vanity_slug = so_url
+              vanity_slug
 
-    slug =
-      case String.contains?(so_url, "stackoverflow.com/story/") do
-        true ->
-          "https://stackoverflow.com/story/" <> vanity_slug = so_url
-          vanity_slug
+            false ->
+              nil
+          end
 
-        false ->
-          nil
-      end
+        changeset = Accounts.change_user_registration(%User{}, %{slug: slug})
 
-    changeset = Accounts.change_user_registration(%User{}, %{slug: slug})
+        {:noreply,
+         socket
+         |> clear_flash()
+         |> assign(:so_url, so_url)
+         |> assign(:changeset, changeset)
+         |> assign(:page, page)}
 
-    {:noreply,
-     socket
-     |> assign(:so_url, so_url)
-     |> assign(:changeset, changeset)
-     |> assign(:page, page)}
+      {:error, reason} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, reason)}
+    end
   end
 
   def handle_event("register-user", %{"user" => user_params}, socket) do
@@ -84,7 +90,13 @@ defmodule StoryWeb.PreviewLive do
         {:noreply,
          socket
          |> put_flash(:info, "Account created! Hang tight while your content is now imported.")
-         |> redirect(to: Routes.user_session_path(StoryWeb.Endpoint, :create_from_preview, %{user: user_params, so_url: socket.assigns.so_url}))}
+         |> redirect(
+           to:
+             Routes.user_session_path(StoryWeb.Endpoint, :create_from_preview, %{
+               user: user_params,
+               so_url: socket.assigns.so_url
+             })
+         )}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
