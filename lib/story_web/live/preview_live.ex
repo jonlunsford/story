@@ -5,22 +5,11 @@ defmodule StoryWeb.PreviewLive do
   alias Phoenix.LiveView.JS
   alias Story.SOStoryScraper
 
-  defp load_file(relative_path) do
-    (File.cwd!() <> relative_path)
-    |> Path.expand(relative_path)
-    |> Path.absname()
-    |> File.read()
-  end
-
   def mount(_params, _session, socket) do
-    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
-    result = SOStoryScraper.parse_to_structs({html, %{}})
-    changeset = Accounts.change_user_registration(%User{})
-
     {:ok,
      socket
-     |> assign(:changeset, changeset)
-     |> assign(:page, result)}
+     |> assign(:changeset, nil)
+     |> assign(:page, nil)}
   end
 
   def render(assigns) do

@@ -1,74 +1,76 @@
-<div  class="text-center px-8 md:px-0 md:w-1/2 mx-auto mb-12">
+<%= if @page.personal_information do %>
+  <div  class="text-center px-8 md:px-0 md:w-1/2 mx-auto mb-12">
 
-  <%= if @page.personal_information.picture_url do %>
-    <img class="mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" width="136" tab-index="0" title={@page.personal_information.name} src={@page.personal_information.picture_url} />
-  <% end %>
-
-  <h4 class="text-2xl font-bold mb-2"><%= @page.personal_information.name %></h4>
-
-  <div class="mb-2 text-xl text-base-content italic"><%= @page.personal_information.job_title %></div>
-
-  <div class="mb-8 mt-8 md:mt-0 space-x-2 space-y-1">
-    <span class="text-neutral text-sm block md:inline">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-      </svg>
-      <%= @page.personal_information.location %>
-    </span>
-
-    <span class="block md:inline">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline text-neutral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-      </svg>
-      <a href={@page.personal_information.website} title={@page.personal_information.website} class="link link-neutral text-sm border-none">
-        <%= @page.personal_information.website %>
-      </a>
-    </span>
-
-    <span class="block md:inline">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 inline text-neutral" viewBox="0 0 512 512">
-        <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
-      </svg>
-      <a href={"https://twitter.com/#{@page.personal_information.twitter}"} title={@page.personal_information.twitter} class="link link-neutral text-sm border-none">
-        <%= @page.personal_information.twitter %>
-      </a>
-    </span>
-
-    <span class="block md:inline">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 inline text-neutral" viewBox="0 0 16 16">
-        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-      </svg>
-      <a href={"https://github.com/#{@page.personal_information.github}"} title={@page.personal_information.github} class="link link-neutral text-sm border-none">
-        <%= @page.personal_information.github %>
-      </a>
-    </span>
-  </div>
-
-  <div id="intro-statement" class="prose lg:prose-xl mx-auto line-clamp-4 mb-2">
-    <%= raw @page.personal_information.statement %>
-  </div>
-  <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
-
-  <div class="divider my-6 w-1/4 mx-auto"></div>
-
-  <p class="mb-8">
-    <%= if @page.personal_information.favorite_editor do %>
-      <strong>Favorite editor:</strong> <%= @page.personal_information.favorite_editor %> •
+    <%= if @page.personal_information.picture_url do %>
+      <img class="mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" width="136" tab-index="0" title={@page.personal_information.name} src={@page.personal_information.picture_url} />
     <% end %>
 
-    <%= if @page.personal_information.first_computer do %>
-      <strong>First computer:</strong> <%= @page.personal_information.first_computer %>
+    <h4 class="text-2xl font-bold mb-2"><%= @page.personal_information.name %></h4>
+
+    <div class="mb-2 text-xl text-base-content italic"><%= @page.personal_information.job_title %></div>
+
+    <div class="mb-8 mt-8 md:mt-0 space-x-2 space-y-1">
+      <span class="text-neutral text-sm block md:inline">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+        </svg>
+        <%= @page.personal_information.location %>
+      </span>
+
+      <span class="block md:inline">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline text-neutral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+        </svg>
+        <a href={@page.personal_information.website} title={@page.personal_information.website} class="link link-neutral text-sm border-none">
+          <%= @page.personal_information.website %>
+        </a>
+      </span>
+
+      <span class="block md:inline">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 inline text-neutral" viewBox="0 0 512 512">
+          <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+        </svg>
+        <a href={"https://twitter.com/#{@page.personal_information.twitter}"} title={@page.personal_information.twitter} class="link link-neutral text-sm border-none">
+          <%= @page.personal_information.twitter %>
+        </a>
+      </span>
+
+      <span class="block md:inline">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-4 w-4 inline text-neutral" viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+        <a href={"https://github.com/#{@page.personal_information.github}"} title={@page.personal_information.github} class="link link-neutral text-sm border-none">
+          <%= @page.personal_information.github %>
+        </a>
+      </span>
+    </div>
+
+    <div id="intro-statement" class="prose lg:prose-xl mx-auto line-clamp-4 mb-2">
+      <%= raw @page.personal_information.statement %>
+    </div>
+    <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
+
+    <div class="divider my-6 w-1/4 mx-auto"></div>
+
+    <p class="mb-8">
+      <%= if @page.personal_information.favorite_editor do %>
+        <strong>Favorite editor:</strong> <%= @page.personal_information.favorite_editor %> •
+      <% end %>
+
+      <%= if @page.personal_information.first_computer do %>
+        <strong>First computer:</strong> <%= @page.personal_information.first_computer %>
+      <% end %>
+    </p>
+
+    <%= if Enum.any?(@page.personal_information.tags) do %>
+      <p class="mb-2">I want to work with:</p>
     <% end %>
-  </p>
 
-  <%= if Enum.any?(@page.personal_information.tags) do %>
-    <p class="mb-2">I want to work with:</p>
-  <% end %>
-
-  <%= for tag <- @page.personal_information.tags do %>
-    <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
-  <% end %>
-</div>
+    <%= for tag <- @page.personal_information.tags do %>
+      <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+    <% end %>
+  </div>
+<% end %>
 
 <%= if Enum.any?(@page.stats) do %>
   <div class="divider my-8 w-3/4 md:w-1/2 mx-auto text-neutral">Assessments</div>
@@ -80,22 +82,26 @@
   </div>
 <% end %>
 
-<div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Timeline</div>
+<%= if Enum.any?(@page.timeline_items) do %>
+  <div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Timeline</div>
 
-<div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
-  <div class="w-px absolute top-0 left-1/2 border h-full"></div>
+  <div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
+    <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
-  <%= for item <- order_timeline(@page.timeline_items) do %>
-    <div class={"#{dasherize_string(item.type)} timeline-item"}>
-      <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type, header_content: nil, myself: @myself) %>
-    </div>
-  <% end %>
-</div>
+    <%= for item <- order_timeline(@page.timeline_items) do %>
+      <div class={"#{dasherize_string(item.type)} timeline-item"}>
+        <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, type: item.type, header_content: nil, myself: @myself) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
-<div class="divider my-12 w-3/4 md:w-1/2 mx-auto text-neutral">Recommended Reading</div>
+<%= if Enum.any?(@page.readings) do %>
+  <div class="divider my-12 w-3/4 md:w-1/2 mx-auto text-neutral">Recommended Reading</div>
 
-<div class="md:grid md:grid-cols-3 px-8 md:px-0 space-y-4 md:gap-4 mx-auto mb-12 md:w-800px">
-  <%= for reading <- @page.readings do %>
-    <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself) %>
-  <% end %>
-</div>
+  <div class="md:grid md:grid-cols-3 px-8 md:px-0 space-y-4 md:gap-4 mx-auto mb-12 md:w-800px">
+    <%= for reading <- @page.readings do %>
+      <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself) %>
+    <% end %>
+  </div>
+<% end %>

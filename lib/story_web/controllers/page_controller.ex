@@ -11,7 +11,7 @@ defmodule StoryWeb.PageController do
 
         if page do
           conn
-          |> redirect(to: Routes.live_path(conn, StoryWeb.NewLive))
+          |> redirect(to: Routes.live_path(conn, StoryWeb.EditLive))
         else
           render(conn, "dashboard.html")
         end
