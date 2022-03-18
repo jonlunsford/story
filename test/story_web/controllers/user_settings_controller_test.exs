@@ -73,6 +73,19 @@ defmodule StoryWeb.UserSettingsControllerTest do
       assert get_flash(conn, :info) =~ "Vanity URL updated successfully."
       assert user.slug == slug
     end
+
+    test "updates the user's latest page slug", %{conn: conn, user: user} do
+      new_slug = unique_slug()
+
+      Story.PagesFixtures.page_fixture(%{user_id: user.id})
+
+      put(conn, Routes.user_settings_path(conn, :update), %{
+        "action" => "update_slug",
+        "user" => %{"slug" => new_slug}
+      })
+
+      assert Story.Pages.get_page_by_slug_for_user(new_slug, user.id)
+    end
   end
 
   describe "PUT /users/settings (change email form)" do

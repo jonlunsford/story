@@ -74,6 +74,13 @@ defmodule Story.Pages do
     )
   end
 
+  def get_user_latest_page_without_preloads(user) do
+    Page
+    |> where(user_id: ^user.id)
+    |> last()
+    |> Repo.one()
+  end
+
   @doc """
   Creates a page.
 
