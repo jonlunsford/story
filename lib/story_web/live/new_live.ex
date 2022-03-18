@@ -1,6 +1,7 @@
 defmodule StoryWeb.NewLive do
   use StoryWeb, :live_view
-import StoryWeb.LayoutView, only: [underscore_string: 1]
+
+  import StoryWeb.LayoutView, only: [underscore_string: 1]
   import StoryWeb.TimelineView, only: [order_timeline: 1]
 
   alias Story.Accounts
