@@ -21,7 +21,12 @@ defmodule StoryWeb.EditLive do
   def render(assigns) do
     ~H"""
     <%= if @page do %>
-      <div class="mt-8">
+      <div class="mt-8 relative">
+
+        <div class="absolute top-0 right-0 lg:w-1/8">
+          <a href={"/#{@page.slug}"} class="btn btn-block btn-outline">Live Preview</a>
+        </div>
+
         <.live_component
           module={StoryWeb.EditInfoLive}
           current_user_id={@current_user_id}
