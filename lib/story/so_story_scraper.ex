@@ -9,21 +9,35 @@ defmodule Story.SOStoryScraper do
   alias Story.Stats.Stat
   alias Story.Timelines.Item
 
-  def fetch_and_parse(url) do
-    case HTTPoison.get(url) do
+
+  def fetch_and_parse("https://stackoverflow.com/" <> path) do
+    case HTTPoison.get("https://stackoverflow.com/#{path}") do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        parse_full_document({body, %{}})
+        {html, story} = parse_full_document({body, %{}})
+        page = parse_to_structs({html, story})
+
+        {:ok, page}
 
       {:ok, %HTTPoison.Response{status_code: code}} ->
-        %{status: code}
+        {:error, "Something isn't right... Can you double check you SO url? #{code}"}
 
-      {:ok, %HTTPoison.Error{reason: reason}} ->
-        %{error: reason}
+      {:error, %HTTPoison.Error{}} ->
+        {:error, "Something isn't right... Can you double check you SO url?"}
     end
+  end
+
+  def fetch_and_parse(_) do
+    {:error, "Something isn't right... Can you double check you SO url?"}
   end
 
   def fetch_and_save(url, attrs \\ %{}) do
     case fetch_and_parse(url) do
+      {:status, status} ->
+        {:status, status}
+
+      {:error, reason} ->
+        {:error, reason}
+
       {_html, map} ->
         map = Map.merge(map, attrs)
 
@@ -38,12 +52,6 @@ defmodule Story.SOStoryScraper do
           timeline_items: timeline,
           personal_information: info
         }
-
-      %{status: status} ->
-        %{status: status}
-
-      %{error: reason} ->
-        %{error: reason}
     end
   end
 
