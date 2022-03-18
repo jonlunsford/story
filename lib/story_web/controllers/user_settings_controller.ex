@@ -2,6 +2,7 @@ defmodule StoryWeb.UserSettingsController do
   use StoryWeb, :controller
 
   alias Story.Accounts
+  alias Story.Pages
   alias StoryWeb.UserAuth
 
   plug :assign_changesets
@@ -56,6 +57,13 @@ defmodule StoryWeb.UserSettingsController do
 
     case Accounts.apply_user_slug(user, user_params) do
       {:ok, _user} ->
+
+        case Pages.get_user_latest_page_without_preloads(user) do
+          nil -> :ok
+          page ->
+            Pages.update_page(page, %{slug: Map.get(user_params,"slug")})
+        end
+
         conn
         |> put_flash(:info, "Vanity URL updated successfully.")
         |> redirect(to: Routes.user_settings_path(conn, :edit))
