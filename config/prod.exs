@@ -29,6 +29,8 @@ config :logflare_logger_backend,
 
 config :honeybadger,
   environment_name: :prod,
+  use_logger: true,
+  ecto_repos: [Story.Repo],
   api_key: System.get_env("HONEYBADGER_API_KEY")
 
 # ## SSL Support
