@@ -5,19 +5,30 @@ defmodule StoryWeb.PreviewLive do
   alias Phoenix.LiveView.JS
   alias Story.SOStoryScraper
 
+  defp load_file(relative_path) do
+    (File.cwd!() <> relative_path)
+    |> Path.expand(relative_path)
+    |> Path.absname()
+    |> File.read()
+  end
+
   def mount(_params, _session, socket) do
+    {:ok, html} = load_file("/test/support/stack_overflow_story.html")
+    result = SOStoryScraper.parse_to_structs({html, %{}})
+    changeset = Accounts.change_user_registration(%User{})
+
     {:ok,
      socket
-     |> assign(:changeset, nil)
-     |> assign(:page, nil)}
+     |> assign(:changeset, changeset)
+     |> assign(:page, result)}
   end
 
   def render(assigns) do
     ~H"""
     <%= if !@page do %>
-      <div class="lg:w-1/2 mx-auto my-12">
-        <h1 class="text-5xl font-extrabold mb-8">StackOverflow Import</h1>
-        <p class="mb-4 text-neutral">Preview your StackOverflow story, create an account to save, share and claim your DevStory vanity url.</p>
+      <div class="lg:w-1/2 mx-auto my-12 px-8 lg:px-0">
+        <h1 class="text-5xl text-center md:text-left font-extrabold mb-8">StackOverflow Import</h1>
+        <p class="mb-4 text-neutral text-center md:text-left">Preview your StackOverflow story, create an account to save, share and claim your DevStory vanity url.</p>
 
         <form phx-submit="fetch-story">
           <div class="p-10 card bg-base-100 shadow-md border border-base-300">
@@ -37,7 +48,7 @@ defmodule StoryWeb.PreviewLive do
     <% end %>
 
     <%= if @page do %>
-      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button">Create an Account to Save, Edit & Share</button>
+      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button rounded-none md:rounded-md">Create an Account to Save, Edit & Share</button>
       <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
     <% end %>
 

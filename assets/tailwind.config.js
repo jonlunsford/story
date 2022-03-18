@@ -8,6 +8,14 @@ module.exports = {
     '../lib/*_web.ex',
     '../lib/*_web/**/*.*ex'
   ],
+  theme: {
+    extend: {
+      width: {
+        "815px": "815px",
+        "800px": "800px"
+      }
+    }
+  },
   daisyui: {
     themes: ["light"],
   },
