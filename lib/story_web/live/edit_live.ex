@@ -35,7 +35,7 @@ defmodule StoryWeb.EditLive do
           info={@page.personal_information} />
 
         <%= if Enum.any?(@page.stats) do %>
-          <div class="divider my-8 w-1/2 mx-auto text-neutral">Assessments</div>
+          <div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Assessments</div>
 
           <div class="mt-8 mb-12 flex flex-wrap justify-center">
             <%= for stat <-  @page.stats do %>
