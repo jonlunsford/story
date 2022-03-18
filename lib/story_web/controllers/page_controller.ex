@@ -4,7 +4,6 @@ defmodule StoryWeb.PageController do
   alias Story.Pages
 
   def index(conn, _params) do
-    raise ArgumentError, message: "HEY!"
     case conn.assigns.current_user do
       nil -> render(conn, "index.html")
       user ->
