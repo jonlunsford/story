@@ -15,7 +15,7 @@ config :story, StoryWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger,
-level: :debug,
+level: :info,
  backends: [LogflareLogger.HttpBackend]
 
 config :logflare_logger_backend,
@@ -29,9 +29,7 @@ config :logflare_logger_backend,
 
 config :honeybadger,
   environment_name: :prod,
-  use_logger: true,
-  ecto_repos: [Story.Repo],
-  api_key: System.get_env("HONEYBADGER_API_KEY")
+  ecto_repos: [Story.Repo]
 
 # ## SSL Support
 #
