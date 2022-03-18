@@ -178,7 +178,7 @@
   content: "";
   position: absolute;
   color: #fff;
-  background: #fff;
+  background-color: #fff;
 }
 
 .timeline-item:nth-child(even):before {

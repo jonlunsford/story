@@ -25,7 +25,7 @@ defmodule StoryWeb.NewLive do
       <div class="py-8 relative">
 
         <div class="absolute top-12 right-0 lg:w-1/8">
-          <a href={"/#{@page.slug}"} class="btn btn-block btn-outline">Live Preview</a>
+          <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Live Preview</a>
         </div>
 
         <div class="divider my-8 w-1/2 mx-auto text-neutral">Personal Information</div>
