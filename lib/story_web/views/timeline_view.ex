@@ -53,7 +53,7 @@ defmodule StoryWeb.TimelineView do
     end_date =
       cond do
         current_position -> NaiveDateTime.utc_now()
-      true -> end_date
+        true -> end_date
       end
 
     years = Timex.diff(end_date, start_date, :year)
@@ -95,7 +95,7 @@ defmodule StoryWeb.TimelineView do
   def order_timeline(timeline_items) do
     Enum.sort_by(
       timeline_items,
-      &(convert_date_time(&1)),
+      &convert_date_time(&1),
       {:desc, Date}
     )
   end
@@ -114,6 +114,10 @@ defmodule StoryWeb.TimelineView do
 
   defp convert_date_time(%{order_by: nil}) do
     NaiveDateTime.utc_now()
+  end
+
+  defp convert_date_time(%{order_by: order_by} = item) when is_binary(order_by) do
+    item.end_date || item.start_date || NaiveDateTime.utc_now()
   end
 
   defp convert_date_time(%{order_by: order_by}) do
