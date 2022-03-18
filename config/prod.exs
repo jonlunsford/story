@@ -29,6 +29,7 @@ config :logflare_logger_backend,
 
 config :honeybadger,
   environment_name: :prod,
+  use_logger: true,
   api_key: System.get_env("HONEYBADGER_API_KEY")
 
 # ## SSL Support
