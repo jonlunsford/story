@@ -15,7 +15,7 @@ config :story, StoryWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger,
-level: :info,
+level: :debug,
  backends: [LogflareLogger.HttpBackend]
 
 config :logflare_logger_backend,
