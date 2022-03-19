@@ -45,16 +45,18 @@
       </span>
     </div>
 
-    <div id="intro-statement" class="prose lg:prose-xl mx-auto line-clamp-4 mb-2">
-      <%= raw @page.personal_information.statement %>
-    </div>
-    <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
+    <%= if @page.personal_information.statement do %>
+      <div id="intro-statement" class="prose lg:prose-xl mx-auto line-clamp-4 mb-2">
+        <%= raw @page.personal_information.statement %>
+      </div>
+      <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
 
-    <div class="divider my-6 w-1/4 mx-auto"></div>
+      <div class="divider my-6 w-1/4 mx-auto"></div>
+    <% end %>
 
     <p class="mb-8">
       <%= if @page.personal_information.favorite_editor do %>
-        <strong>Favorite editor:</strong> <%= @page.personal_information.favorite_editor %> •
+        <strong>Favorite editor:</strong> <%= @page.personal_information.favorite_editor %>
       <% end %>
 
       <%= if @page.personal_information.first_computer do %>

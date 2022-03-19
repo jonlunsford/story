@@ -15,6 +15,7 @@ defmodule StoryWeb.EditLive do
      socket
      |> assign(:current_user_id, current_user.id)
      |> assign(:timeline_items, page.timeline_items)
+     |> assign(:readings, page.readings)
      |> assign(:page, page)}
   end
 
@@ -74,7 +75,7 @@ defmodule StoryWeb.EditLive do
             module={StoryWeb.AddNewReadingLive} />
 
           <div class="md:grid md:grid-cols-3 px-8 md:px-0 space-y-4 md:gap-4 mx-auto mb-12 md:w-800px">
-            <%= for reading <- @page.readings do %>
+            <%= for reading <- @readings do %>
               <.live_component
                 id={"reading-#{reading.id}"}
                 module={StoryWeb.EditReadingLive}
@@ -92,5 +93,11 @@ defmodule StoryWeb.EditLive do
     items = socket.assigns.timeline_items ++ [item]
 
     {:noreply, assign(socket, :timeline_items, items)}
+  end
+
+  def handle_info({:added_reading, reading}, socket) do
+    readings = socket.assigns.readings ++ [reading]
+
+    {:noreply, assign(socket, :readings, readings)}
   end
 end

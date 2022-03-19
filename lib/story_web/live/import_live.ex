@@ -72,7 +72,7 @@ defmodule StoryWeb.ImportLive do
     page =
       Story.Pages.create_or_find_page(%{
         description: "Imported from StackOverflow",
-        slug: current_user.slug || SecureRandom.uuid,
+        slug: current_user.slug || SecureRandom.uuid <> "-" <> current_user.id,
         title: "My DevStory",
         user_id: current_user.id
       })
