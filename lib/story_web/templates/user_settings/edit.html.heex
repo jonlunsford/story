@@ -110,4 +110,12 @@
       </div>
     </div>
   </.form>
+
+  <h3 class="text-lg font-bold my-6">Delete Account</h3>
+
+  <div class="p-10 card bg-base-100 border border-base-300 mb-8">
+    <p class="mb-4">All data will be <strong>DESTROYED</strong> forever... Like the one ring when it finally made it to Mordor.</p>
+
+    <%= link "Cast my data into Mt. DOOM! (delete it)", to: Routes.user_settings_path(@conn, :destroy_user), method: :delete, class: "btn btn-error", data: [confirm: "are you sure?"] %>
+  </div>
 </div>

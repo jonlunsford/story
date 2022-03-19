@@ -240,6 +240,10 @@ defmodule Story.Accounts do
     end
   end
 
+  def delete_user(user = %User{}) do
+    Repo.delete(user)
+  end
+
   ## Session
 
   @doc """
