@@ -26,6 +26,16 @@ defmodule StoryWeb.EditLive do
 
         <div class="md:absolute mb-8 top-0 right-0 lg:w-1/8">
           <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Live Preview</a>
+          <a href="/users/settings" class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Change URL</a>
+
+          <.form for={:published} phx-change="toggle-published" as="page">
+            <div class="form-control">
+              <label class="label cursor-pointer">
+                <span class="label-text">Published?</span>
+                <input name="published" type="checkbox" checked={@page.published} class="checkbox">
+              </label>
+            </div>
+          </.form>
         </div>
 
         <.live_component
@@ -87,6 +97,18 @@ defmodule StoryWeb.EditLive do
       </div>
     <% end %>
     """
+  end
+
+  def handle_event("toggle-published", %{"_target" => ["published"], "published" => "on"}, socket) do
+    Pages.update_page(socket.assigns.page, %{published: true})
+
+    {:noreply, socket}
+  end
+
+  def handle_event("toggle-published", %{"_target" => ["published"]}, socket) do
+    Pages.update_page(socket.assigns.page, %{published: false})
+
+    {:noreply, socket}
   end
 
   def handle_info({:added_item, item}, socket) do

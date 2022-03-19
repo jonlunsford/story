@@ -19,7 +19,7 @@ defmodule StoryWeb.PageController do
   end
 
   def show(conn, %{"slug" => slug}) do
-    case Pages.get_page_by_slug(slug) do
+    case Pages.get_published_page_by_slug(slug) do
       nil -> render(conn, "404.html")
       page ->
         conn

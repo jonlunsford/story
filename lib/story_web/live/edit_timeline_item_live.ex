@@ -68,6 +68,10 @@ defmodule StoryWeb.EditTimelineItemLive do
     {:noreply, assign(socket, :edit_changeset, changeset)}
   end
 
+  def handle_event("validate", _params, socket) do
+    {:noreply, socket}
+  end
+
   def handle_event("save", %{"item" => item_params}, socket) do
     picture_url = S3UploadHelpers.get_image_url(socket, :img)
 
