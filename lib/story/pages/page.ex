@@ -6,6 +6,7 @@ defmodule Story.Pages.Page do
     field :description, :string
     field :slug, :string
     field :title, :string
+    field :published, :boolean
     field :user_id, :id
     has_many :readings, Story.Pages.Reading
     has_many :stats, Story.Stats.Stat
@@ -19,7 +20,7 @@ defmodule Story.Pages.Page do
   @doc false
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:slug, :title, :description, :user_id])
+    |> cast(attrs, [:slug, :title, :description, :user_id, :published])
     |> validate_required([:slug, :title, :description, :user_id])
     |> unique_constraint(:slug)
     |> cast_assoc(:readings)

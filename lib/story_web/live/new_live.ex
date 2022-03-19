@@ -113,7 +113,7 @@ defmodule StoryWeb.NewLive do
     page =
       Pages.create_or_find_page(%{
         description: "DevStory",
-        slug: current_user.slug || SecureRandom.uuid <> "-" <> current_user.id,
+        slug: current_user.slug || SecureRandom.uuid <> "-" <> Integer.to_string(current_user.id),
         title: "My DevStory",
         user_id: current_user.id
       })

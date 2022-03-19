@@ -61,6 +61,16 @@ defmodule Story.Pages do
     )
   end
 
+  def get_published_page_by_slug(slug) do
+    Repo.get_by(Page, slug: slug, published: true)
+    |> Repo.preload(
+      personal_information: [:tags],
+      stats: [:tags],
+      timeline_items: [:tags],
+      readings: []
+    )
+  end
+
   def get_user_latest_page(user) do
     Page
     |> where(user_id: ^user.id)
