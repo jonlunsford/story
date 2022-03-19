@@ -5,11 +5,15 @@ defmodule StoryWeb.EditLive do
   import StoryWeb.TimelineView, only: [order_timeline: 1]
 
   alias Story.Accounts
-  alias Story.Pages
+  alias Story.{Pages, Profiles}
 
   def mount(_params, session, socket) do
     current_user = Accounts.get_user_by_session_token(session["user_token"])
-    page = Pages.get_user_latest_page(current_user)
+    page =
+      case Pages.get_user_latest_page(current_user) do
+        nil -> create_or_find_page(current_user)
+        page -> page_with_added_info(page, current_user)
+      end
 
     {:ok,
      socket
@@ -121,5 +125,35 @@ defmodule StoryWeb.EditLive do
     readings = socket.assigns.readings ++ [reading]
 
     {:noreply, assign(socket, :readings, readings)}
+  end
+
+  defp create_or_find_page(current_user) do
+    page =
+      Pages.create_or_find_page(%{
+        description: "DevStory",
+        slug: current_user.slug || SecureRandom.uuid <> "-" <> Integer.to_string(current_user.id),
+        title: "My DevStory",
+        user_id: current_user.id
+      })
+      |> Story.Repo.preload(
+        personal_information: [:tags],
+        stats: [:tags],
+        timeline_items: [:tags],
+        readings: []
+      )
+
+    page_with_added_info(page, current_user)
+  end
+
+  defp page_with_added_info(page, current_user) do
+    {_, page} =
+      Map.get_and_update(page, :personal_information, fn(current_value) ->
+        case current_value do
+          nil -> {current_value, %Profiles.Info{id: nil, user_id: current_user.id, page_id: page.id, tags: []}}
+          _ -> {current_value, current_value}
+        end
+      end)
+
+    page
   end
 end

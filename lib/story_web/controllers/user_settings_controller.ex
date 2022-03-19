@@ -86,6 +86,19 @@ defmodule StoryWeb.UserSettingsController do
     end
   end
 
+  def destroy_user(conn, _params) do
+    case Accounts.delete_user(conn.assigns.current_user) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "You've. Done. It. Middle Earth has been saved! See ya!")
+        |> UserAuth.log_out_user()
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "AHHH! The ring still exists!!")
+        |> render("edit.html")
+    end
+  end
+
   defp assign_changesets(conn, _opts) do
     user = conn.assigns.current_user
 

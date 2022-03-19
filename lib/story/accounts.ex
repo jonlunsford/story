@@ -240,6 +240,26 @@ defmodule Story.Accounts do
     end
   end
 
+  def delete_user(user = %User{}) do
+    Story.Timelines.Item
+    |> where(user_id: ^user.id)
+    |> Repo.delete_all
+
+    Story.Profiles.Info
+    |> where(user_id: ^user.id)
+    |> Repo.delete_all
+
+    Story.Pages.Reading
+    |> where(user_id: ^user.id)
+    |> Repo.delete_all
+
+    Story.Pages.Page
+    |> where(user_id: ^user.id)
+    |> Repo.delete_all
+
+    Repo.delete(user)
+  end
+
   ## Session
 
   @doc """
