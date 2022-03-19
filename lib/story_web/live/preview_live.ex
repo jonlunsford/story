@@ -51,7 +51,14 @@ defmodule StoryWeb.PreviewLive do
 
   def handle_event("fetch-story", %{"so_url" => so_url}, socket) do
     case SOStoryScraper.fetch_and_parse(so_url) do
-      {:ok, page} ->
+      {:error, reason} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, reason)}
+
+      {html, result} ->
+        page = SOStoryScraper.parse_to_structs({html, result})
+
         slug =
           case String.contains?(so_url, "stackoverflow.com/story/") do
             true ->
@@ -70,11 +77,6 @@ defmodule StoryWeb.PreviewLive do
          |> assign(:so_url, so_url)
          |> assign(:changeset, changeset)
          |> assign(:page, page)}
-
-      {:error, reason} ->
-        {:noreply,
-         socket
-         |> put_flash(:error, reason)}
     end
   end
 

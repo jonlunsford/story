@@ -85,7 +85,7 @@
 <%= if Enum.any?(@page.timeline_items) do %>
   <div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Timeline</div>
 
-  <div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
+  <div class="min-h-full relative my-8 pt-16 mx-auto md:w-815px">
     <div class="w-px absolute top-0 left-1/2 border h-full"></div>
 
     <%= for item <- order_timeline(@page.timeline_items) do %>

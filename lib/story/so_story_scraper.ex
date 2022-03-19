@@ -13,10 +13,7 @@ defmodule Story.SOStoryScraper do
   def fetch_and_parse("https://stackoverflow.com/" <> path) do
     case HTTPoison.get("https://stackoverflow.com/#{path}") do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        {html, story} = parse_full_document({body, %{}})
-        page = parse_to_structs({html, story})
-
-        {:ok, page}
+        parse_full_document({body, %{}})
 
       {:ok, %HTTPoison.Response{status_code: code}} ->
         {:error, "Something isn't right... Can you double check you SO url? #{code}"}
@@ -71,10 +68,6 @@ defmodule Story.SOStoryScraper do
         }
       end)
 
-    stats =
-      stats ++
-        [%Stat{title: "Stack Overflow Reputation", description: map.so.rep, type: "so_rep"}]
-
     %Page{
       description: "Imported From StackOverflow",
       slug: slug,
@@ -84,6 +77,7 @@ defmodule Story.SOStoryScraper do
       timeline_items: Enum.map(map.timeline, &build_item/1),
       personal_information: build_info(map)
     }
+
   end
 
   def build_item(item) do
@@ -205,16 +199,7 @@ defmodule Story.SOStoryScraper do
         }
       end)
 
-    so_rep_stat = %{
-      type: "so_reputation",
-      description: map.so.rep,
-      url: map.so.href,
-      user_id: map.user_id,
-      page_id: map.page_id,
-      tags: []
-    }
-
-    all_stats = assessment_stats ++ [so_rep_stat]
+    all_stats = assessment_stats
 
     Enum.map(all_stats, fn stat ->
       {tags, attrs} = Map.pop(stat, :tags, [])
