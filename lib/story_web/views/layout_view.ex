@@ -40,7 +40,7 @@ defmodule StoryWeb.LayoutView do
   def markdown_as_html(nil), do: ""
 
   def markdown_as_html(html) do
-    case Earmark.as_html(html) do
+    case Earmark.as_html(html, escape: false) do
       {:ok, html, []} ->
         html
 
