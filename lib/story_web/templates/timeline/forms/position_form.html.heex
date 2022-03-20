@@ -1,4 +1,5 @@
 <.form id={"item-#{@item.id}-form"} class="hidden item-form" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
+
   <div class="form-control">
     <%= label f, :title, class: "label" do %>
       <span class="label-text font-bold">Title: (Required)</span>
@@ -56,6 +57,13 @@
     <% end %>
     <%= textarea f, :description, class: "textarea input-bordered w-full", rows: 4 %>
   </div>
+
+  <%= if @markdown_html do %>
+    <p class="label-text font-bold">Markdown Preview:</p>
+    <div class="mt-4 mb-8 bordered prose prose-sm">
+      <%= raw @markdown_html %>
+    </div>
+  <% end %>
 
   <%= if Enum.any?(@item.tags) do %>
     <p class="font-bold label-text mt-4 mb-2">Technologies: (Editing coming soon!)</p>

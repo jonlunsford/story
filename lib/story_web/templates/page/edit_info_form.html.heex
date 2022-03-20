@@ -2,17 +2,17 @@
   <h5 class="text-xl font-bold mb-4">Personal Information</h5>
 
   <div class="mb-4" phx-drop-target={@uploads.avatar.ref}>
-    <div class="text-center mb-4 mx-auto shadow-lg bg-white p-2 rounded-md border" style="width: 136px;">
+    <div class="text-center mb-4 shadow-lg bg-white p-2 rounded-md border" style="width: 136px; height: 136px;">
       <%= if !Enum.any?(@uploads.avatar.entries) do %>
         <%= if @info.picture_url do %>
-          <img class="" tab-index="0" title={@info.name} src={@info.picture_url} />
+          <img class="" tab-index="0" width="136" height="136" title={@info.name} src={@info.picture_url} />
         <% else %>
           <span class="text-xs text-neutral">Picture<br/> Recommended size: 136x136px</span>
         <% end %>
       <% end %>
 
       <%= for entry <- @uploads.avatar.entries do %>
-        <article class="mx-auto" style="width: 136px;">
+        <article style="width: 136px;">
           <figure class="w-24">
             <%= live_img_preview entry %>
           </figure>
@@ -20,7 +20,7 @@
       <% end %>
     </div>
 
-    <div class="w-24 mx-auto">
+    <div class="w-24">
       <%= live_file_input @uploads.avatar %>
     </div>
 
@@ -106,6 +106,13 @@
     <% end %>
     <%= textarea f, :statement, class: "textarea input-bordered w-full", rows: 8 %>
   </div>
+
+  <%= if @markdown_html do %>
+    <p class="label-text font-bold">Markdown Preview:</p>
+    <div class="my-4 bordered prose lg:prose-xl">
+      <%= raw @markdown_html %>
+    </div>
+  <% end %>
 
   <%= if Enum.any?(@info.tags) do %>
     <p class="font-bold label-text mt-4 mb-2">I want to work with: (Editing coming soon!)</p>

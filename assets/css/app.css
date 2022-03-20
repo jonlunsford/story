@@ -203,7 +203,9 @@
   }
 }
 
-
+.markdown a {
+  text-decoration: underline;
+}
 
 .timeline-item:after {
   top: 24px;

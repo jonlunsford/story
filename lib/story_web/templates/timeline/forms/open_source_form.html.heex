@@ -49,6 +49,13 @@
     <%= textarea f, :description, class: "textarea input-bordered w-full", rows: 4 %>
   </div>
 
+  <%= if @markdown_html do %>
+    <p class="label-text font-bold">Markdown Preview:</p>
+    <div class="mt-4 mb-8 bordered prose prose-sm">
+      <%= raw @markdown_html %>
+    </div>
+  <% end %>
+
   <%= if Enum.any?(@item.tags) do %>
     <p class="font-bold label-text mt-4 mb-2">Technologies: (Editing coming soon!)</p>
     <div class="mb-4 p-2 pb-1 rounded bg-base-200">

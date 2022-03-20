@@ -36,4 +36,17 @@ defmodule StoryWeb.LayoutView do
     |> String.replace("_", " ")
     |> String.capitalize()
   end
+
+  def markdown_as_html(html) do
+    case Earmark.as_html(html) do
+      {:ok, html, []} ->
+        html
+
+      {:ok, html, _deprecation_message} ->
+        html
+
+      {:error, html, _reason} ->
+        html
+    end
+  end
 end
