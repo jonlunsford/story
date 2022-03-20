@@ -31,9 +31,9 @@
 <%= if Enum.any?(@page.readings) do %>
   <div class="divider my-12 w-3/4 md:w-1/2 mx-auto text-neutral">Recommended Reading</div>
 
-  <div class="md:grid md:grid-cols-3 px-8 md:px-0 space-y-4 md:gap-4 mx-auto mb-12 md:w-800px">
+  <div class="px-8 md:px-0 mx-auto mb-12 md:w-680px">
     <%= for reading <- @page.readings do %>
-      <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself) %>
+      <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself, markdown_html: nil) %>
     <% end %>
   </div>
 <% end %>
