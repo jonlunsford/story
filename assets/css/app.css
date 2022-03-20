@@ -4,6 +4,10 @@
 
 /* This file is for your main application CSS */
 
+textarea {
+  resize: both !important;
+}
+
 .bg-spots {
   background: url("/images/bg-6.svg") no-repeat center center ;
   background-size: cover;
