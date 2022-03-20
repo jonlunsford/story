@@ -4,9 +4,12 @@ defmodule StoryWeb.EditInfoLive do
   alias Story.Profiles
   alias Story.S3UploadHelpers
 
+  import StoryWeb.LayoutView, only: [markdown_as_html: 1]
+
   def mount(socket) do
     {:ok,
      socket
+     |> assign(:markdown_html, nil)
      |> allow_upload(:avatar,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
@@ -26,12 +29,13 @@ defmodule StoryWeb.EditInfoLive do
 
   def render(assigns) do
     ~H"""
-    <div class="text-center md:w-1/2 mx-4 md:mx-auto mx-auto mb-12">
+    <div class="md:w-1/2 mx-4 md:mx-auto mx-auto mb-12">
       <%= StoryWeb.PageView.render(
         "edit_info_form.html",
         changeset: @changeset,
         uploads: @uploads,
         myself: @myself,
+        markdown_html: @markdown_html,
         info: @info) %>
 
       <%= StoryWeb.PageView.render("edit_info.html", info: @info) %>
@@ -45,7 +49,12 @@ defmodule StoryWeb.EditInfoLive do
       |> Profiles.change_info(info_params)
       |> Map.put(:action, :insert)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    markdown_html = markdown_as_html(Map.get(info_params, "statement"))
+
+    {:noreply,
+     socket
+     |> assign(:markdown_html, markdown_html)
+     |> assign(:changeset, changeset)}
   end
 
   def handle_event("save", %{"info" => info_params}, socket) do
@@ -66,7 +75,6 @@ defmodule StoryWeb.EditInfoLive do
 
     case create_or_update(info, info_params) do
       {:ok, info} ->
-
         info = Story.Repo.preload(info, [:tags])
 
         {:noreply,
@@ -86,6 +94,7 @@ defmodule StoryWeb.EditInfoLive do
     case info.id do
       nil ->
         Profiles.create_info(info_params)
+
       _ ->
         Profiles.update_info(info, info_params)
     end

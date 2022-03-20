@@ -57,7 +57,8 @@ defmodule Story.MixProject do
       {:ueberauth_github, "~> 0.7"},
       {:secure_random, "~> 0.5.1"},
       {:honeybadger, "~> 0.7"},
-      {:logflare_logger_backend, "~> 0.11.0"}
+      {:logflare_logger_backend, "~> 0.11.0"},
+      {:earmark, "~> 1.4.22"}
     ]
   end
 

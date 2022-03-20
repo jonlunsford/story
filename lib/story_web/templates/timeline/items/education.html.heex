@@ -48,7 +48,7 @@
         </div>
       <% end %>
 
-      <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
+      <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 prose prose-sm"><%= raw markdown_as_html(@item.description) %></div>
 
       <%= if @item.description do %>
         <%= if String.length(@item.description) >= 115 do %>

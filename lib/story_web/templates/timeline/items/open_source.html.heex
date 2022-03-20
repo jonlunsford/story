@@ -32,7 +32,7 @@
     </div>
   <% end %>
 
-  <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 text-sm"><%= raw @item.description %></div>
+  <div id={"item-#{@item.id}-description"} class="text-neutral line-clamp-3 prose prose-sm"><%= raw markdown_as_html(@item.description) %></div>
 
   <%= if @item.description && String.length(@item.description) >= 150 do %>
     <button id={"item-#{@item.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#item-#{@item.id}-description"} data-class="line-clamp-3" data-text-on="Show Less" data-text-off="Show More" class="link link-neutral text-xs">Show More</button>

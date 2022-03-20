@@ -1,7 +1,7 @@
 defmodule StoryWeb.EditTimelineItemLive do
   use StoryWeb, :live_component
 
-  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1]
+  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1]
 
   alias Story.Timelines
   alias Phoenix.LiveView.JS
@@ -13,6 +13,7 @@ defmodule StoryWeb.EditTimelineItemLive do
      |> assign(:current_user_id, assigns.current_user_id)
      |> assign(:edit_changeset, Timelines.change_item(assigns.item))
      |> assign(:item, assigns.item)
+     |> assign(:markdown_html, nil)
      |> allow_upload(:img,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
@@ -29,6 +30,7 @@ defmodule StoryWeb.EditTimelineItemLive do
           changeset: @edit_changeset,
           item: @item,
           uploads: @uploads,
+          markdown_html: @markdown_html,
           on_cancel: &hide_form/1,
           myself: @myself) %>
 
@@ -65,7 +67,12 @@ defmodule StoryWeb.EditTimelineItemLive do
       |> Timelines.change_item(item_params)
       |> Map.put(:action, :insert)
 
-    {:noreply, assign(socket, :edit_changeset, changeset)}
+    markdown_html = markdown_as_html(Map.get(item_params, "description"))
+
+    {:noreply,
+      socket
+      |> assign(:edit_changeset, changeset)
+      |> assign(:markdown_html, markdown_html)}
   end
 
   def handle_event("validate", _params, socket) do

@@ -1,6 +1,8 @@
 defmodule StoryWeb.AddNewTimelineItemLive do
   use StoryWeb, :live_component
 
+  import StoryWeb.LayoutView, only: [markdown_as_html: 1]
+
   alias Phoenix.LiveView.JS
   alias Story.Timelines
   alias Story.S3UploadHelpers
@@ -16,6 +18,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
      |> assign(:user_id, assigns.current_user_id)
      |> assign(:page_id, assigns.page_id)
      |> assign(:item, item)
+     |> assign(:markdown_html, nil)
      |> allow_upload(:img,
        accept: ~w(.jpg .jpeg .png),
        max_entries: 1,
@@ -34,6 +37,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
           item: @item,
           uploads: @uploads,
           on_cancel: &hide_form/1,
+          markdown_html: @markdown_html,
           myself: @myself) %>
 
       <div id="item-new-content">
@@ -111,10 +115,13 @@ defmodule StoryWeb.AddNewTimelineItemLive do
       |> Timelines.change_item(item_params)
       |> Map.put(:action, :insert)
 
+    markdown_html = markdown_as_html(Map.get(item_params, "description"))
+
     {:noreply,
      socket
      |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})
      |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})
+     |> assign(:markdown_html, markdown_html)
      |> assign(:new_changeset, changeset)}
   end
 
