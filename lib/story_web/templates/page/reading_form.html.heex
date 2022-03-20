@@ -1,4 +1,4 @@
-<.form id={"reading-#{@reading.id}-form"} style="min-height: 27rem; z-index: 100;" class="text-left hidden absolute inset-0 p-4 bg-base-100 shadow-sm border" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
+<.form id={"reading-#{@reading.id}-form"} style="min-height: 27rem; z-index: 100;" class="text-left w-full absolute hidden p-4 bg-base-100 shadow-sm border" let={f} for={@changeset}  phx-submit="save" phx-change="validate" phx-target={@myself}>
   <div class="grid grid-cols-2 gap-4">
     <div class="form-control">
       <%= label f, :title, class: "label" do %>
@@ -33,7 +33,14 @@
     <%= error_tag f, :description %>
   </div>
 
-  <div class="text-right bottom-4 right-4 w-full absolute">
+  <%= if @markdown_html do %>
+    <p class="label-text font-bold mt-4 mb-2">Markdown Preview:</p>
+    <div class="bordered prose prose-sm">
+      <%= raw @markdown_html %>
+    </div>
+  <% end %>
+
+  <div class="text-right w-full mt-8">
     <button phx-click={JS.add_class("hidden", to: "#reading-#{@reading.id}-form")} class="btn btn-ghost">Cancel</button>
     <%= submit "Save", class: "btn btn-accent" %>
   </div>

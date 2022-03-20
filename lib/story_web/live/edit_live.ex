@@ -88,7 +88,7 @@ defmodule StoryWeb.EditLive do
             page_id={@page.id}
             module={StoryWeb.AddNewReadingLive} />
 
-          <div class="md:grid md:grid-cols-3 px-8 md:px-0 space-y-4 md:gap-4 mx-auto mb-12 md:w-800px">
+          <div class="px-8 md:px-0 mx-auto mb-12 md:w-680px">
             <%= for reading <- @readings do %>
               <.live_component
                 id={"reading-#{reading.id}"}

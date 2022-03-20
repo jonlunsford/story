@@ -1,6 +1,8 @@
 defmodule StoryWeb.AddNewReadingLive do
   use StoryWeb, :live_component
 
+  import StoryWeb.LayoutView, only: [markdown_as_html: 1]
+
   alias Story.Pages
   alias Phoenix.LiveView.JS
 
@@ -11,6 +13,7 @@ defmodule StoryWeb.AddNewReadingLive do
       |> assign(:page_id, assigns.page_id)
       |> assign(:current_user_id, assigns.current_user_id)
       |> assign(:reading, reading)
+      |> assign(:markdown_html, nil)
       |> assign(:changeset, Pages.change_reading(reading))}
   end
 
@@ -21,6 +24,7 @@ defmodule StoryWeb.AddNewReadingLive do
           "reading_form.html",
           changeset: @changeset,
           reading: @reading,
+          markdown_html: @markdown_html,
           myself: @myself) %>
 
       <button phx-click={JS.remove_class("hidden", to: "#reading-new-form")} class="rounded-sm btn btn-neutral btn-outline btn-sm mx-auto w-1/3 mb-12">Add Reading</button>
@@ -34,7 +38,12 @@ defmodule StoryWeb.AddNewReadingLive do
       |> Pages.change_reading(reading_params)
       |> Map.put(:action, :insert)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    markdown_html = markdown_as_html(Map.get(reading_params, "description"))
+
+    {:noreply,
+      socket
+      |> assign(:markdown_html, markdown_html)
+      |> assign(:changeset, changeset)}
   end
 
   def handle_event("save", %{"reading" => reading_params}, socket) do
