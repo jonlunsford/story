@@ -15,7 +15,7 @@
     <%= raw markdown_as_html(@reading.description) %>
   </div>
 
-  <%= if @reading.description && String.length(@reading.description) >= 280 do %>
+  <%= if @reading.description && String.length(@reading.description) >= 250 do %>
     <button id={"reading-#{@reading.id}-description-toggle"} href="#" phx-hook="ToggleClass" data-target={"#reading-#{@reading.id}-description"} data-class="line-clamp-2" data-text-on="Show Less" data-text-off="Show More" class="link link-neutral text-xs mb-8">Show More</button>
   <% end %>
 </div>
