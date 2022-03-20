@@ -385,9 +385,10 @@ defmodule Story.SOStoryScraper do
   def get_technologies({html, map}) do
     parsed =
       parse_document(html)
-      |> Floki.find(
-        "div#form-section-TechStack div.user-technologies div.timeline-item-tags span.post-tag"
-      )
+      |> Floki.find("div#form-section-TechStack div.user-technologies")
+      |> Floki.filter_out(".tag-wrapper")
+      |> Floki.filter_out(".dislike")
+      |> Floki.find("div.timeline-item-tags span.post-tag")
 
     tech =
       parsed
