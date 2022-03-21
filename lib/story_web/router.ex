@@ -15,7 +15,8 @@ defmodule StoryWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json", "html"]
+
   end
 
   scope "/", StoryWeb do
@@ -26,9 +27,11 @@ defmodule StoryWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", StoryWeb do
-  #   pipe_through :api
-  # end
+   scope "/api", StoryWeb do
+     pipe_through :api
+
+      get "/stories/to_json", API.ExportsController, :json
+   end
 
   # Enables LiveDashboard only for development
   #
