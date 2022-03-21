@@ -40,14 +40,11 @@ defmodule StoryWeb.LayoutView do
   def markdown_as_html(nil), do: ""
 
   def markdown_as_html(html) do
-    case Earmark.as_html(html, escape: false) do
-      {:ok, html, []} ->
+    case Pandex.gfm_to_html(html) do
+      {:ok, html} ->
         html
 
-      {:ok, html, _deprecation_message} ->
-        html
-
-      {:error, html, _reason} ->
+      {:error, _reason} ->
         html
     end
   end
