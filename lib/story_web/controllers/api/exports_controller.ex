@@ -5,7 +5,6 @@ defmodule StoryWeb.API.ExportsController do
   use StoryWeb, :controller
 
   alias Story.SOStoryScraper
-  alias Story.JSONResumeSerializer
 
   def json(conn, %{"so_url" => so_url}) do
     case SOStoryScraper.fetch_and_parse(so_url) do
