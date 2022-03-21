@@ -17,7 +17,7 @@ defmodule StoryWeb.EditReadingLive do
 
   def render(assigns) do
     ~H"""
-    <div id={"edit-reading-#{@reading.id}"} class="overflow-visible relative mb-8">
+    <div id={"edit-reading-#{@reading.id}"} class="overflow-visible relative">
       <%= if @myself do %>
         <%= StoryWeb.PageView.render(
             "reading_form.html",

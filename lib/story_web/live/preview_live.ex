@@ -5,10 +5,18 @@ defmodule StoryWeb.PreviewLive do
   alias Phoenix.LiveView.JS
   alias Story.SOStoryScraper
 
+  #defp load_file(relative_path) do
+    #(File.cwd!() <> relative_path)
+    #|> Path.expand(relative_path)
+    #|> Path.absname()
+    #|> File.read()
+  #end
+
   def mount(_params, _session, socket) do
     {:ok,
      socket
      |> assign(:changeset, nil)
+     |> assign(:so_url, nil)
      |> assign(:page, nil)}
   end
 
@@ -37,8 +45,18 @@ defmodule StoryWeb.PreviewLive do
     <% end %>
 
     <%= if @page do %>
-      <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-accent bg-opacity-95 mt-12 center sticky top-0 z-10 btn-block modal-button rounded-none md:rounded-md">Create an Account to Save, Edit & Share</button>
       <%= StoryWeb.UserRegistrationView.render("modal.html", changeset: @changeset, on_submit: "register-user") %>
+
+      <div class="card w-3/4 mt-8 mb-16 bg-white border shadow-sm rounded-md mx-auto">
+        <div class="card-body items-center text-center space-y-6">
+          <h2 class="card-title text-3xl font-extrabold">Preview</h2>
+          <p class="w-1/2">This is a preview it <strong>has not been saved.</strong> Create an account to save, edit and share, or download a <a class="link" href="https://jsonresume.org/schema/" target="_blank">JSON resume</a> version.</p>
+          <div class="card-actions justify-end">
+            <button phx-click={JS.add_class("modal-open", to: "#regisration-modal")} class="btn btn-primary modal-button rounded-none md:rounded-md">Create Account</button>
+            <a href={"/api/stories/to_json?so_url=#{@so_url}"} class="btn btn-ghost">Download JSON</a>
+          </div>
+        </div>
+      </div>
     <% end %>
 
     <%= if @page do %>
