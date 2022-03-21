@@ -58,7 +58,7 @@ defmodule Story.MixProject do
       {:secure_random, "~> 0.5.1"},
       {:honeybadger, "~> 0.7"},
       {:logflare_logger_backend, "~> 0.11.0"},
-      {:earmark, "~> 1.4.22"}
+      {:pandex, "~> 0.2.0"}
     ]
   end
 
