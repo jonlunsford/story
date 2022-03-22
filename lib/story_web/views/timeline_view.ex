@@ -100,6 +100,16 @@ defmodule StoryWeb.TimelineView do
     )
   end
 
+  def timeline_span(timeline_items) do
+    ordered = order_timeline(timeline_items)
+    first = List.last(ordered)
+    last = List.first(ordered)
+    start_date = first.start_date
+    end_date = if last.current_position, do: NaiveDateTime.utc_now(), else: last.end_date
+
+    pretty_time_difference(start_date, end_date)
+  end
+
   def group_timeline_for_csv(timeline_items) do
     timeline_items
     |> order_timeline()

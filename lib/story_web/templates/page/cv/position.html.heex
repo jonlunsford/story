@@ -1,11 +1,11 @@
-<div class="flex mb-8 pb-8 border-b last:border-none">
+<div class="flex">
   <div class="mr-8 w-14">
     <%= if @item.img do %>
       <img class="w-auto" src={@item.img} />
     <% end %>
   </div>
 
-  <div class="w-85%">
+  <div class="w-85% md:w-41">
     <h4 class="font-bold text-xl">
       <%= @item.title %>
     </h4>
@@ -30,6 +30,14 @@
       <% end %>
     <% end %>
 
-    <div class="text-neutral prose md:prose-lg mt-4"><%= raw markdown_as_html(@item.description) %></div>
+    <%= if @item.description do %>
+      <div id={"statement-#{@item.id}-toggle"} class="text-neutral prose md:prose-lg mt-4 line-clamp-4"><%= raw markdown_as_html(@item.description) %></div>
+
+      <%= if String.length(@item.description) >= 350 do %>
+        <div>
+          <button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target={"#statement-#{@item.id}-toggle"} data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary text-sm">Show More</button>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
