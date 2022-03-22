@@ -1,18 +1,18 @@
-<div class="flex items-start mb-6">
+<div class="md:flex items-start mb-8">
   <%= if @info.picture_url do %>
-    <img class="mr-4 shadow-lg bg-white p-2 rounded-md border block" width="136" height="136" tab-index="0" title={@info.name} src={@info.picture_url} />
+    <img class="mr-4 shadow-sm bg-white p-2 rounded-md border block" width="136" height="136" tab-index="0" title={@info.name} src={@info.picture_url} />
   <% end %>
 
   <div>
-    <h4 id="info-name" class="text-2xl mb-4 font-extrabold">
+    <h4 id="info-name" class="text-3xl mt-4 md:mt-0 font-extrabold">
       <%= @info.name %>
     </h4>
 
-    <div id="info-job-title" class="text-xl mb-2 text-base-content italic">
+    <div id="info-job-title" class="text-lg mt-2 text-base-content italic">
       <%= @info.job_title %>
     </div>
 
-    <div class="mb-8 mt-8 md:mt-0 flex items-center">
+    <div class="mb-8 md:mb-0 mt-2 flex items-center self-end">
       <%= if @info.location do %>
         <span class="mr-2 flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline text-neutral" viewBox="0 0 20 20" fill="currentColor">
@@ -52,29 +52,15 @@
 </div>
 
 <%= if @info.statement do %>
-  <div id="intro-statement" class="prose md:prose-lg mx-auto line-clamp-4 mt-6 mb-2">
+  <div id="intro-statement" class="prose md:prose-lg mx-auto line-clamp-4 mt-4 mb-2">
     <%= raw markdown_as_html(@info.statement) %>
   </div>
 
   <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
-
-  <div class="divider my-6 w-1/2 mx-auto"></div>
 <% end %>
 
-<p class="mb-8 prose md:prose-lg">
-  <%= if @info.favorite_editor do %>
-    <strong>Favorite editor:</strong> <span id="info-editor"><%= @info.favorite_editor %></span> <br />
-  <% end %>
-  <%= if @info.first_computer do %>
-    <strong>First computer:</strong> <span id="info-computer"><%= @info.first_computer %></span>
-  <% end %>
-</p>
-
-
 <%= if Enum.any?(@info.tags) do %>
-  <div class="divider my-6 w-1/2 mx-auto"></div>
-
-  <p class="mb-2 font-bold">I want to work with:</p>
+  <p class="mb-2 mt-12 font-bold">I want to work with:</p>
 
   <%= for tag <- @info.tags do %>
     <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
