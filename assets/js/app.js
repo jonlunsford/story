@@ -14,10 +14,7 @@
 //
 // Alternatively, you can `npm install some-package --prefix assets` and import
 // them using a path starting with the package name:
-//
-//     import "some-package"
-//
-
+// import "some-package"
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.

@@ -63,7 +63,7 @@ defmodule StoryWeb.EditLive do
 
 
         <div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
-          <div class="w-px absolute top-0 left-1/2 border h-full"></div>
+          <div class="timeline-line w-px absolute top-0 left-1/2 border h-full"></div>
 
           <.live_component
             module={StoryWeb.AddNewTimelineItemLive}

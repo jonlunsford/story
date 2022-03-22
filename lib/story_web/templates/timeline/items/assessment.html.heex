@@ -1,9 +1,9 @@
 <div id={"item-#{@item.id}-content"}>
-  <header class="text-xs text-neutral mb-4 px-4 flex items-center justify-between">
+  <header id={"assessment-#{@item.id}"} class="text-xs text-neutral mb-4 px-4 flex items-center justify-between">
     <div>
       <%= capitalize_string(@item.type) %> •
       <%= StoryWeb.TimelineView.render("shared/_date_display_single.html", item: @item) %>
-      <div class="font-bold mt-2 italic">
+      <div class="font-bold mt-2">
         <%= @item.title %>
       </div>
     </div>
