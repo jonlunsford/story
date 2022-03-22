@@ -46,7 +46,11 @@ Hooks.ToggleClass = {
 
 window.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll("[phx-hook='ToggleClass']").forEach(el => {
-    el.addEventListener("click", Hooks.ToggleClass.toggleClass)
+    el.addEventListener("click", (event) => {
+      event.preventDefault()
+
+      Hooks.ToggleClass.toggleClass(event)
+    })
   })
 });
 
