@@ -8,7 +8,7 @@
       <%= @info.name %>
     </h4>
 
-    <div id="info-job-title" class="text-lg mt-2 text-base-content italic">
+    <div id="info-job-title" class="text-lg text-base-content italic">
       <%= @info.job_title %>
     </div>
 
@@ -60,7 +60,7 @@
 <% end %>
 
 <%= if Enum.any?(@info.tags) do %>
-  <p class="mb-2 mt-12 font-bold">I want to work with:</p>
+  <p class="mb-2 mt-8 font-bold">I want to work with:</p>
 
   <%= for tag <- @info.tags do %>
     <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
