@@ -7,16 +7,16 @@
 
   <%= if @page.timeline_items do %>
     <%= for {title, items} <- group_timeline_for_csv(@page.timeline_items) do %>
-      <div id={"toggle-#{dasherize_string(title)}"} class={ if Enum.count(items) >= 6, do: "cv-items-toggle", else: ""}>
-        <hr class="mt-12" />
+      <div id={"toggle-#{dasherize_string(title)}"} class={ if Enum.count(items) > 3, do: "cv-items-toggle", else: ""}>
+        <hr class="mt-20" />
 
         <%= if title == " Experience" do %>
-          <h5 class="uppercase text-sm font-bold mb-8">
-            <%= title %> -
-            <span class="lowercase text-gray-500"><%= Enum.count(items) %> positions <%= timeline_span(items) %></span>
+          <h5 class="uppercase font-bold mb-8">
+            <%= title %>
+            <span class="lowercase text-sm text-gray-500"><%= Enum.count(items) %> positions <%= timeline_span(items) %></span>
           </h5>
         <% else %>
-          <h5 class="uppercase text-sm font-bold mb-8"><%= title %> (<%= Enum.count(items) %>)</h5>
+          <h5 class="uppercase font-bold mb-8"><%= title %> (<%= Enum.count(items) %>)</h5>
         <% end %>
 
           <%= for item <- items do %>
@@ -25,10 +25,17 @@
                 <%= StoryWeb.PageView.render("cv/position.html", item: item) %>
               <% end %>
 
-              <%= if title == "Apps & Software" do %>
+              <%= if title == "Apps and Software" do %>
                 <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
               <% end %>
 
+              <%= if title == "Certifications" do %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+              <% end %>
+
+              <%= if title == "Education" do %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+              <% end %>
 
               <%= if title == "Public Artifacts" do %>
                 <%= if item.type == "Assessment" do %>
@@ -40,17 +47,17 @@
             </div>
           <% end %>
 
-          <%= if Enum.count(items) >= 6 do %>
-            <a href="#" class="link link-pramary" phx-hook="ToggleClass" data-target={"#toggle-#{dasherize_string(title)}"} data-class="cv-items-visible" data-text-on="Show More" data-text-off="Show Less">
-              Show More <%= title %>
+          <%= if Enum.count(items) > 3 do %>
+            <a href="#" class="btn btn-outline btn-sm rounded-sm" phx-hook="ToggleClass" data-target={"#toggle-#{dasherize_string(title)}"} data-class="cv-items-visible" data-text-on={toggle_cv_item_text_on(title)} data-text-off={toggle_cv_item_text_off(title)}>
+              <%= toggle_cv_item_text_on(title) %>
             </a>
           <% end %>
       </div>
     <% end %>
   <% end %>
 
-  <hr class="mt-12" />
-  <h5 class="uppercase text-sm font-bold mb-8">Readings</h5>
+  <hr class="mt-20" />
+  <h5 class="uppercase font-bold mb-8">Readings</h5>
 
   <%= for reading <- @page.readings do %>
     <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself, markdown_html: nil) %>

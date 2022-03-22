@@ -1,7 +1,7 @@
 defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
 
-  import StoryWeb.LayoutView, only: [capitalize_string: 1, markdown_as_html: 1]
+  import StoryWeb.LayoutView, only: [capitalize_string: 1, markdown_as_html: 1, underscore_string: 1]
 
   @available_forms [
     "assessment",
@@ -114,9 +114,12 @@ defmodule StoryWeb.TimelineView do
     timeline_items
     |> order_timeline()
     |> Enum.group_by(fn item ->
-      case item.type do
-        "Position" -> " Experience"
-        "Feature or Apps" -> "Apps & Software"
+      case underscore_string(item.type) do
+        "position" -> " Experience"
+        "feature_or_apps" -> "Apps and Software"
+        "open_source" -> "Apps and Software"
+        "certification" -> "Certifications"
+        "education" -> "Education"
         _ -> "Public Artifacts"
       end
     end)

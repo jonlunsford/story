@@ -35,7 +35,7 @@ Hooks.ToggleClass = {
     document.querySelectorAll(event.target.dataset.target).forEach(el => {
       el.classList.toggle(dataset.class)
 
-      if(target.innerText == dataset.textOff) {
+      if(target.innerText.toLowerCase() == dataset.textOff.toLowerCase()) {
         target.innerText = dataset.textOn
       } else {
         target.innerText = dataset.textOff
