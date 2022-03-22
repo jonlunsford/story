@@ -29,7 +29,8 @@ defmodule StoryWeb.EditLive do
       <div class="mt-8 relative">
 
         <div class="md:absolute mb-8 top-0 right-0 lg:w-64">
-          <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Live Preview</a>
+          <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Story View</a>
+          <a href={"/cv/#{@page.slug}"} class="btn btn-block btn-sm btn-outline border-t-0 rounded-none">Traditional View</a>
           <a href="/users/settings" class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Change URL</a>
           <a href={"/api/stories/to_json?page_id=#{@page.id}"} class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Download JSON</a>
 

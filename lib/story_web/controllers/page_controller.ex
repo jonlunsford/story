@@ -27,4 +27,14 @@ defmodule StoryWeb.PageController do
         |> render("show.html", page: page, myself: nil)
     end
   end
+
+  def cv(conn, %{"slug" => slug}) do
+    case Pages.get_published_page_by_slug(slug) do
+      nil -> render(conn, "404.html")
+      page ->
+        conn
+        |> put_root_layout("public.html")
+        |> render("cv.html", page: page, myself: nil)
+    end
+  end
 end

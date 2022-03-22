@@ -1,0 +1,50 @@
+<div class="px-8 md:px-0 md:w-46 mx-auto mb-16">
+  <%= if @page.personal_information do %>
+    <div  class="mb-20">
+      <%= StoryWeb.PageView.render("_cv_info.html", info: @page.personal_information) %>
+    </div>
+  <% end %>
+
+  <%= if @page.timeline_items do %>
+    <%= for {title, items} <- group_timeline_for_csv(@page.timeline_items) do %>
+      <div id={"toggle-#{dasherize_string(title)}"} class={ if Enum.count(items) >= 6, do: "cv-items-toggle", else: ""}>
+        <hr class="mt-12" />
+        <h5 class="uppercase text-sm font-bold mb-8"><%= title %> (<%= Enum.count(items) %>)</h5>
+
+          <%= for item <- items do %>
+            <div class="cv-item">
+              <%= if title == " Experience" do %>
+                <%= StoryWeb.PageView.render("cv/position.html", item: item) %>
+              <% end %>
+
+              <%= if title == "Apps & Software" do %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+              <% end %>
+
+
+              <%= if title == "Public Artifacts" do %>
+                <%= if item.type == "Assessment" do %>
+                  <%= StoryWeb.PageView.render("cv/assessment.html", item: item) %>
+                <% else %>
+                  <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <%= if Enum.count(items) >= 6 do %>
+            <a href="#" class="link link-pramary" phx-hook="ToggleClass" data-target={"#toggle-#{dasherize_string(title)}"} data-class="cv-items-visible" data-text-on="Show More" data-text-off="Show Less">
+              Show More <%= title %>
+            </a>
+          <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <hr class="mt-12" />
+  <h5 class="uppercase text-sm font-bold mb-8">Readings</h5>
+
+  <%= for reading <- @page.readings do %>
+    <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself, markdown_html: nil) %>
+  <% end %>
+</div>
