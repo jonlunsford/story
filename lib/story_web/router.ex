@@ -24,6 +24,7 @@ defmodule StoryWeb.Router do
 
     get "/", PageController, :index
     get "/:slug", PageController, :show
+    get "/cv/:slug", PageController, :cv
   end
 
   # Other scopes may use custom stacks.

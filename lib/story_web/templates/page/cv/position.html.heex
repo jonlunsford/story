@@ -1,0 +1,35 @@
+<div class="flex mb-8 pb-8 border-b last:border-none">
+  <div class="mr-8 w-14">
+    <%= if @item.img do %>
+      <img class="w-auto" src={@item.img} />
+    <% end %>
+  </div>
+
+  <div class="w-85%">
+    <h4 class="font-bold text-xl">
+      <%= @item.title %>
+    </h4>
+
+    <p class="font-sm mb-2">
+      <%= if @item.location do %>
+        <%= if @item.url do %>
+          <%= link @item.location, to: @item.url, class: "link link-primary" %>
+        <% else %>
+          <%= @item.location %>
+        <% end %>
+      <% end %>
+    </p>
+
+    <p class="text-xs font-gray-700 mb-4">
+      <%= StoryWeb.TimelineView.render("shared/_date_display_range.html", item: @item) %>
+    </p>
+
+    <%= if Enum.any?(@item.tags) do %>
+      <%= for tag <- @item.tags do %>
+        <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
+      <% end %>
+    <% end %>
+
+    <div class="text-neutral prose md:prose-lg mt-4"><%= raw markdown_as_html(@item.description) %></div>
+  </div>
+</div>

@@ -100,6 +100,18 @@ defmodule StoryWeb.TimelineView do
     )
   end
 
+  def group_timeline_for_csv(timeline_items) do
+    timeline_items
+    |> order_timeline()
+    |> Enum.group_by(fn item ->
+      case item.type do
+        "Position" -> " Experience"
+        "Feature or Apps" -> "Apps & Software"
+        _ -> "Public Artifacts"
+      end
+    end)
+  end
+
   def get_image(item) do
     cond do
       item.img -> item.img
