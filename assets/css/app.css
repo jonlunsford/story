@@ -226,6 +226,11 @@ textarea {
   display: none;
 }
 
+.cv-item:nth-last-child(2),
+.cv-item:last-child {
+  border-bottom: none;
+}
+
 .cv-items-toggle .cv-item:nth-last-child(n+6) {
   display: block;
 }

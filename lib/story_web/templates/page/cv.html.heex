@@ -9,10 +9,18 @@
     <%= for {title, items} <- group_timeline_for_csv(@page.timeline_items) do %>
       <div id={"toggle-#{dasherize_string(title)}"} class={ if Enum.count(items) >= 6, do: "cv-items-toggle", else: ""}>
         <hr class="mt-12" />
-        <h5 class="uppercase text-sm font-bold mb-8"><%= title %> (<%= Enum.count(items) %>)</h5>
+
+        <%= if title == " Experience" do %>
+          <h5 class="uppercase text-sm font-bold mb-8">
+            <%= title %> -
+            <span class="lowercase text-gray-500"><%= Enum.count(items) %> positions <%= timeline_span(items) %></span>
+          </h5>
+        <% else %>
+          <h5 class="uppercase text-sm font-bold mb-8"><%= title %> (<%= Enum.count(items) %>)</h5>
+        <% end %>
 
           <%= for item <- items do %>
-            <div class="cv-item">
+            <div class="cv-item mb-8 pb-8 border-b">
               <%= if title == " Experience" do %>
                 <%= StoryWeb.PageView.render("cv/position.html", item: item) %>
               <% end %>
