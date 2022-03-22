@@ -20,7 +20,7 @@ defmodule Story.MixProject do
   def application do
     [
       mod: {Story.Application, []},
-      extra_applications: [:honeybadger, :logger, :runtime_tools]
+      extra_applications: [:honeybadger, :logger, :runtime_tools, :crypto]
     ]
   end
 
