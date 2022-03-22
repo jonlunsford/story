@@ -1,5 +1,5 @@
-<div class="prose prose-neutral border-b mb-8">
-  <h3>
+<div class="prose prose-neutral border-b mb-8 w-full">
+  <div class="font-bold">
     <%= if @reading.url do %>
       <a href={@reading.url} alt={@reading.title}>
         <%= @reading.title %>
@@ -7,7 +7,7 @@
     <% else %>
       <%= @reading.title %>
     <% end %>
-  </h3>
+  </div>
 
   <p class="text-info-content opacity-60"><%= @reading.author %></p>
 

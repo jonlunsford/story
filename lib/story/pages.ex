@@ -37,6 +37,16 @@ defmodule Story.Pages do
   """
   def get_page!(id), do: Repo.get!(Page, id)
 
+  def get_page_with_associations!(id) do
+    Repo.get!(Page, id)
+    |> Repo.preload(
+      personal_information: [:tags],
+      stats: [:tags],
+      timeline_items: [:tags],
+      readings: []
+    )
+  end
+
   @doc """
   Gets a single page by slug.
 

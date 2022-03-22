@@ -3,8 +3,8 @@ defmodule StoryWeb.API.ExportsView do
 
   alias Story.JSONResumeSerializer
 
-  def render("page.json", %{page_html: page_html}) do
-    page_json = JSONResumeSerializer.call(page_html)
+  def render("page.json", %{page: page}) do
+    page_json = JSONResumeSerializer.call(page)
     case Jason.encode(page_json) do
       {:ok, json} -> json
       {:error, _} -> "error"

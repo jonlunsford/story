@@ -28,9 +28,10 @@ defmodule StoryWeb.EditLive do
     <%= if @page do %>
       <div class="mt-8 relative">
 
-        <div class="md:absolute mb-8 top-0 right-0 lg:w-1/8">
+        <div class="md:absolute mb-8 top-0 right-0 lg:w-64">
           <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Live Preview</a>
           <a href="/users/settings" class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Change URL</a>
+          <a href={"/api/stories/to_json?page_id=#{@page.id}"} class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Download JSON</a>
 
           <.form for={:published} phx-change="toggle-published" as="page">
             <div class="form-control">
@@ -42,27 +43,28 @@ defmodule StoryWeb.EditLive do
           </.form>
         </div>
 
-        <.live_component
-          module={StoryWeb.EditInfoLive}
-          current_user_id={@current_user_id}
-          id={"info-#{@page.personal_information.id}"}
-          page_id={@page.id}
-          info={@page.personal_information} />
+        <div class="px-8 md:px-0 md:w-46 mx-auto mb-12">
+          <.live_component
+            module={StoryWeb.EditInfoLive}
+            current_user_id={@current_user_id}
+            id={"info-#{@page.personal_information.id}"}
+            page_id={@page.id}
+            info={@page.personal_information} />
 
-        <%= if Enum.any?(@page.stats) do %>
-          <div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Assessments</div>
+          <%= if Enum.any?(@page.stats) do %>
+            <h3 class="text-neutral font-extrabold text-2xl mt-8">Assessments <span class="text-xs italic text-gray-400">By Pluralsight IQ</span></h3>
 
-          <div class="mt-8 mb-12 flex flex-wrap justify-center">
-            <%= for stat <-  @page.stats do %>
-              <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
-            <% end %>
-          </div>
-        <% end %>
+            <div class="mt-2 mb-12 flex flex-wrap justify-start">
+              <%= for stat <-  @page.stats do %>
+                <%= StoryWeb.StatView.render_stat("#{underscore_string(stat.type)}", stat: stat) %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
 
-        <div class="divider my-8 w-3/4 md:w-1/4 mx-auto text-neutral">Timeline</div>
 
         <div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
-          <div class="w-px absolute top-0 left-1/2 border h-full"></div>
+          <div class="timeline-line w-px absolute top-0 left-1/2 border h-full"></div>
 
           <.live_component
             module={StoryWeb.AddNewTimelineItemLive}
@@ -79,8 +81,8 @@ defmodule StoryWeb.EditLive do
           <% end %>
         </div>
 
-        <div class="relative mx-auto md:w-800px">
-          <div class="divider my-12 w-3/4 md:w-1/2 mx-auto text-neutral">Recommended Reading</div>
+        <div class="px-8 md:px-0 md:w-46 mx-auto mb-12 mt-24 relative">
+          <h3 class="text-neutral font-extrabold text-2xl mb-8">Recommended Reading</h3>
 
           <.live_component
             id="add-new-reading"
@@ -88,7 +90,7 @@ defmodule StoryWeb.EditLive do
             page_id={@page.id}
             module={StoryWeb.AddNewReadingLive} />
 
-          <div class="px-8 md:px-0 mx-auto mb-12 md:w-680px">
+          <div class="">
             <%= for reading <- @readings do %>
               <.live_component
                 id={"reading-#{reading.id}"}

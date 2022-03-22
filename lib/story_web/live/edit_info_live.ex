@@ -29,7 +29,7 @@ defmodule StoryWeb.EditInfoLive do
 
   def render(assigns) do
     ~H"""
-    <div class="md:w-1/2 mx-4 md:mx-auto mx-auto mb-12">
+    <div>
       <%= StoryWeb.PageView.render(
         "edit_info_form.html",
         changeset: @changeset,

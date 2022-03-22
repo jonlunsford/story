@@ -1,7 +1,5 @@
-<div class="flex items-center mr-2 mt-4 md:mt-0">
-  <a class="inline-block" href="#">
-    <img height="28" class="h-8 flex-none" src={@stat.img} alt={@stat.title} />
-  </a>
+<div class="flex items-center mr-2 mt-4">
+  <img height="28" class="h-8 flex-none" src={@stat.img} alt={@stat.title} />
   <%= for tag <- @stat.tags do %>
     <span class="ml-1 h-full rounded-md badge badge-neutral badge-outline"><%= tag.name %></span>
   <% end %>
