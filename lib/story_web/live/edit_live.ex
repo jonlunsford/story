@@ -28,9 +28,10 @@ defmodule StoryWeb.EditLive do
     <%= if @page do %>
       <div class="mt-8 relative">
 
-        <div class="md:absolute mb-8 top-0 right-0 lg:w-1/8">
+        <div class="md:absolute mb-8 top-0 right-0 lg:w-64">
           <a href={"/#{@page.slug}"} class="btn btn-block btn-sm btn-outline rounded-none">Live Preview</a>
           <a href="/users/settings" class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Change URL</a>
+          <a href={"/api/stories/to_json?page_id=#{@page.id}"} class="btn btn-block border-t-0 btn-sm btn-outline rounded-none">Download JSON</a>
 
           <.form for={:published} phx-change="toggle-published" as="page">
             <div class="form-control">
