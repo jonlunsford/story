@@ -166,8 +166,10 @@ defmodule Story.SOStoryScraper do
       |> List.last()
       |> String.trim(" First computer: ")
 
+    {:ok, markdown} = Pandex.html_to_markdown(map.intro_statement)
+
     attrs = %{
-      statement: map.intro_statement,
+      statement: markdown,
       job_title: map.job,
       name: map.name,
       location: map.location,
@@ -240,12 +242,15 @@ defmodule Story.SOStoryScraper do
 
       tags = Enum.map(item.tags, fn tag -> %{name: tag} end)
 
+      {:ok, markdown} =
+        Pandex.html_to_markdown(item.description)
+
       Story.Timelines.create_and_tag_item(
         %{
           start_date: start_date,
           end_date: end_date,
           current_position: String.equivalent?(List.last(dates), "Current"),
-          description: item.description,
+          description: markdown,
           img: item.img || item.content_img,
           content_img: item.content_img,
           location: item.location,

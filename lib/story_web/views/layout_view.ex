@@ -40,7 +40,7 @@ defmodule StoryWeb.LayoutView do
   def markdown_as_html(nil), do: ""
 
   def markdown_as_html(html) do
-    case Pandex.gfm_to_html(html) do
+    case Pandex.markdown_to_html(html) do
       {:ok, html} ->
         html
 
