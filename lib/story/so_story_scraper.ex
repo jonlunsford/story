@@ -166,10 +166,8 @@ defmodule Story.SOStoryScraper do
       |> List.last()
       |> String.trim(" First computer: ")
 
-    {:ok, markdown} = Pandex.html_to_markdown(map.intro_statement)
-
     attrs = %{
-      statement: markdown,
+      statement: map.intro_statement,
       job_title: map.job,
       name: map.name,
       location: map.location,
@@ -242,15 +240,12 @@ defmodule Story.SOStoryScraper do
 
       tags = Enum.map(item.tags, fn tag -> %{name: tag} end)
 
-      {:ok, markdown} =
-        Pandex.html_to_markdown(item.description)
-
       Story.Timelines.create_and_tag_item(
         %{
           start_date: start_date,
           end_date: end_date,
           current_position: String.equivalent?(List.last(dates), "Current"),
-          description: markdown,
+          description: item.description,
           img: item.img || item.content_img,
           content_img: item.content_img,
           location: item.location,
@@ -370,12 +365,13 @@ defmodule Story.SOStoryScraper do
   end
 
   def get_intro_statement({html, map}) do
-    parsed =
+    {:ok, markdown} =
       parse_document(html)
       |> Floki.find("div#form-section-PersonalStatementAndTools span.description-content-full *")
       |> Floki.raw_html()
+      |> Pandex.html_to_markdown()
 
-    {html, Map.put(map, :intro_statement, parsed)}
+    {html, Map.put(map, :intro_statement, markdown)}
   end
 
   def get_tools({html, map}) do
@@ -450,12 +446,18 @@ defmodule Story.SOStoryScraper do
 
         details = parse_timeline_details(item, type)
 
+        {:ok, markdown} =
+          item
+          |> Floki.find(".description-content-truncated *")
+          |> Floki.raw_html()
+          |> Pandex.html_to_markdown()
+
         %{
           date:
             Floki.find(item, "span.timeline-item-date")
             |> Floki.text(deep: false)
             |> String.trim(),
-          description: Floki.find(item, ".description-content-truncated *") |> Floki.raw_html(),
+          description: markdown,
           tags: Floki.find(item, ".s-tag") |> Enum.map(fn tag -> Floki.text(tag) end),
           title: details.title,
           content_img: details.content_img,

@@ -131,7 +131,7 @@ defmodule Story.SOStoryScraperTest do
 
     assert result == %{
              intro_statement:
-               "<p>Hi there,</p><p>I have been developing software for 10 years. I have extensive experience\nwith many stacks, primarily Ruby On Rails and Phoenix. Today I like to write Ruby, Elixir, Go and ES6/React. I enjoy pair programming, reviewing code and giving constructive feedback.</p><p>I&#39;ve worked with large corporations, fast paced agencies, and lean startups producing production grade code for highly distributed, data intensive applications.</p>"
+               "Hi there,\n\nI have been developing software for 10 years. I have extensive\nexperience with many stacks, primarily Ruby On Rails and Phoenix. Today\nI like to write Ruby, Elixir, Go and ES6/React. I enjoy pair\nprogramming, reviewing code and giving constructive feedback.\n\nI\\'ve worked with large corporations, fast paced agencies, and lean\nstartups producing production grade code for highly distributed, data\nintensive applications.\n"
            }
   end
 
