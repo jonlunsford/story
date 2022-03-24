@@ -26,6 +26,8 @@ config :story, StoryWeb.Endpoint,
 # In test we don't send emails.
 config :story, Story.Mailer, adapter: Swoosh.Adapters.Test
 
+config :story, doc_lib: Story.FakePandex
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 

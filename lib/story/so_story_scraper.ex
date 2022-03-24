@@ -365,12 +365,13 @@ defmodule Story.SOStoryScraper do
   end
 
   def get_intro_statement({html, map}) do
-    parsed =
+    markdown =
       parse_document(html)
       |> Floki.find("div#form-section-PersonalStatementAndTools span.description-content-full *")
       |> Floki.raw_html()
+      |> html_to_markdown()
 
-    {html, Map.put(map, :intro_statement, parsed)}
+    {html, Map.put(map, :intro_statement, markdown)}
   end
 
   def get_tools({html, map}) do
@@ -445,12 +446,18 @@ defmodule Story.SOStoryScraper do
 
         details = parse_timeline_details(item, type)
 
+        markdown =
+          item
+          |> Floki.find(".description-content-truncated *")
+          |> Floki.raw_html()
+          |> html_to_markdown()
+
         %{
           date:
             Floki.find(item, "span.timeline-item-date")
             |> Floki.text(deep: false)
             |> String.trim(),
-          description: Floki.find(item, ".description-content-truncated *") |> Floki.raw_html(),
+          description: markdown,
           tags: Floki.find(item, ".s-tag") |> Enum.map(fn tag -> Floki.text(tag) end),
           title: details.title,
           content_img: details.content_img,
@@ -612,5 +619,10 @@ defmodule Story.SOStoryScraper do
 
     {:ok, datetime} = NaiveDateTime.new(year, month, day, 0, 0, 0)
     datetime
+  end
+
+  defp html_to_markdown(html, module \\ Application.get_env(:story, :doc_lib, Pandex)) do
+    {:ok, markdown} = module.html_to_markdown(html)
+    markdown
   end
 end

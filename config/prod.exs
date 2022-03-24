@@ -27,6 +27,8 @@ config :logflare_logger_backend,
   max_batch_size: 50,
   metadata: :all
 
+config :story, doc_lib: Pandex
+
 config :honeybadger,
   environment_name: :prod,
   ecto_repos: [Story.Repo]

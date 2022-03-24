@@ -29,6 +29,9 @@ Hooks.ToggleClass = {
     this.el.addEventListener("click", this.toggleClass);
   },
   toggleClass(event) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+
     let target = event.target
     let dataset = target.dataset
 
@@ -46,11 +49,7 @@ Hooks.ToggleClass = {
 
 window.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll("[phx-hook='ToggleClass']").forEach(el => {
-    el.addEventListener("click", (event) => {
-      event.preventDefault()
-
-      Hooks.ToggleClass.toggleClass(event)
-    })
+    el.addEventListener("click", Hooks.ToggleClass.toggleClass)
   })
 });
 
