@@ -224,6 +224,12 @@ defmodule Story.Pages do
   """
   def get_reading!(id), do: Repo.get!(Reading, id)
 
+  def get_readings_by_page_id(page_id) do
+    Reading
+    |> where(page_id: ^page_id)
+    |> Repo.all()
+  end
+
   @doc """
   Creates a reading.
 

@@ -37,6 +37,12 @@ defmodule Story.Timelines do
   """
   def get_item!(id), do: Repo.get!(Item, id)
 
+  def get_items_by_page_id(page_id) do
+    Item
+    |> where(page_id: ^page_id)
+    |> Repo.all()
+  end
+
   @doc """
   Creates a item.
 

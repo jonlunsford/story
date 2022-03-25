@@ -37,6 +37,12 @@ defmodule Story.Profiles do
   """
   def get_info!(id), do: Repo.get!(Info, id)
 
+  def get_infos_by_page_id(page_id) do
+    Info
+    |> where(page_id: ^page_id)
+    |> Repo.all()
+  end
+
   @doc """
   Creates a info.
 
