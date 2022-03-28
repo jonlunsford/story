@@ -77,7 +77,6 @@ defmodule Story.SOStoryScraper do
       timeline_items: Enum.map(map.timeline, &build_item/1),
       personal_information: build_info(map)
     }
-
   end
 
   def build_item(item) do
@@ -101,6 +100,7 @@ defmodule Story.SOStoryScraper do
 
     item =
       item
+      |> Map.put(:id, SecureRandom.uuid())
       |> Map.put(:tags, tags)
       |> Map.put(:start_date, start_date)
       |> Map.put(:end_date, end_date)
