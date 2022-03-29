@@ -8,13 +8,17 @@ defmodule Story.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"MyApp", "contact@example.com"})
+      |> from({"DevStory", "support@devstory.fyi"})
       |> subject(subject)
       |> text_body(body)
 
     with {:ok, _metadata} <- Mailer.deliver(email) do
       {:ok, email}
     end
+  end
+
+  def test_deliver(email_address, subject) do
+    deliver(email_address, subject, "Hello world.")
   end
 
   @doc """
