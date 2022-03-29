@@ -33,6 +33,12 @@ config :honeybadger,
   environment_name: :prod,
   ecto_repos: [Story.Repo]
 
+config :story, Story.Mailer, adapter: Swoosh.Adapters.AmazonSES,
+  region: System.get_env("AWS_REGION"),
+  access_key: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret: System.get_env("AWS_SECRET_ACCESS_KEY")
+
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

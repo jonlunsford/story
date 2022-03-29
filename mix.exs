@@ -46,6 +46,8 @@ defmodule Story.MixProject do
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
+      {:hackney, "~> 1.18.1"},
+      {:gen_smtp, "~> 1.0"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
