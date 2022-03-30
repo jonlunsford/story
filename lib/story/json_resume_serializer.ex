@@ -60,13 +60,13 @@ defmodule Story.JSONResumeSerializer do
     work =
       Enum.map(work, fn(item) ->
         end_date =
-          if item.current_position, do: "", else: Calendar.strftime(item.end_date, "%Y-%m-%d")
+          if item.current_position, do: "", else: format_time(item.end_date)
 
         %{
           name: item.location,
           item: item.title,
           url: item.url,
-          start_date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          start_date: format_time(item.start_date),
           end_date: end_date,
           summary: item.description,
           highlights: Enum.map(item.tags, fn tag -> tag.name end)
@@ -80,12 +80,12 @@ defmodule Story.JSONResumeSerializer do
     ed =
       Enum.map(education, fn(item) ->
         end_date =
-          if item.current_position, do: "", else: Calendar.strftime(item.end_date, "%Y-%m-%d")
+          if item.current_position, do: "", else: format_time(item.end_date)
 
         %{
           institution: item.location,
           url: item.url,
-          start_date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          start_date: format_time(item.start_date),
           end_date: end_date,
           courses: Enum.map(item.tags, fn tag -> tag.name end),
           area: "",
@@ -104,7 +104,7 @@ defmodule Story.JSONResumeSerializer do
         %{
           name: item.title,
           publisher: item.location,
-          release_date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          release_date: format_time(item.start_date),
           url: item.url,
           summary: item.description,
           tags: Enum.map(item.tags, fn tag -> tag.name end)
@@ -120,7 +120,7 @@ defmodule Story.JSONResumeSerializer do
         %{
           name: item.title,
           level: "",
-          date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          date: format_time(item.start_date),
           url: item.url,
           summary: item.description,
           keywords: Enum.map(item.tags, fn tag -> tag.name end)
@@ -134,14 +134,14 @@ defmodule Story.JSONResumeSerializer do
     projects =
       Enum.map(projects, fn(item) ->
         end_date =
-          if item.current_position, do: "", else: Calendar.strftime(item.end_date, "%Y-%m-%d")
+          if item.current_position, do: "", else: format_time(item.end_date)
 
         %{
           name: item.title,
           description: item.description,
           highlights: "",
           keywords: Enum.map(item.tags, fn tag -> tag.name end),
-          start_date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          start_date: format_time(item.start_date),
           end_date: end_date,
           url: item.url,
           entity: "",
@@ -159,7 +159,7 @@ defmodule Story.JSONResumeSerializer do
     items =
       Enum.map(values, fn(item) ->
         end_date =
-          if item.current_position, do: "", else: Calendar.strftime(item.end_date, "%Y-%m-%d")
+          if item.current_position, do: "", else: format_time(item.end_date)
 
         %{
           title: item.title,
@@ -168,12 +168,18 @@ defmodule Story.JSONResumeSerializer do
           location: item.location,
           img: item.img,
           description: item.description,
-          start_date: Calendar.strftime(item.start_date, "%Y-%m-%d"),
+          start_date: format_time(item.start_date),
           end_date: end_date,
           keywords: Enum.map(item.tags, fn tag -> tag.name end)
         }
       end)
 
     {{key, items}, map}
+  end
+
+  defp format_time(nil), do: ""
+
+  defp format_time(naive_date_time) do
+    Calendar.strftime(naive_date_time, "%Y-%m-%d")
   end
 end
