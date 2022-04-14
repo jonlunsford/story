@@ -20,6 +20,17 @@
         <br />
         <span class="tracking-wide">Story</span>
       </a>
+      <%= if @page do %>
+        <div>
+          <%= if @view == "cv" do %>
+            [<%= link "view as Story", to: Routes.page_path(@conn, :show, @page.slug), class: "link-neutral hover:underline" %>]
+          <% end %>
+
+          <%= if @view == "story" do %>
+            [<%= link "view as CV", to: Routes.page_path(@conn, :cv, @page.slug), class: "link-neutral hover:underline" %>]
+          <% end %>
+        </div>
+      <% end %>
     </header>
     <%= @inner_content %>
   </body>
