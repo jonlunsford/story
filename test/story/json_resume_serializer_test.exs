@@ -44,6 +44,39 @@ defmodule Story.JSONResumeSerializerTest do
            }
   end
 
+  test "it handles nil personal_information", %{page: page} do
+    page = Map.put(page, :personal_information, nil)
+
+    assert JSONResumeSerializer.call(page).basics == %{
+             name: "",
+             label: "",
+             image: "",
+             url: "",
+             summary: "",
+             email: "",
+             phone: "",
+             location: %{
+               city: "",
+               region: "",
+               address: "",
+               postal_code: "",
+               country_code: ""
+             },
+             profiles: [
+               %{
+                 network: "Twitter",
+                 username: "",
+                 url: "https://twitter.com/"
+               },
+               %{
+                 network: "GitHub",
+                 username: "",
+                 url: "https://github.com/"
+               }
+             ]
+           }
+  end
+
   test "it serializes work", %{page: page} do
     assert List.first(JSONResumeSerializer.call(page).work) == %{
              end_date: "",

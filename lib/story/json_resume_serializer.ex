@@ -23,16 +23,16 @@ defmodule Story.JSONResumeSerializer do
 
     %{
       basics: %{
-        name: info.name,
-        label: info.job_title,
-        image: info.picture_url,
-        url: info.website,
-        summary: info.statement,
+        name: safe_fetch(info, :name),
+        label: safe_fetch(info, :job_title),
+        image: safe_fetch(info, :picture_url),
+        url: safe_fetch(info, :website),
+        summary: safe_fetch(info, :statement),
         email: "",
         phone: "",
         location: %{
-          city: String.split(info.location, ",") |> List.first() |> String.trim(),
-          region: String.split(info.location, ",") |> List.last() |> String.trim(),
+          city: (if info, do: String.split(info.location, ",") |> List.first() |> String.trim(), else: ""),
+          region: (if info, do: String.split(info.location, ",") |> List.last() |> String.trim(), else: ""),
           address: "",
           postal_code: "",
           country_code: ""
@@ -40,13 +40,13 @@ defmodule Story.JSONResumeSerializer do
         profiles: [
           %{
             network: "Twitter",
-            username: info.twitter,
-            url: "https://twitter.com/#{info.twitter}"
+            username: safe_fetch(info, :twitter),
+            url: "https://twitter.com/#{safe_fetch(info, :twitter)}"
           },
           %{
             network: "GitHub",
-            username: info.github,
-            url: "https://github.com/#{info.github}"
+            username: safe_fetch(info, :github),
+            url: "https://github.com/#{safe_fetch(info, :github)}"
           }
         ]
       },
@@ -181,5 +181,11 @@ defmodule Story.JSONResumeSerializer do
 
   defp format_time(naive_date_time) do
     Calendar.strftime(naive_date_time, "%Y-%m-%d")
+  end
+
+  defp safe_fetch(nil, _), do: ""
+
+  defp safe_fetch(map, key) when is_map(map) do
+    Map.get(map, key)
   end
 end
