@@ -4,6 +4,6 @@ defmodule StoryWeb.API.ExportsView do
   alias Story.JSONResumeSerializer
 
   def render("page.json", %{page: page}) do
-    page_json = JSONResumeSerializer.call(page)
+    JSONResumeSerializer.call(page)
   end
 end
