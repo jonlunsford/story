@@ -24,7 +24,7 @@ defmodule StoryWeb.PageController do
       page ->
         conn
         |> put_root_layout("public.html")
-        |> render("show.html", page: page, myself: nil)
+        |> render("show.html", page: page, view: "story", myself: nil)
     end
   end
 
@@ -34,7 +34,7 @@ defmodule StoryWeb.PageController do
       page ->
         conn
         |> put_root_layout("public.html")
-        |> render("cv.html", page: page, myself: nil)
+        |> render("cv.html", page: page, view: "cv", myself: nil)
     end
   end
 end

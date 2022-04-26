@@ -133,6 +133,10 @@ defmodule StoryWeb.TimelineView do
     end
   end
 
+  def open_source_type("https://github.com/" <> _rest), do: :github
+  def open_source_type("https://bitbucket.com/" <> _rest), do: :bitbucket
+  def open_source_type(_), do: :unknown
+
   defp convert_date_time(%{current_position: true}) do
     NaiveDateTime.utc_now()
   end

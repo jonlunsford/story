@@ -1,4 +1,4 @@
-<div class="relative overflow-hidden px-8 md:px-0">
+<div class="relative container mx-auto overflow-hidden px-8 md:px-0">
   <div class="max-w-7xl mx-auto">
     <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
       <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-40">
@@ -12,14 +12,116 @@
             <%= link "Get Started", to: Routes.user_registration_path(@conn, :new), class: "btn btn-primary btn-lg w-full md:w-auto mb-4 text-white bg-indigo-600" %>
             <a href="/jonlunsford" class="btn btn-neutral md:btn-outline btn-lg w-full md:w-auto lg:ml-4"> Live demo </a>
           </div>
-          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-            <%= link "Import From StackOverflow", to: Routes.live_path(@conn, StoryWeb.PreviewLive), class: "btn md:btn-ghost w-full md:w-auto btn-outline btn-lg leading-6" %>
-          </div>
         </div>
       </main>
     </div>
   </div>
   <div class="hidden lg:block absolute right-0 lg:top-20 -top-12 lg:w-3/5">
-    <img class="h-56 w-full object-cover md:h-96 lg:w-full lg:h-full" src="/images/bg-6.svg" alt="">
+    <img class="h-56 w-full object-cover md:h-96 lg:w-full lg:h-full" src="/images/bg-female-bench.svg" alt="">
+  </div>
+</div>
+
+<div class="from-primary to-purple-700 bg-gradient-to-br">
+  <div class="container mx-auto p-10 text-primary-content">
+    <h2 class="text-center text-4xl font-extrabold">Your history is more than just previous jobs.</h2>
+    <p class="mt-3 sm:mt-5 sm:text-lg text-center sm:mx-auto md:mt-5 md:text-xl lg:max-w-xl lg:mx-auto">As a developer, you are <strong>Contributing</strong>, <strong>Learning</strong>, <strong>Creating</strong>, <strong>Side-Hustling</strong>, <strong>Indie-Hacking</strong> and doing what <strong>Drives YOU</strong>. Your story is unique, <strong>DevStory</strong> can help you share it.</p>
+
+    <div class="md:flex md:flex-wrap mt-24">
+      <div class="md:w-1/3 md:p-4 md:pl-0 mb-12">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+
+        <h5 class="text-lg md:text-xl font-extrabold">Custom vanity URL's.</h5>
+        <p>
+          Claim a unique vanity URL and share share both a story view: <%= link "devstory.fyi/jonlunsford", to: "/jonlunsford", class: "font-bold" %> and a more traditional CV view: <%= link "devstory.fyi/cv/jonlunsford", to: "/cv/jonlunsford", class: "font-bold" %>
+        </p>
+      </div>
+
+      <div class="md:w-1/3 md:p-4 mb-16">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+        </svg>
+
+        <h5 class="text-lg md:text-xl font-extrabold">Your story, your data.</h5>
+        <p>Unpublish your story to make it private. You are also free to take your data anytime, just export as JSON. When you delete your account, nothing is retained.</p>
+      </div>
+
+      <div class="md:w-1/3 md:p-4 md:pl-0 mb-16">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+
+        <h5 class="text-lg md:text-xl font-extrabold">Compose in markdown</h5>
+        <p>
+          Format your text with ease, with markdown.
+        </p>
+      </div>
+
+      <div class="md:w-1/3 md:p-4 md:pl-0 relative mb-16">
+        <span class="indicator-item badge badge-accent absolute left-6 shadow-md font-bold bg-opacity-80 -bg-base-100 -text-gray-900">Coming soon!</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+
+
+        <h5 class="text-lg md:text-xl font-extrabold">GitHub integration</h5>
+        <p>Manage your resume with Git and your favorite text editor. Display stats that showcase your contributions.</p>
+      </div>
+
+      <div class="md:w-1/3 md:p-4 relative mb-16">
+        <span class="indicator-item badge badge-accent absolute left-11 shadow-md font-bold bg-opacity-80 -bg-base-100 -text-gray-900">Coming soon!</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+
+        <h5 class="text-lg md:text-xl font-extrabold">Skill verification</h5>
+        <p>
+          Show that you are an expert in the skills you want to work with.
+        </p>
+      </div>
+
+      <div class="md:w-1/3 md:p-4 md:pr-0 relative mb-16">
+        <span class="indicator-item badge badge-accent absolute left-11 shadow-md font-bold bg-opacity-80 -bg-base-100 -text-gray-900">Coming soon!</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 bg-purple-400 bg-opacity-30 rounded-md p-2 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+
+        <h5 class="text-lg md:text-xl font-extrabold">Automation</h5>
+        <p>
+          Are you a writer? Automate showcasing your posts. Are you a OSS contributor? Automate featuring your contributions.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto lg:p-10 text-base-content">
+  <h2 class="text-center md:p-0 px-10 pt-10 text-4xl font-extrabold">Show what happens along the way.</h2>
+  <p class="mt-3 sm:mt-5 sm:text-lg md:px-0 px-10 text-center sm:mx-auto md:mt-5 md:text-xl lg:max-w-xl lg:mx-auto">Your career path is a journey, you reach goals along the way, document the achievements you are most proud of. </p>
+
+  <div class="min-h-full relative my-8 pt-32 mx-auto md:w-815px">
+    <div class="timeline-line w-px absolute top-0 left-1/2 border h-full"></div>
+
+    <%= for item <- order_timeline(StoryWeb.PageView.dummy_timeline) do %>
+      <div class={"#{dasherize_string(item.type)} timeline-item"}>
+        <%= StoryWeb.TimelineView.render_item("#{underscore_string(item.type)}", item: item, header_content: nil) %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="from-primary to-purple-700 bg-gradient-to-br">
+  <div class="container mx-auto p-10 text-primary-content flex items-start justify-between">
+    <div>
+      <h2 class="text-center lg:text-left text-4xl font-extrabold">Ready to tell your DevStroy?</h2>
+      <p class="mt-3 sm:mt-5 sm:text-lg md:px-0 px-10 text-center sm:mx-auto lg:text-left md:mt-5 md:text-xl lg:max-w-xl lg:mx-0">Land you next role by sharing your story.</p>
+    </div>
+
+    <div>
+      <%= link "Get Started", to: Routes.user_registration_path(@conn, :new), class: "btn btn-lg bg-white text-gray-900 hover:bg-transparent hover:text-white hover:border-white w-full md:w-auto mb-4" %>
+      <a href="/jonlunsford" class="btn border-white bg-transparent hover:bg-white hover:text-gray-900 text-white btn-lg w-full md:w-auto lg:ml-4"> Live demo </a>
+    </div>
   </div>
 </div>
