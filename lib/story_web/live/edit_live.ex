@@ -44,7 +44,7 @@ defmodule StoryWeb.EditLive do
           </.form>
         </div>
 
-        <div class="px-8 md:px-0 md:w-46 mx-auto mb-12">
+        <div class="px-8 md:px-0 md:w-46 mx-auto mb-16">
           <.live_component
             module={StoryWeb.EditInfoLive}
             current_user_id={@current_user_id}
@@ -63,6 +63,8 @@ defmodule StoryWeb.EditLive do
           <% end %>
         </div>
 
+
+        <p class="italic font-xs font-light mt-12 md:w-1/4 mx-auto">Add items to your timeline that showcase your work history and other achievements.</p>
 
         <div class="min-h-full relative mt-8 pt-16 mx-auto md:w-815px">
           <div class="timeline-line w-px absolute top-0 left-1/2 border h-full"></div>
@@ -83,15 +85,11 @@ defmodule StoryWeb.EditLive do
         </div>
 
         <div class="px-8 md:px-0 md:w-46 mx-auto mb-12 mt-24 relative">
-          <h3 class="text-neutral font-extrabold text-2xl mb-8">Recommended Reading</h3>
+          <%= if Enum.any?(@readings) do %>
+            <h3 class="text-neutral font-extrabold text-2xl mb-8">Recommended Reading</h3>
+          <% end %>
 
-          <.live_component
-            id="add-new-reading"
-            current_user_id={@current_user_id}
-            page_id={@page.id}
-            module={StoryWeb.AddNewReadingLive} />
-
-          <div class="">
+          <div>
             <%= for reading <- @readings do %>
               <.live_component
                 id={"reading-#{reading.id}"}
@@ -100,6 +98,13 @@ defmodule StoryWeb.EditLive do
                 current_user_id={@current_user_id} />
             <% end %>
           </div>
+
+          <.live_component
+            id="add-new-reading"
+            current_user_id={@current_user_id}
+            page_id={@page.id}
+            module={StoryWeb.AddNewReadingLive} />
+
         </div>
       </div>
     <% end %>

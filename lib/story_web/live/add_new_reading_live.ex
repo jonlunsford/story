@@ -27,7 +27,8 @@ defmodule StoryWeb.AddNewReadingLive do
           markdown_html: @markdown_html,
           myself: @myself) %>
 
-      <button phx-click={JS.remove_class("hidden", to: "#reading-new-form")} class="rounded-sm btn btn-neutral btn-outline btn-sm mx-auto w-1/3 mb-12">Add Reading</button>
+      <button phx-click={JS.remove_class("hidden", to: "#reading-new-form")} class="rounded-sm btn btn-neutral btn-outline btn-sm mx-auto w-1/3">Add Reading</button>
+      <p class="italic font-xs font-light mt-4 md:w-1/2 mx-auto">What are some things you've read that showcase what you're learning?</p>
     </div>
     """
   end
