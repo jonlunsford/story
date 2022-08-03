@@ -76,6 +76,29 @@
         </div>
       </header>
     <% end %>
+
     <%= @inner_content %>
+
+    <%= if @current_user do %>
+      <a href="https://feedback.devstory.fyi/feedback" class="btn gap-2 rounded-l-none rounded-b-none sticky bottom-0">
+        Leave Feedback
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+      </a>
+
+      <!-- Download Canny SDK -->
+      <script>!function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);e.type="text/javascript",e.async=!0,e.src="https://canny.io/sdk.js",f.parentNode.insertBefore(e,f)}}if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[],w.Canny=c,"complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}}(window,document,"canny-jssdk","script");</script>
+
+      <!-- Use the Canny SDK to identify the current user of your website -->
+      <script>
+        Canny('identify', {
+          appID: '62eac6b2782bd2489926c931',
+          user: {
+            email: "<%= @current_user.email %>",
+            id: <%= @current_user.id %>,
+            created: new Date("<%= @current_user.inserted_at %>").toISOString(),
+          },
+        });
+      </script>
+    <% end %>
   </body>
 </html>
