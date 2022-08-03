@@ -13,6 +13,22 @@ defmodule StoryWeb.LayoutView do
     "https://www.gravatar.com/avatar/#{hash}?#{params}"
   end
 
+  def user_identity(current_user) do
+    email = current_user.email
+
+    info =
+      Story.Profiles.get_current_info_by_user_id(current_user.id)
+      |> Map.put_new(:picture_url, gravatar_for(email))
+
+    %{
+      email: email,
+      name: info.name,
+      picture_url: info.picture_url,
+      id: current_user.id,
+      created: current_user.inserted_at
+    }
+  end
+
   def dasherize_string(nil), do: nil
   def dasherize_string(string) when is_binary(string) do
     string

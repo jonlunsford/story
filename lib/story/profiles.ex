@@ -43,6 +43,19 @@ defmodule Story.Profiles do
     |> Repo.all()
   end
 
+  def get_current_info_by_user_id(user_id) do
+    case Info
+         |> where(user_id: ^user_id)
+         |> Repo.one() do
+      nil ->
+        %Info{name: "Anonymous-#{user_id}"}
+
+      info ->
+        info
+        |> Map.put_new(:name, "Anonymous-#{user_id}")
+    end
+  end
+
   @doc """
   Creates a info.
 
@@ -132,7 +145,6 @@ defmodule Story.Profiles do
   def change_info(%Info{} = info, attrs \\ %{}) do
     Info.changeset(info, attrs)
   end
-
 
   alias Story.Profiles.Link
 

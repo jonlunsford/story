@@ -36,6 +36,52 @@ defmodule Story.ProfilesTest do
       assert Profiles.get_info!(info.id) == info
     end
 
+    test "get_current_info_by_user_id/1", %{user_id: user_id, page_id: page_id} do
+      valid_attrs = %{
+        favorite_editor: "some favorite_editor",
+        first_computer: "some first_computer",
+        job_title: "some job_title",
+        location: "some location",
+        name: "some name",
+        picture_url: "some picture_url",
+        statement: "some statement",
+        user_id: user_id,
+        page_id: page_id
+      }
+
+      {:ok, info} = Profiles.create_info(valid_attrs)
+
+      result = Profiles.get_current_info_by_user_id(user_id)
+
+      assert result.id == info.id
+    end
+
+    test "get_current_info_by_user_id/1 sets a default name", %{user_id: user_id, page_id: page_id} do
+      valid_attrs = %{
+        favorite_editor: "some favorite_editor",
+        first_computer: "some first_computer",
+        job_title: "some job_title",
+        location: "some location",
+        name: nil,
+        picture_url: "some picture_url",
+        statement: "some statement",
+        user_id: user_id,
+        page_id: page_id
+      }
+
+      Profiles.create_info(valid_attrs)
+
+      expected_name = "Anonymous-#{user_id}"
+
+      assert %Info{name: ^expected_name} = Profiles.get_current_info_by_user_id(user_id)
+    end
+
+    test "get_current_info_by_user_id/1 returns a valid struct", %{user_id: user_id} do
+      expected_name = "Anonymous-#{user_id}"
+
+      assert %Info{name: ^expected_name} = Profiles.get_current_info_by_user_id(user_id)
+    end
+
     test "create_info/1 with valid data creates a info", %{user_id: user_id, page_id: page_id} do
       valid_attrs = %{
         favorite_editor: "some favorite_editor",

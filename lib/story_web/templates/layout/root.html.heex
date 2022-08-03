@@ -90,12 +90,16 @@
 
       <!-- Use the Canny SDK to identify the current user of your website -->
       <script>
+        <% identity = user_identity(@current_user) %>
+
         Canny('identify', {
           appID: '62eac6b2782bd2489926c931',
           user: {
-            email: "<%= @current_user.email %>",
-            id: <%= @current_user.id %>,
-            created: new Date("<%= @current_user.inserted_at %>").toISOString(),
+            email: "<%= identity.email %>",
+            name: "<%= identity.name %>",
+            id: <%= identity.id %>,
+            avatarURL: "<%= identity.picture_url %>",
+            created: new Date("<%= identity.created %>").toISOString(),
           },
         });
       </script>
