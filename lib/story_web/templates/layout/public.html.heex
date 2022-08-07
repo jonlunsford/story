@@ -23,11 +23,11 @@
       <%= if @page do %>
         <div>
           <%= if @view == "cv" do %>
-            [<%= link "view as Story", to: Routes.page_path(@conn, :show, @page.slug), class: "link-neutral hover:underline" %>]
+            <%= link "view as Story", to: Routes.page_path(@conn, :show, @page.slug), class: "btn btn-sm mt-2" %>
           <% end %>
 
           <%= if @view == "story" do %>
-            [<%= link "view as CV", to: Routes.page_path(@conn, :cv, @page.slug), class: "link-neutral hover:underline" %>]
+            <%= link "view as CV", to: Routes.page_path(@conn, :cv, @page.slug), class: "btn btn-sm mt-2" %>
           <% end %>
         </div>
       <% end %>
