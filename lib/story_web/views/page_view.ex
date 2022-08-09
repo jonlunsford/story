@@ -16,6 +16,14 @@ defmodule StoryWeb.PageView do
     "Show Less #{String.trim(title)}"
   end
 
+  def comma_list_to_tags(string) do
+    string
+    |> String.split(",")
+    |> Enum.map(fn tag ->
+      content_tag(:span, tag, class: "badge badge-neutral badge-outline rounded-md p-3 mb-1 mr-1")
+    end)
+  end
+
   def dummy_timeline do
     {:ok, ruby_date} = NaiveDateTime.new(2021,07,1,0,0,0)
     {:ok, elixri_date} = NaiveDateTime.new(2021,12,1,0,0,0)
