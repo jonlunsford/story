@@ -59,10 +59,20 @@
   <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
 <% end %>
 
-<%= if Enum.any?(@info.tags) do %>
-  <p class="mb-2 mt-8 font-bold">I want to work with:</p>
+  <%= if @info.technologies_expert do %>
+    <p class="mb-2 mt-8 font-medium">I'm an expert with:</p>
 
-  <%= for tag <- @info.tags do %>
-    <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
+    <%= comma_list_to_tags(@info.technologies_expert) %>
   <% end %>
-<% end %>
+
+  <%= if @info.technologies_desired do %>
+    <p class="mt-4 mb-2 font-medium">I want to work with:</p>
+
+    <%= comma_list_to_tags(@info.technologies_desired) %>
+  <% end %>
+
+  <%= if @info.technologies_undesired do %>
+    <p class="mt-4 mb-2 font-medium">I don't want to work with:</p>
+
+    <%= comma_list_to_tags(@info.technologies_undesired) %>
+  <% end %>
