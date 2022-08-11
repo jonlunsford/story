@@ -23,26 +23,26 @@
             <% item = copy_tags(item) %>
             <div class="cv-item mb-8 pb-8 border-b">
               <%= if title == " Experience" do %>
-                <%= StoryWeb.PageView.render("cv/position.html", item: item) %>
+                <%= StoryWeb.PageView.render("cv/position.html", item: item, type: "position") %>
               <% end %>
 
               <%= if title == "Apps and Software" do %>
-                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item, type: "app") %>
               <% end %>
 
               <%= if title == "Certifications" do %>
-                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item, type: "certification") %>
               <% end %>
 
               <%= if title == "Education" do %>
-                <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+                <%= StoryWeb.PageView.render("cv/artifact.html", item: item, type: "education") %>
               <% end %>
 
               <%= if title == "Public Artifacts" do %>
                 <%= if item.type == "Assessment" do %>
-                  <%= StoryWeb.PageView.render("cv/assessment.html", item: item) %>
+                  <%= StoryWeb.PageView.render("cv/assessment.html", item: item, type: "assessment") %>
                 <% else %>
-                  <%= StoryWeb.PageView.render("cv/artifact.html", item: item) %>
+                  <%= StoryWeb.PageView.render("cv/artifact.html", item: item, type: "post") %>
                 <% end %>
               <% end %>
             </div>

@@ -23,7 +23,9 @@ defmodule StoryWeb.PageView do
     feature_or_apps: "Apps",
     assessment: "Assessments",
     education: "Education",
-    open_source: "Open Source"
+    open_source: "Open Source",
+    certification: "Certifications",
+    milestone: "Milestones"
   }
 
   def toggle_cv_item_text_on(title) do
