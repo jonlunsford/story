@@ -29,10 +29,8 @@
       <%= StoryWeb.TimelineView.render("shared/_date_display_range.html", item: @item) %>
     </p>
 
-    <%= if Enum.any?(@item.tags) do %>
-      <%= for tag <- @item.tags do %>
-        <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
-      <% end %>
+    <%= if @item.technologies do %>
+      <%= comma_list_to_tags(@item.technologies, "text-xs p-1") %>
     <% end %>
 
     <%= if @item.description do %>

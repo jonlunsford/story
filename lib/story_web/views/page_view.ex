@@ -5,8 +5,8 @@ defmodule StoryWeb.PageView do
   alias Story.Timelines.Item
   alias Story.Tags.Tag
 
-  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1]
-  import StoryWeb.TimelineView, only: [order_timeline: 1, group_timeline_for_csv: 1, timeline_span: 1]
+  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1, comma_list_to_tags: 2, comma_list_to_tags: 1]
+  import StoryWeb.TimelineView, only: [order_timeline: 1, group_timeline_for_csv: 1, timeline_span: 1, copy_tags: 1]
 
   def toggle_cv_item_text_on(title) do
     "Show More #{String.trim(title)}"
@@ -14,14 +14,6 @@ defmodule StoryWeb.PageView do
 
   def toggle_cv_item_text_off(title) do
     "Show Less #{String.trim(title)}"
-  end
-
-  def comma_list_to_tags(string) do
-    string
-    |> String.split(",")
-    |> Enum.map(fn tag ->
-      content_tag(:span, tag, class: "badge badge-neutral badge-outline rounded-md p-3 mb-1 mr-1")
-    end)
   end
 
   def dummy_timeline do

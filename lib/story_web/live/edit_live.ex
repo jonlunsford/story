@@ -2,7 +2,7 @@ defmodule StoryWeb.EditLive do
   use StoryWeb, :live_view
 
   import StoryWeb.LayoutView, only: [underscore_string: 1]
-  import StoryWeb.TimelineView, only: [order_timeline: 1]
+  import StoryWeb.TimelineView, only: [order_timeline: 1, copy_tags: 1]
 
   alias Story.Accounts
   alias Story.{Pages, Profiles}
@@ -80,7 +80,7 @@ defmodule StoryWeb.EditLive do
               module={StoryWeb.EditTimelineItemLive}
               current_user_id={@current_user_id}
               id={"timeline-#{item.id}"}
-              item={item} />
+              item={copy_tags(item)} />
           <% end %>
         </div>
 

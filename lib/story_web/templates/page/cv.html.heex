@@ -20,6 +20,7 @@
         <% end %>
 
           <%= for item <- items do %>
+            <% item = copy_tags(item) %>
             <div class="cv-item mb-8 pb-8 border-b">
               <%= if title == " Experience" do %>
                 <%= StoryWeb.PageView.render("cv/position.html", item: item) %>

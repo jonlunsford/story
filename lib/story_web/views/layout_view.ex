@@ -29,6 +29,14 @@ defmodule StoryWeb.LayoutView do
     }
   end
 
+  def comma_list_to_tags(string, css_class \\ "p-3") do
+    string
+    |> String.split(",")
+    |> Enum.map(fn tag ->
+      content_tag(:span, tag, class: "badge badge-neutral badge-outline rounded-md mb-1 mr-1 " <> css_class)
+    end)
+  end
+
   def dasherize_string(nil), do: nil
   def dasherize_string(string) when is_binary(string) do
     string

@@ -24,12 +24,10 @@
         </a>
       </p>
 
-      <%= if Enum.any?(@item.tags) do %>
+      <%= if @item.technologies do %>
         <p class="text-xs text-neutral mb-2">Technologies:</p>
         <div class="mb-4 p-2 pb-1 rounded bg-base-200">
-          <%= for tag <- @item.tags do %>
-            <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
-          <% end %>
+          <%= comma_list_to_tags(@item.technologies, "text-xs p-1") %>
         </div>
       <% end %>
 

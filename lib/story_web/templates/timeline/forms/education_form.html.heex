@@ -56,14 +56,10 @@
     </div>
   <% end %>
 
-  <%= if Enum.any?(@item.tags) do %>
-    <p class="font-bold label-text mt-4 mb-2">Technologies: (Editing coming soon!)</p>
-    <div class="mb-4 p-2 pb-1 rounded bg-base-200">
-      <%= for tag <- @item.tags do %>
-        <span class="text-xs badge badge-neutral badge-outline rounded-md p-1 mb-1"><%= tag.name %></span>
-      <% end %>
-    </div>
+  <%= label f, :technologies, class: "label" do %>
+    <span class="label-text font-bold">Technologies: (Comma separated list)</span>
   <% end %>
+  <%= textarea f, :technologies, class: "textarea input-bordered w-full", rows: 2, placeholder: "ex: ruby, C#, C++, python, machine-learning" %>
 
   <p class="label-text font-bold">Dates (required)</p>
 
