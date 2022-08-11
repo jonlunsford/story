@@ -56,7 +56,11 @@
     <%= raw markdown_as_html(@info.statement) %>
   </div>
 
-  <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
+  <%= if String.length(@info.statement) >= 270 do %>
+    <div>
+      <button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button>
+    </div>
+  <% end %>
 <% end %>
 
   <%= if @info.technologies_expert do %>
