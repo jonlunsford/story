@@ -25,7 +25,8 @@ defmodule StoryWeb.PageView do
     education: "Education",
     open_source: "Open Source",
     certification: "Certifications",
-    milestone: "Milestones"
+    milestone: "Milestones",
+    top_post: "SO Top Posts"
   }
 
   def toggle_cv_item_text_on(title) do
