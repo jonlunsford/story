@@ -3,6 +3,7 @@ defmodule Story.Timelines.ItemTest do
   use Story.DataCase
 
   alias Story.Timelines.Item
+  alias Story.Tags.Tag
 
   test "changeset/2 returns NaiveDateTime" do
     attrs = %{
@@ -37,5 +38,21 @@ defmodule Story.Timelines.ItemTest do
       |> Item.changeset(attrs)
 
     refute changeset.valid?
+  end
+
+  test "copy_tags/1 merges existing tags with technologies" do
+    tags = [%Tag{name: "foo"}, %Tag{name: "bar"}]
+    item = %Item{tags: tags, title: "name"}
+    result = Item.copy_tags(item)
+
+    assert result.technologies == "foo, bar"
+  end
+
+  test "copy_tags/1 does not merge tags if technologies is populated" do
+    tags = [%Tag{name: "foo"}, %Tag{name: "bar"}]
+    item = %Item{tags: tags, technologies: "biz, baz", title: "name"}
+    result = Item.copy_tags(item)
+
+    assert result.technologies == "biz, baz"
   end
 end
