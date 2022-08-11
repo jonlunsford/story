@@ -5,8 +5,26 @@ defmodule StoryWeb.PageView do
   alias Story.Timelines.Item
   alias Story.Tags.Tag
 
-  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1, comma_list_to_tags: 2, comma_list_to_tags: 1]
-  import StoryWeb.TimelineView, only: [order_timeline: 1, group_timeline_for_csv: 1, timeline_span: 1, copy_tags: 1]
+  import StoryWeb.LayoutView,
+    only: [
+      underscore_string: 1,
+      dasherize_string: 1,
+      markdown_as_html: 1,
+      comma_list_to_tags: 2,
+      comma_list_to_tags: 1
+    ]
+
+  import StoryWeb.TimelineView,
+    only: [order_timeline: 1, group_timeline_for_csv: 1, timeline_span: 1, copy_tags: 1]
+
+  @filter_buttons_text %{
+    blogs_or_videos: "Posts",
+    position: "Positions",
+    feature_or_apps: "Apps",
+    assessment: "Assessments",
+    education: "Education",
+    open_source: "Open Source"
+  }
 
   def toggle_cv_item_text_on(title) do
     "Show More #{String.trim(title)}"
@@ -16,9 +34,28 @@ defmodule StoryWeb.PageView do
     "Show Less #{String.trim(title)}"
   end
 
+  def render_timeline_filter_buttons(timeline) do
+    timeline
+    |> Enum.uniq_by(fn item -> underscore_string(item.type) end)
+    |> Enum.map(fn item ->
+      type =
+        item.type
+        |> underscore_string()
+        |> String.to_atom()
+
+      filter_key = dasherize_string(item.type)
+      button_text = Map.get(@filter_buttons_text, type)
+
+      content_tag(:button, button_text,
+        class: "btn btn-sm btn-outline btn-primary",
+        data: [filter: filter_key]
+      )
+    end)
+  end
+
   def dummy_timeline do
-    {:ok, ruby_date} = NaiveDateTime.new(2021,07,1,0,0,0)
-    {:ok, elixri_date} = NaiveDateTime.new(2021,12,1,0,0,0)
+    {:ok, ruby_date} = NaiveDateTime.new(2021, 07, 1, 0, 0, 0)
+    {:ok, elixri_date} = NaiveDateTime.new(2021, 12, 1, 0, 0, 0)
 
     [
       %Item{
@@ -29,7 +66,8 @@ defmodule StoryWeb.PageView do
         title: "Engineer",
         location: "Acme Corp.",
         img: "/images/logoipsum-logo-39.svg",
-        description: "I'm a Software Engineer at Acme Corp. I'm working on next gen Acme things, doing awesome stuff!",
+        description:
+          "I'm a Software Engineer at Acme Corp. I'm working on next gen Acme things, doing awesome stuff!",
         tags: [
           %Tag{name: "ruby"},
           %Tag{name: "ruby-on-rails"},
@@ -47,7 +85,8 @@ defmodule StoryWeb.PageView do
         title: "I like to write. This is a blog post.",
         img: "https://placedog.net/350/196",
         location: "Acme Corp.",
-        description: "Even though I'm currently employed, I'm still doing things like writing blog posts about cool stuff I'm learning or working on. Check this one out!",
+        description:
+          "Even though I'm currently employed, I'm still doing things like writing blog posts about cool stuff I'm learning or working on. Check this one out!",
         tags: [
           %Tag{name: "dev-ops"},
           %Tag{name: "mysql"},
@@ -61,7 +100,8 @@ defmodule StoryWeb.PageView do
         end_date: Timex.shift(NaiveDateTime.utc_now(), years: -1),
         title: "The Blockchain",
         url: "https://github.com/",
-        description: "For about a year, I maintained this pretty successful open-source project. Then I made some foolish bets.",
+        description:
+          "For about a year, I maintained this pretty successful open-source project. Then I made some foolish bets.",
         tags: [
           %Tag{name: "blockchain"}
         ]
@@ -92,7 +132,8 @@ defmodule StoryWeb.PageView do
         title: "Jr. Engineer",
         location: "Big Corp.",
         img: "/images/logoipsum-logo-37.svg",
-        description: "I was a Jr. Engineer at Big Corp. I was working on next gen Big things, doing awesome stuff!",
+        description:
+          "I was a Jr. Engineer at Big Corp. I was working on next gen Big things, doing awesome stuff!",
         tags: [
           %Tag{name: "javascript"},
           %Tag{name: "es6"},
@@ -110,7 +151,8 @@ defmodule StoryWeb.PageView do
         title: "BS in computer science",
         location: "UC Fancy Pants",
         img: "/images/logoipsum-logo-31.svg",
-        description: "I could have saved a lot of time and money if I had known that all the answers were on StackOverflow. ",
+        description:
+          "I could have saved a lot of time and money if I had known that all the answers were on StackOverflow. ",
         tags: [
           %Tag{name: "CS-101"},
           %Tag{name: "java"},

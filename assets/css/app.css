@@ -129,6 +129,11 @@ div.line-clamp-3:-moz-read-only::after {
   margin-top: -100px;
 }
 
+.timeline-filtered .timeline-item:nth-child(odd) {
+  margin-bottom: 2rem !important;
+  margin-top: 0 !important;
+}
+
 @media (max-width: 768px) {
   .timeline-item:nth-child(odd) {
     margin: 0 auto 4rem auto;
