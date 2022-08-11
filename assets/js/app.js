@@ -51,6 +51,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll("[phx-hook='ToggleClass']").forEach(el => {
     el.addEventListener("click", Hooks.ToggleClass.toggleClass)
   })
+
+  Hooks.TimelineFilter.mounted(document.querySelector("[phx-hook='TimelineFilter']"))
 });
 
 Hooks.ContentEditable = {
@@ -83,6 +85,58 @@ Hooks.ContentEditable = {
     })
   }
 }
+
+Hooks.TimelineFilter = {
+  mounted(element) {
+    if(element) {
+      this.el = element
+      handleFilter = this.handleFilter.bind(this)
+
+      element.querySelectorAll("button").forEach(el => {
+        el.addEventListener("click", handleFilter)
+      })
+    }
+  },
+  handleFilter(event) {
+    event.stopImmediatePropagation()
+    event.preventDefault()
+
+    this.hideAll()
+    this.show(event.target.dataset.filter)
+    this.removeActive()
+
+    event.target.classList.add("btn-active")
+  },
+  hideAll() {
+    document.querySelectorAll(".timeline-item").forEach(el => {
+      el.classList.add("hidden")
+    })
+  },
+  removeActive() {
+    this.el.querySelectorAll("button").forEach(el => {
+      el.classList.remove("btn-active")
+    })
+  },
+  showAll() {
+    document.querySelectorAll(".timeline-item").forEach(el => {
+      el.classList.remove("hidden")
+    })
+  },
+  show(filter) {
+    if (filter == "all") {
+      document.querySelector(".timeline").classList.remove("timeline-filtered")
+
+      this.showAll()
+    } else {
+      document.querySelector(".timeline").classList.add("timeline-filtered")
+
+      document.querySelectorAll(`.timeline-item.${filter}`).forEach(el => {
+        el.classList.remove("hidden")
+      })
+    }
+  }
+}
+
 
 window.addEventListener("phx:remove-class", event => {
   let target = event.target

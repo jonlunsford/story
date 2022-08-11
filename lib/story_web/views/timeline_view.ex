@@ -1,7 +1,8 @@
 defmodule StoryWeb.TimelineView do
   use StoryWeb, :view
 
-  import StoryWeb.LayoutView, only: [capitalize_string: 1, markdown_as_html: 1, underscore_string: 1]
+  import StoryWeb.LayoutView,
+    only: [capitalize_string: 1, markdown_as_html: 1, underscore_string: 1, comma_list_to_tags: 2]
 
   @available_forms [
     "assessment",
@@ -42,6 +43,10 @@ defmodule StoryWeb.TimelineView do
   def render_date_display(item) do
     template = determine_date_display_template(item)
     render("shared/_#{template}.html", item: item)
+  end
+
+  def copy_tags(item) do
+    Story.Timelines.Item.copy_tags(item)
   end
 
   def year_select_range() do

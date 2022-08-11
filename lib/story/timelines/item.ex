@@ -2,6 +2,9 @@ defmodule Story.Timelines.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Story.Timelines.Item
+  alias Story.Tags.Tag
+
   schema "timeline_items" do
     field :start_date, :naive_datetime
     field :end_date, :naive_datetime
@@ -12,6 +15,7 @@ defmodule Story.Timelines.Item do
     field :content_img, :string
     field :location, :string
     field :title, :string
+    field :technologies, :string
     field :type, :string
     field :url, :string
     belongs_to :user, Story.Accounts.User
@@ -30,6 +34,7 @@ defmodule Story.Timelines.Item do
     attrs = transform_order_by(attrs)
 
     item
+    |> copy_tags()
     |> cast(attrs, [
       :start_date,
       :end_date,
@@ -41,6 +46,7 @@ defmodule Story.Timelines.Item do
       :order_by,
       :title,
       :type,
+      :technologies,
       :url,
       :page_id,
       :user_id,
@@ -66,6 +72,15 @@ defmodule Story.Timelines.Item do
   end
 
   def transform_order_by(attrs), do: attrs
+
+  def copy_tags(%Item{technologies: value, tags: [%Tag{} | _]} = item)
+      when is_nil(value) do
+
+    item
+    |> Map.put(:technologies, Enum.map_join(item.tags, ", ", &(&1.name)))
+  end
+
+  def copy_tags(item), do: item
 
   defp map_to_date(%{"month" => month, "year" => year}) do
     month = String.to_integer(month)

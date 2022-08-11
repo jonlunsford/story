@@ -146,6 +146,11 @@ defmodule Story.Profiles do
     Info.changeset(info, attrs)
   end
 
+  def info_listing_technologies?(info) do
+    [info.technologies_desired, info.technologies_expert, info.technologies_undesired]
+    |> Enum.any?
+  end
+
   alias Story.Profiles.Link
 
   @doc """

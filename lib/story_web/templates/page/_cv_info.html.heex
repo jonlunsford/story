@@ -62,23 +62,40 @@
   <% end %>
 </div>
 
-<%= if Enum.any?(@info.tags) do %>
-  <hr class="mt-12" />
-  <h5 class="uppercase mb-6 text-sm font-bold">Technologies</h5>
-
-  <p class="mb-2">Preferred technologies:</p>
-
-  <%= for tag <- @info.tags do %>
-    <span class="badge badge-neutral badge-outline rounded-md p-3 mb-1"><%= tag.name %></span>
-  <% end %>
-<% end %>
-
 <%= if @info.statement do %>
+
   <hr class="mt-12" />
   <h5 class="uppercase text-sm font-bold">Intro Statement</h5>
   <div id="intro-statement" class="prose md:prose-lg mx-auto line-clamp-4 mt-6">
     <%= raw markdown_as_html(@info.statement) %>
   </div>
 
-  <div><button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button></div>
+  <%= if String.length(@info.statement) >= 270 do %>
+    <div>
+      <button id="toggle-intro" href="#" phx-hook="ToggleClass" data-target="#intro-statement" data-class="line-clamp-4" data-text-on="Show Less" data-text-off="Show More" class="link link-primary">Show More</button>
+    </div>
+  <% end %>
+<% end %>
+
+<%= if Story.Profiles.info_listing_technologies?(@info) do %>
+  <hr class="mt-12" />
+  <h5 class="uppercase mb-6 text-sm font-bold">Technologies</h5>
+
+  <%= if @info.technologies_expert do %>
+    <p class="mb-2">I'm an expert with:</p>
+
+    <%= comma_list_to_tags(@info.technologies_expert) %>
+  <% end %>
+
+  <%= if @info.technologies_desired do %>
+    <p class="mt-4 mb-2">I want to work with:</p>
+
+    <%= comma_list_to_tags(@info.technologies_desired) %>
+  <% end %>
+
+  <%= if @info.technologies_undesired do %>
+    <p class="mt-4 mb-2">I don't want to work with:</p>
+
+    <%= comma_list_to_tags(@info.technologies_undesired) %>
+  <% end %>
 <% end %>
