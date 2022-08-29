@@ -57,10 +57,12 @@
     <% end %>
   <% end %>
 
-  <hr class="mt-20" />
-  <h5 class="uppercase font-bold mb-8">Readings</h5>
+  <%= if Enum.any?(@page.readings) do %>
+    <hr class="mt-20" />
+    <h5 class="uppercase font-bold mb-8">Readings</h5>
 
-  <%= for reading <- @page.readings do %>
-    <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself, markdown_html: nil) %>
+    <%= for reading <- @page.readings do %>
+      <%= StoryWeb.PageView.render("reading.html", reading: reading, myself: @myself, markdown_html: nil) %>
+    <% end %>
   <% end %>
 </div>
