@@ -15,6 +15,8 @@ defmodule Story.Profiles.Info do
     field :statement, :string
     field :github, :string
     field :twitter, :string
+    field :linkedin, :string
+    field :stack_overflow, :string
     field :website, :string
     field :technologies_expert, :string
     field :technologies_desired, :string
@@ -43,6 +45,8 @@ defmodule Story.Profiles.Info do
       :picture_url,
       :github,
       :twitter,
+      :linkedin,
+      :stack_overflow,
       :website,
       :technologies_expert,
       :technologies_desired,
@@ -56,9 +60,8 @@ defmodule Story.Profiles.Info do
 
   def copy_tags(%Info{technologies_desired: value, tags: [%Tag{} | _]} = info)
       when is_nil(value) do
-
     info
-    |> Map.put(:technologies_desired, Enum.map_join(info.tags, ", ", &(&1.name)))
+    |> Map.put(:technologies_desired, Enum.map_join(info.tags, ", ", & &1.name))
   end
 
   def copy_tags(info), do: info

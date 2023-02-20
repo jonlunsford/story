@@ -83,6 +83,22 @@
       <%= error_tag f, :github %>
     </div>
 
+    <div class="form-control">
+      <%= label f, :linkedin, class: "label" do %>
+        <span class="label-text font-bold">LinkedIn username</span>
+      <% end %>
+      <%= text_input f, :linkedin, class: "input input-sm input-bordered" %>
+      <%= error_tag f, :linkedin %>
+    </div>
+
+    <div class="form-control">
+      <%= label f, :stack_overflow, class: "label" do %>
+        <span class="label-text font-bold">StackOverflow URL</span>
+      <% end %>
+      <%= text_input f, :stack_overflow, class: "input input-sm input-bordered", placeholder: "https://stackoverflow.com/users/..."%>
+      <%= error_tag f, :stack_overflow %>
+    </div>
+
     <!--
     <div class="form-control">
       <%= label f, :favorite_editor, class: "label" do %>

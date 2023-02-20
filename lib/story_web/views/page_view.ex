@@ -37,6 +37,12 @@ defmodule StoryWeb.PageView do
     "Show Less #{String.trim(title)}"
   end
 
+  def extract_so_username(url) do
+    url
+    |> String.split("/")
+    |> List.last()
+  end
+
   def render_timeline_filter_buttons(timeline) do
     timeline
     |> Enum.uniq_by(fn item -> underscore_string(item.type) end)
