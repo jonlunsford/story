@@ -24,9 +24,9 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up the BEAM
-        uses: erlef/setup-beam@1.15.2
+        uses: erlef/setup-beam@v1
         with:
           elixir-version: "1.13.2" # Define the elixir version [required]
           otp-version: "24" # Define the OTP version [required]
@@ -49,7 +49,7 @@ jobs:
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions@1.1
         with:
           args: "deploy"
@@ -60,7 +60,7 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: honeybadger-io/github-notify-deploy-action@v1
         with:
           api_key: ${{ secrets.HONEYBADGER_API_KEY }}
