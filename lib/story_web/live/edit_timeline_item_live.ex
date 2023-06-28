@@ -1,7 +1,8 @@
 defmodule StoryWeb.EditTimelineItemLive do
   use StoryWeb, :live_component
 
-  import StoryWeb.LayoutView, only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1]
+  import StoryWeb.LayoutView,
+    only: [underscore_string: 1, dasherize_string: 1, markdown_as_html: 1]
 
   alias Story.Timelines
   alias Phoenix.LiveView.JS
@@ -70,9 +71,9 @@ defmodule StoryWeb.EditTimelineItemLive do
     markdown_html = markdown_as_html(Map.get(item_params, "description"))
 
     {:noreply,
-      socket
-      |> assign(:edit_changeset, changeset)
-      |> assign(:markdown_html, markdown_html)}
+     socket
+     |> assign(:edit_changeset, changeset)
+     |> assign(:markdown_html, markdown_html)}
   end
 
   def handle_event("validate", _params, socket) do
@@ -92,11 +93,32 @@ defmodule StoryWeb.EditTimelineItemLive do
     case Timelines.update_item(socket.assigns.item, item_params) do
       {:ok, item} ->
         {:noreply,
-          socket
-          |> assign(:item, item)
-          |> push_event("remove-class", %{selector: "#item-#{item.id}-content", class: "hidden"})
-          |> push_event("add-class", %{selector: "#item-#{item.id}-form", class: "hidden"})
-          |> assign(:edit_changeset, Timelines.change_item(item))}
+         socket
+         |> assign(:item, item)
+         |> clear_uploads()
+         |> push_event("add-class", %{selector: "#item-#{item.id}-content", class: "hidden"})
+         |> push_event("remove-class", %{selector: "#item-#{item.id}-form", class: "hidden"})
+         |> assign(:edit_changeset, Timelines.change_item(item))}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, :edit_changeset, changeset)}
+    end
+  end
+
+  def handle_event("cancel-upload", _, socket) do
+    {:noreply, clear_uploads(socket)}
+  end
+
+  def handle_event("remove-image", _params, socket) do
+    case Timelines.update_item(socket.assigns.item, %{"img" => nil}) do
+      {:ok, item} ->
+        {:noreply,
+         socket
+         |> assign(:item, item)
+         |> push_event("remove-class", %{selector: "#item-#{item.id}-content", class: "hidden"})
+         |> push_event("add-class", %{selector: "#item-#{item.id}-form", class: "hidden"})
+         |> assign(:edit_changeset, Timelines.change_item(item))}
+
       {:error, changeset} ->
         {:noreply, assign(socket, :edit_changeset, changeset)}
     end
@@ -126,5 +148,14 @@ defmodule StoryWeb.EditTimelineItemLive do
 
   defp presign_upload(entry, socket) do
     S3UploadHelpers.presign_upload(entry, socket, :img)
+  end
+
+  defp clear_uploads(socket) do
+    uploads = socket.assigns.uploads
+    img = uploads.img
+    img = %{img | entries: []}
+    uploads = %{uploads | img: img}
+
+    assign(socket, :uploads, uploads)
   end
 end

@@ -8,7 +8,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
   alias Story.S3UploadHelpers
 
   def update(assigns, socket) do
-    item = %Timelines.Item{ id: "new", type: nil, tags: [] }
+    item = %Timelines.Item{id: "new", type: nil, tags: [], img: nil}
 
     {:ok,
      socket
@@ -125,6 +125,14 @@ defmodule StoryWeb.AddNewTimelineItemLive do
      |> assign(:new_changeset, changeset)}
   end
 
+  def handle_event("cancel-upload", _, socket) do
+    {:noreply,
+     socket
+     |> clear_uploads()
+     |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})
+     |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})}
+  end
+
   def handle_event("save", %{"item" => item_params}, socket) do
     picture_url = S3UploadHelpers.get_image_url(socket, :img)
 
@@ -135,8 +143,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
         item_params
       end
 
-    order_by =
-      Map.get(item_params, "end_date") || Map.get(item_params, "start_date")
+    order_by = Map.get(item_params, "end_date") || Map.get(item_params, "start_date")
 
     item_params =
       item_params
@@ -153,8 +160,7 @@ defmodule StoryWeb.AddNewTimelineItemLive do
 
         {:noreply,
          socket
-         |> assign(:item, item)
-         |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{ id: "new", type: nil, tags: []}))
+         |> clear_uploads()
          |> push_event("remove-class", %{selector: "#item-new-content", class: "hidden"})
          |> push_event("add-class", %{selector: ".add-new .item-form", class: "hidden"})}
 
@@ -170,9 +176,10 @@ defmodule StoryWeb.AddNewTimelineItemLive do
   def handle_event("show-form", %{"form" => form, "type" => type}, socket) do
     {:noreply,
      socket
+     |> clear_uploads()
+     |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{img: nil}))
      |> assign(:form, form)
      |> assign(:type, type)
-     |> assign(:new_changeset, Timelines.change_item(%Timelines.Item{}))
      |> push_event("remove-class", %{selector: ".add-new .item-form", class: "hidden"})
      |> push_event("add-class", %{selector: "#item-new-content", class: "hidden"})}
   end
@@ -185,5 +192,14 @@ defmodule StoryWeb.AddNewTimelineItemLive do
 
   defp presign_upload(entry, socket) do
     S3UploadHelpers.presign_upload(entry, socket, :img)
+  end
+
+  defp clear_uploads(socket) do
+    uploads = socket.assigns.uploads
+    img = uploads.img
+    img = %{img | entries: []}
+    uploads = %{uploads | img: img}
+
+    assign(socket, :uploads, uploads)
   end
 end

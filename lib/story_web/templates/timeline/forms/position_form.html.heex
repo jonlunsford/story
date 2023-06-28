@@ -26,7 +26,17 @@
 
   <div class="border p-2 my-4 text-center">
     <%= if !Enum.any?(@uploads.img.entries) do %>
-      <img class="w-auto mx-auto" src={@item.img} />
+      <div>
+      
+        <%= if @item.img do %>
+          <img class="w-auto mx-auto" src={@item.img} />
+
+          <button data-confirm="Are you sure? This cannot be undone." class="btn btn-sm btn-accent btn-block mt-4" phx-click="remove-image" phx-target={@myself}>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            Remove Image
+          </button>
+        <% end %>
+      </div>
     <% end %>
 
     <%= if !Enum.any?(@uploads.img.entries) && !@item.img do %>
@@ -37,8 +47,14 @@
       <article class="mx-auto" style="width: 136px;">
         <%= live_img_preview entry %>
       </article>
+
+      <a href="#" data-confirm="Are you sure? This cannot be undone." class="btn btn-sm btn-accent btn-block mt-4" phx-value-ref={entry.ref} phx-click="cancel-upload" phx-target={@myself}>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        Remove Image
+      </a>
     <% end %>
   </div>
+
 
   <%= live_file_input @uploads.img %>
 
