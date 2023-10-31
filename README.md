@@ -1,10 +1,8 @@
 # DevStory
 
- 
-![image](https://github.com/jonlunsford/story/assets/1007571/7224c182-ea9f-4edc-813c-d7524286f8ce)
-
-
 The backend powering [devstory.fyi](https://devstory.fyi)
+
+![image](https://github.com/jonlunsford/story/assets/1007571/7224c182-ea9f-4edc-813c-d7524286f8ce)
 
 **Resume's & CV's For Developers**
 
