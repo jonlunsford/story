@@ -3,23 +3,47 @@ defmodule Story.JSONResumeSerializer do
 
   def call(%Page{} = page) do
     info = page.personal_information
-    {timeline, _} = Enum.group_by(page.timeline_items, fn item ->
-      case item.type do
-        "Position" -> :work
-        "Blogs or videos" -> :publications
-        "Top post" -> :publications
-        "Feature or Apps" -> :projects
-        "Open source" -> :projects
-        "Assessment" -> :skills
-        _ ->
-          item.type
-          |> StoryWeb.LayoutView.underscore_string()
-          |> String.to_atom()
-      end
-    end)
-    |> Enum.map_reduce(%{}, &map/2)
+
+    {timeline, _} =
+      Enum.group_by(page.timeline_items, fn item ->
+        case item.type do
+          "Position" ->
+            :work
+
+          "Blogs or videos" ->
+            :publications
+
+          "Top post" ->
+            :publications
+
+          "Feature or Apps" ->
+            :projects
+
+          "Open source" ->
+            :projects
+
+          "Assessment" ->
+            :skills
+
+          _ ->
+            item.type
+            |> StoryWeb.LayoutView.underscore_string()
+            |> String.to_atom()
+        end
+      end)
+      |> Enum.map_reduce(%{}, &map/2)
 
     timeline_map = Enum.into(timeline, %{})
+    location = safe_fetch(info, :location)
+    city = if location, do: String.split(location, ",") |> List.first() |> String.trim(), else: ""
+
+    region =
+      if location,
+        do:
+          String.split(location, ",")
+          |> List.last()
+          |> String.trim(),
+        else: ""
 
     %{
       basics: %{
@@ -31,8 +55,8 @@ defmodule Story.JSONResumeSerializer do
         email: "",
         phone: "",
         location: %{
-          city: (if info, do: String.split(info.location, ",") |> List.first() |> String.trim(), else: ""),
-          region: (if info, do: String.split(info.location, ",") |> List.last() |> String.trim(), else: ""),
+          city: city,
+          region: region,
           address: "",
           postal_code: "",
           country_code: ""
@@ -51,14 +75,14 @@ defmodule Story.JSONResumeSerializer do
         ]
       },
       languages: [],
-      awards: [],
+      awards: []
     }
     |> Map.merge(timeline_map)
   end
 
   defp map(%{work: work} = _items, map) do
     work =
-      Enum.map(work, fn(item) ->
+      Enum.map(work, fn item ->
         end_date =
           if item.current_position, do: "", else: format_time(item.end_date)
 
@@ -78,7 +102,7 @@ defmodule Story.JSONResumeSerializer do
 
   defp map(%{education: education} = _items, map) do
     ed =
-      Enum.map(education, fn(item) ->
+      Enum.map(education, fn item ->
         end_date =
           if item.current_position, do: "", else: format_time(item.end_date)
 
@@ -90,8 +114,7 @@ defmodule Story.JSONResumeSerializer do
           courses: Enum.map(item.tags, fn tag -> tag.name end),
           area: "",
           study_type: "",
-          score: "",
-
+          score: ""
         }
       end)
 
@@ -100,7 +123,7 @@ defmodule Story.JSONResumeSerializer do
 
   defp map(%{publications: publications} = _items, map) do
     pub =
-      Enum.map(publications, fn(item) ->
+      Enum.map(publications, fn item ->
         %{
           name: item.title,
           publisher: item.location,
@@ -116,7 +139,7 @@ defmodule Story.JSONResumeSerializer do
 
   defp map(%{skills: skills} = _items, map) do
     skills =
-      Enum.map(skills, fn(item) ->
+      Enum.map(skills, fn item ->
         %{
           name: item.title,
           level: "",
@@ -132,7 +155,7 @@ defmodule Story.JSONResumeSerializer do
 
   defp map(%{projects: projects} = _items, map) do
     projects =
-      Enum.map(projects, fn(item) ->
+      Enum.map(projects, fn item ->
         end_date =
           if item.current_position, do: "", else: format_time(item.end_date)
 
@@ -157,7 +180,7 @@ defmodule Story.JSONResumeSerializer do
     {key, values} = items
 
     items =
-      Enum.map(values, fn(item) ->
+      Enum.map(values, fn item ->
         end_date =
           if item.current_position, do: "", else: format_time(item.end_date)
 
@@ -186,6 +209,6 @@ defmodule Story.JSONResumeSerializer do
   defp safe_fetch(nil, _), do: ""
 
   defp safe_fetch(map, key) when is_map(map) do
-    Map.get(map, key)
+    Map.get(map, key, "")
   end
 end
